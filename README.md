@@ -1,122 +1,72 @@
-# SENTRA - Climate-Health Early Warning & Resource Allocation System
+# SENTRA — Disaster Response & Resource Optimization Platform
 
-A React web application for a decision-support platform that predicts climate-related health and disaster risks, identifies affected areas and populations, and automatically simulates emergency resource allocation.
+SENTRA is an enterprise-grade AI/ML disaster risk assessment, resource allocation optimization, and emergency alerting system.
 
-## Features
+---
 
-### Dashboard Components
-
-- **Sidebar Navigation**: Quick access to Map, Profile, Security, Analytics, Reports, Settings, and About sections
-- **Demo Controls**: Simulation controls for disaster scenarios, incident management, and view reset
-- **Interactive Map**: Heat risk visualization with color-coded risk levels (Low to Critical)
-- **Portfolio Section**: Risk metrics and asset cards with value-at-risk calculations
-- **Incident Queue**: Filterable list of emergency incidents with status indicators
-- **Incident Details**: Detailed view with tabs for Triage, Operator, Details, and Live Voice
-
-### Risk Levels
-
-- 🟢 **Low** (0-20%)
-- 🟡 **Moderate** (21-40%)
-- 🟠 **Elevated** (41-60%)
-- 🔴 **High** (61-80%)
-- 🔴 **Critical** (81-100%)
-
-### Key Concepts
-
-The system implements a closed-loop emergency decision intelligence:
-1. **Data & Geo Intelligence** - Geographic and environmental data
-2. **Risk Prediction Engine** - AI-powered hazard forecasting
-3. **Vulnerability Engine** - Community vulnerability assessment
-4. **Resource Optimizer** - Dynamic allocation of limited resources
-5. **Emergency Simulator** - What-if scenario modeling
-6. **Command Dashboard** - Real-time monitoring and control
-
-## Installation
-
-```bash
-npm install
-```
-
-## Running the App
-
-```bash
-# Start the development server
-npm start
-
-# Build for production
-npm run build
-```
-
-The application will open in your browser at `http://localhost:3000`
-
-## Project Structure
+## Repository Structure
 
 ```
 SENTRA/
-├── public/
-│   └── index.html                 # HTML template
-├── src/
-│   ├── index.js                   # React entry point
-│   ├── index.css                  # Global styles
-│   ├── App.js                     # Main App component
-│   ├── screens/
-│   │   ├── DashboardScreen.js     # Main dashboard layout
-│   │   └── DashboardScreen.css    # Dashboard styles
-│   └── components/
-│       ├── Sidebar.js             # Navigation sidebar
-│       ├── Sidebar.css            # Sidebar styles
-│       ├── DemoControls.js        # Simulation controls
-│       ├── DemoControls.css       # Controls styles
-│       ├── MapView.js             # Interactive risk map
-│       ├── MapView.css            # Map styles
-│       ├── PortfolioSection.js    # Risk metrics and assets
-│       ├── PortfolioSection.css   # Portfolio styles
-│       ├── IncidentQueue.js       # Incident list with filters
-│       ├── IncidentQueue.css      # Queue styles
-│       ├── IncidentDetails.js     # Incident detail panel
-│       └── IncidentDetails.css    # Details styles
-├── package.json
-└── README.md
+├── BACKEND/                    # Complete FastAPI Backend Service
+│   ├── app/                    # Application source code
+│   │   ├── api/                # API routers and dependencies
+│   │   ├── core/               # Security, auth, config, exceptions, middleware
+│   │   ├── db/                 # Database session and base models
+│   │   ├── models/             # SQLAlchemy ORM models
+│   │   ├── optimization/       # Resource allocation solvers
+│   │   ├── prediction/         # Hazard risk models
+│   │   ├── schemas/            # Pydantic v2 schemas
+│   │   └── services/           # Business logic layer
+│   ├── migrations/             # Alembic database migrations
+│   ├── scripts/                # Utility scripts (create_admin.py, seed_reference_data.py)
+│   ├── tests/                  # Pytest test suite (34 passed tests)
+│   ├── seed.sql                # Complete schema & seed data SQL script
+│   ├── pyproject.toml          # Project configuration & dependencies
+│   └── README.md               # Detailed Backend documentation
+└── README.md                   # Project overview (this file)
 ```
 
-## Dependencies
+---
 
-- React 18.2.0
-- React DOM 18.2.0
-- React Scripts 5.0.1
+## Quick Start (Backend)
 
-## Database Setup
+### 1. Navigate to the backend directory
+```bash
+cd BACKEND
+```
 
-SENTRA uses PostgreSQL with PostGIS for relational and geographic data. The
-canonical database blueprint is [database/schema.sql](database/schema.sql);
-pgAdmin or another database GUI is optional and is not the source of truth.
-
-To initialize a fresh `sentra_db` database, apply the shared schema with
-`psql` from the repository root:
-
+### 2. Activate the virtual environment
+**PowerShell:**
 ```powershell
-Get-Content .\database\schema.sql | docker exec -i sentra-postgres psql -U sentra_user -d sentra_db
+.\.venv\Scripts\Activate.ps1
+```
+**Command Prompt:**
+```cmd
+.\.venv\Scripts\activate.bat
 ```
 
-Reusable read-only inspection queries are stored in
-[database/queries.sql](database/queries.sql). Run them with:
+### 3. Setup the database
+1. Open **pgAdmin 4** or psql.
+2. Ensure database `sentra_db` is created with user `sentra_user`.
+3. Run the SQL script [`BACKEND/seed.sql`](file:///c:/Projects/SENTRA/BACKEND/seed.sql) to create all tables and initial reference data.
 
+### 4. Create or Verify Administrator Account
 ```powershell
-Get-Content .\database\queries.sql | docker exec -i sentra-postgres psql -U sentra_user -d sentra_db
+python scripts/create_admin.py --email admin@sentra.gov.in --password AdminSecurePassword123! --name "System Administrator"
 ```
 
-Every teammate should use and commit the same `database/schema.sql` file so
-that database structures remain consistent. Never commit passwords or other
-secrets, and never run destructive database commands against a shared
-database.
+### 5. Start the API Server
+```powershell
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
 
-## Target Users
+### 6. Interactive API Documentation
+- **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **ReDoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+- **Health Check:** [http://127.0.0.1:8000/health/ready](http://127.0.0.1:8000/health/ready)
 
-- 🏛️ Disaster Management Authorities
-- 🏥 Public Health Departments
-- 🏙️ Municipal Corporations
-- 🚨 Emergency Operations Centers
-
-## License
-
-Proprietary - SENTRA
+### 7. Run Automated Tests
+```powershell
+python -m pytest tests/ -v
+```

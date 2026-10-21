@@ -1,32 +1,48 @@
-from typing import TYPE_CHECKING
+"""Emergency resource database model."""
 
-from geoalchemy2 import Geometry
-from sqlalchemy import CheckConstraint, Integer, String
+from typing import Any, Dict, Optional
+from sqlalchemy import CheckConstraint, ForeignKey, Integer, JSON, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from app.models.base import Base
-
-if TYPE_CHECKING:
-    from app.models.resource_allocation import ResourceAllocation
+from app.db.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
+from app.models.location import District, Location
 
 
-class Resource(Base):
+class Resource(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __tablename__ = "resources"
     __table_args__ = (
-        CheckConstraint("resource_type IN ('AMBULANCE', 'BED', 'SHELTER')"),
-        CheckConstraint("capacity >= 0"),
-        CheckConstraint("available_units >= 0"),
-        CheckConstraint("available_units <= capacity"),
-        CheckConstraint("status IN ('AVAILABLE', 'BUSY', 'OFFLINE')"),
-        {"schema": "sentra"},
+        CheckConstraint("available_capacity <= total_capacity", name="ck_resource_avail_le_total"),
+        CheckConstraint("available_capacity >= 0", name="ck_resource_avail_non_negative"),
+        CheckConstraint("total_capacity >= 0", name="ck_resource_total_non_negative"),
     )
 
-    resource_id: Mapped[int] = mapped_column(primary_key=True)
-    resource_type: Mapped[str] = mapped_column(String(30), nullable=False)
-    resource_name: Mapped[str] = mapped_column(String(150), nullable=False)
-    capacity: Mapped[int] = mapped_column(Integer, nullable=False)
-    available_units: Mapped[int] = mapped_column(Integer, nullable=False)
-    location: Mapped[object | None] = mapped_column(Geometry("POINT", srid=4326))
-    status: Mapped[str] = mapped_column(String(20), nullable=False, default="AVAILABLE")
+    district_id: Mapped[str] = mapped_column(
+        String(36),
+        ForeignKey("districts.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    location_id: Mapped[Optional[str]] = mapped_column(
+        String(36),
+        ForeignKey("locations.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    resource_type: Mapped[str] = mapped_column(
+        String(50),
+        index=True,
+        nullable=False,
+        doc="AMBULANCE, HOSPITAL_BED, MEDICAL_TEAM, TEMPORARY_SHELTER, RESCUE_TEAM, RELIEF_SUPPLY_PACK",
+    )
+    name: Mapped[str] = mapped_column(String(150), nullable=False)
+    total_capacity: Mapped[int] = mapped_column(Integer, nullable=False)
+    available_capacity: Mapped[int] = mapped_column(Integer, nullable=False)
+    operational_status: Mapped[str] = mapped_column(
+        String(30),
+        default="OPERATIONAL",
+        nullable=False,
+        doc="OPERATIONAL, DEGRADED, OFFLINE",
+    )
+    capabilities: Mapped[Dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
 
-    allocations: Mapped[list["ResourceAllocation"]] = relationship(back_populates="resource")
+    district: Mapped[District] = relationship("District")
+    location: Mapped[Optional[Location]] = relationship("Location")
