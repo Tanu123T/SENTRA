@@ -1,0 +1,661 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #080D13;
+    color: #E8EEF5;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Tactical Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080D13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #243342;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5A6E85;
+}
+
+/* Leaflet Dark Theme Adjustments */
+.leaflet-container {
+  background-color: #080D13 !important;
+  font-family: inherit !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-tip-container {
+  display: none !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: inherit !important;
+}
+
+.leaflet-bar a {
+  background-color: #111C27 !important;
+  border-color: #243342 !important;
+  color: #E8EEF5 !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #182635 !important;
+}
+
+/* Custom Radar Ping */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.radar-ping {
+  animation: radar-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ── Cinematic surface panels ────────────────────────────────────────────── */
+.sentra-panel {
+  border-radius: 10px;
+  border: 1px solid rgba(217, 164, 65, 0.17);
+  background:
+    linear-gradient(158deg, rgba(25, 38, 29, 0.91) 0%, rgba(17, 24, 18, 0.87) 58%, rgba(35, 28, 21, 0.91) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(0.92);
+  backdrop-filter: blur(18px) saturate(0.92);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(230, 225, 214, 0.045);
+}
+
+.sentra-panel-accent {
+  position: relative;
+}
+
+.sentra-panel-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.72), transparent);
+}
+
+/* ── Cinematic basemap treatment ─────────────────────────────────────────── */
+.sentra-satellite-tiles {
+  filter: saturate(0.42) brightness(0.6) contrast(1.16) hue-rotate(-6deg);
+}
+
+.sentra-satellite-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 350;
+  pointer-events: none;
+  background-color: rgba(8, 19, 30, 0.34);
+  background-image:
+    radial-gradient(ellipse at 50% 46%, rgba(6, 14, 22, 0.02) 0%, rgba(6, 14, 22, 0.3) 56%, rgba(3, 7, 12, 0.68) 100%),
+    linear-gradient(180deg, rgba(5, 12, 19, 0.3) 0%, rgba(5, 12, 19, 0.02) 32%, rgba(4, 9, 14, 0.48) 100%);
+}
+
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+/* ── Incident / resource markers ─────────────────────────────────────────── */
+.sentra-incident-marker {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentra-incident-core {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #080d13;
+  border: 2.5px solid var(--hazard-color);
+  box-shadow: 0 0 12px var(--hazard-color), 0 0 2px #000;
+}
+
+.sentra-incident-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--hazard-color);
+  opacity: 0.28;
+  animation: sentra-ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes sentra-ping {
+  0% {
+    transform: scale(0.45);
+    opacity: 0.35;
+  }
+  80%,
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.sentra-resource-marker {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 13, 19, 0.92);
+  border: 1.4px solid var(--resource-color);
+  color: var(--resource-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 8px color-mix(in srgb, var(--resource-color) 35%, transparent);
+}
+
+.sentra-resource-marker svg {
+  width: 13px;
+  height: 13px;
+}
+
+.sentra-hazard-halo {
+  filter: blur(7px);
+}
+
+/* ── Region pin ──────────────────────────────────────────────────────────── */
+.sentra-region-pin {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  transform: translate(-4px, -4px);
+}
+
+.sentra-region-pin-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22), 0 0 14px rgba(245, 158, 11, 0.85);
+  flex: 0 0 auto;
+}
+
+.sentra-region-pin--sky .sentra-region-pin-dot {
+  background: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+.sentra-region-pin-label {
+  white-space: nowrap;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(8, 13, 19, 0.88);
+  color: #fcd34d;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+
+.sentra-region-pin--sky .sentra-region-pin-label {
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
+}
+
+/* ── Map HUD controls ────────────────────────────────────────────────────── */
+.sentra-view-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 7px;
+  border: 1px solid rgba(36, 51, 66, 0.9);
+  background: rgba(8, 13, 19, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sentra-view-switch__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #91a0b3;
+  transition: all 160ms ease;
+}
+
+.sentra-view-switch__btn:hover {
+  color: #e8eef5;
+}
+
+.sentra-view-switch__btn.is-active {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.3);
+}
+
+.sentra-map-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(36, 51, 66, 0.9);
+  background: rgba(8, 13, 19, 0.9);
+  backdrop-filter: blur(8px);
+  color: #e8eef5;
+  font-size: 11px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: all 160ms ease;
+}
+
+.sentra-map-pill:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: #111c27;
+}
+
+.sentra-map-controls {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 7px;
+  border: 1px solid rgba(36, 51, 66, 0.9);
+  background: rgba(8, 13, 19, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sentra-map-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(36, 51, 66, 0.75);
+  transition: background 150ms ease;
+}
+
+.sentra-map-controls button:last-child {
+  border-bottom: none;
+}
+
+.sentra-map-controls button:hover {
+  background: #111c27;
+  color: #fbbf24;
+}
+
+.sentra-map-source {
+  position: absolute;
+  right: 7px;
+  bottom: 2px;
+  z-index: 1000;
+  max-width: 60%;
+  text-align: right;
+  pointer-events: none;
+  font-size: 8px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: rgba(145, 160, 179, 0.68);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 639px) {
+  .sentra-map-source {
+    display: none;
+  }
+}
+
+/* ── Map popups, tooltips & labels ───────────────────────────────────────── */
+.sentra-popup-card {
+  min-width: 220px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #243342;
+  background: #0d151e;
+  color: #e8eef5;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+}
+
+.leaflet-popup-content-wrapper {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-close-button {
+  color: #91a0b3 !important;
+  padding: 6px 6px 0 0 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #fbbf24 !important;
+}
+
+.leaflet-tooltip.sentra-geo-tooltip {
+  background: rgba(8, 13, 19, 0.94);
+  border: 1px solid #243342;
+  color: #e8eef5;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 3px 7px;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.leaflet-tooltip-top.sentra-geo-tooltip::before {
+  border-top-color: #243342;
+}
+
+.leaflet-tooltip.sentra-district-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #fcd34d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+  padding: 0;
+}
+
+.leaflet-tooltip.sentra-district-label::before {
+  display: none;
+}
+
+/* ── Earthy command chrome (non-map surfaces only) ───────────────────────── */
+.sentra-app-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 62% 54% at 5% 8%, rgba(113, 84, 56, 0.25), transparent 62%),
+    radial-gradient(ellipse 54% 48% at 94% 0%, rgba(38, 54, 41, 0.4), transparent 64%),
+    linear-gradient(150deg, #090f0b 0%, #100d09 50%, #0a110c 100%);
+}
+
+.sentra-app-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760' viewBox='0 0 760 760'%3E%3Cg fill='none' stroke='%23d9a441' stroke-opacity='.075' stroke-width='1'%3E%3Cpath d='M-40 90C70 45 190 128 318 98S536 41 800 114'/%3E%3Cpath d='M-40 128C84 82 176 162 312 132S548 82 800 150'/%3E%3Cpath d='M-40 166C90 122 190 196 326 168S560 118 800 188'/%3E%3Cpath d='M-40 204C78 166 184 232 322 204S560 160 800 226'/%3E%3C/g%3E%3Cg fill='none' stroke='%2397a583' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M-40 320C92 282 180 360 318 330S560 290 800 356'/%3E%3Cpath d='M-40 358C96 326 186 402 324 372S558 336 800 398'/%3E%3Cpath d='M-40 396C84 366 180 438 316 410S562 378 800 438'/%3E%3C/g%3E%3Cg fill='none' stroke='%23c4a46a' stroke-opacity='.05' stroke-width='1'%3E%3Cpath d='M-40 570C96 532 182 606 320 578S560 540 800 602'/%3E%3Cpath d='M-40 608C84 574 178 644 316 618S558 586 800 642'/%3E%3Cpath d='M-40 646C92 616 184 682 322 656S560 628 800 684'/%3E%3Cellipse cx='160' cy='480' rx='118' ry='46' transform='rotate(-16 160 480)'/%3E%3Cellipse cx='160' cy='480' rx='82' ry='30' transform='rotate(-16 160 480)'/%3E%3Cellipse cx='620' cy='640' rx='140' ry='56' transform='rotate(12 620 640)'/%3E%3Cellipse cx='620' cy='640' rx='94' ry='34' transform='rotate(12 620 640)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 760px 760px;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.72) 26%, transparent 62%);
+  mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.72) 26%, transparent 62%);
+}
+
+.sentra-sidebar-glass {
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0%, transparent 18%),
+    linear-gradient(168deg, rgba(28, 41, 31, 0.58) 0%, rgba(31, 35, 26, 0.55) 48%, rgba(48, 37, 27, 0.62) 100%);
+  -webkit-backdrop-filter: blur(30px) saturate(0.8);
+  backdrop-filter: blur(30px) saturate(0.8);
+  border-right-color: rgba(217, 164, 65, 0.18) !important;
+  box-shadow:
+    inset -1px 0 0 rgba(230, 225, 214, 0.04),
+    inset 0 1px 0 rgba(230, 225, 214, 0.045);
+}
+
+.sentra-sidebar-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 72% 26% at 12% 0%, rgba(217, 164, 65, 0.13), transparent 68%),
+    linear-gradient(180deg, rgba(10, 15, 11, 0.04) 0%, transparent 34%, rgba(9, 12, 8, 0.2) 100%);
+}
+
+.sentra-sidebar-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sentra-sidebar-glass::-webkit-scrollbar-track {
+  background: rgba(10, 14, 9, 0.35);
+}
+
+.sentra-sidebar-glass::-webkit-scrollbar-thumb {
+  background: rgba(217, 164, 65, 0.22);
+}
+
+.sentra-sidebar-glass::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 164, 65, 0.38);
+}
+
+.sentra-sidebar-backdrop {
+  background: rgba(8, 12, 9, 0.74);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.sentra-nav-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a58d68;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.sentra-nav-section::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(217, 164, 65, 0.22), transparent);
+}
+
+.sentra-nav-item {
+  position: relative;
+  color: #b7b19f;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.sentra-nav-item:hover {
+  color: #ece6d8;
+  background: linear-gradient(90deg, rgba(113, 84, 56, 0.24), rgba(38, 54, 41, 0.1));
+  box-shadow: inset 0 0 0 1px rgba(217, 164, 65, 0.12);
+}
+
+.sentra-nav-item.is-active,
+.sentra-nav-item.is-active:hover {
+  color: #f0d59b;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(217, 164, 65, 0.18) 0%, rgba(113, 84, 56, 0.2) 50%, rgba(38, 54, 41, 0.16) 100%);
+  box-shadow:
+    inset 3px 0 0 #d9a441,
+    inset 0 0 0 1px rgba(217, 164, 65, 0.25),
+    0 8px 22px rgba(0, 0, 0, 0.16);
+}
+
+.sentra-nav-item:focus-visible {
+  outline: 2px solid rgba(217, 164, 65, 0.55);
+  outline-offset: 2px;
+}
+
+.sentra-nav-icon {
+  color: #8e9a82;
+}
+
+.sentra-nav-item:hover .sentra-nav-icon {
+  color: #d9c8a3;
+}
+
+.sentra-nav-item.is-active .sentra-nav-icon {
+  color: #e5b65b;
+}
+
+.sentra-sidebar-footer {
+  border-top-color: rgba(217, 164, 65, 0.15) !important;
+  background: linear-gradient(180deg, rgba(38, 54, 41, 0.34), rgba(20, 17, 13, 0.5));
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.sentra-footer-label {
+  color: #c4bcaa;
+}
+
+.sentra-footer-meta {
+  color: #8c7d65;
+}
+
+.sentra-header-glass {
+  background: linear-gradient(90deg, rgba(24, 35, 26, 0.92) 0%, rgba(22, 23, 17, 0.9) 58%, rgba(28, 22, 16, 0.92) 100%);
+  -webkit-backdrop-filter: blur(26px) saturate(0.86);
+  backdrop-filter: blur(26px) saturate(0.86);
+  border-bottom-color: rgba(217, 164, 65, 0.17) !important;
+  box-shadow: inset 0 1px 0 rgba(230, 225, 214, 0.045);
+}
+
+.sentra-header-brand-mark {
+  background: linear-gradient(145deg, rgba(217, 164, 65, 0.22), rgba(113, 84, 56, 0.14));
+  border: 1px solid rgba(217, 164, 65, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.sentra-header-title {
+  color: #ede7d9;
+  text-shadow: 0 1px 12px rgba(217, 164, 65, 0.12);
+}
+
+.sentra-header-subtitle {
+  color: #9d937e;
+}
+
+.sentra-ops-badge {
+  background: rgba(217, 164, 65, 0.1);
+  color: #e7be6b;
+  border: 1px solid rgba(217, 164, 65, 0.24);
+}
+
+.sentra-header-icon-btn {
+  color: #b7ae9a;
+}
+
+.sentra-header-icon-btn:hover {
+  color: #ede7d9;
+  background: rgba(113, 84, 56, 0.24);
+  border-color: rgba(217, 164, 65, 0.14);
+}
+
+.sentra-header-divider {
+  border-left-color: rgba(217, 164, 65, 0.16) !important;
+}
+
+.sentra-header-avatar {
+  background: radial-gradient(circle at 30% 20%, rgba(217, 164, 65, 0.3), rgba(38, 54, 41, 0.7) 65%, rgba(27, 24, 17, 0.9));
+  border: 1px solid rgba(217, 164, 65, 0.3);
+  color: #eac36f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.sentra-header-name {
+  color: #e9e3d5;
+}
+
+.sentra-header-role {
+  color: #a69c87;
+}
+
+.sentra-header-logout {
+  color: #a89e8a;
+}
+
+.sentra-header-logout:hover {
+  color: #e9a48d;
+  background: rgba(180, 72, 54, 0.12);
+  border-color: rgba(205, 102, 82, 0.2);
+}
+
+.sentra-scope-chip {
+  background: linear-gradient(150deg, rgba(38, 54, 41, 0.58), rgba(26, 21, 15, 0.58));
+  border: 1px solid rgba(217, 164, 65, 0.16);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.sentra-scope-label {
+  color: #a89d88;
+}
+
+.sentra-scope-value {
+  color: #e7e1d3;
+}
+
+.sentra-scope-switch {
+  background: rgba(22, 18, 13, 0.55);
+  border: 1px solid rgba(217, 164, 65, 0.14);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.sentra-scope-btn {
+  color: #a79e8a;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sentra-scope-btn:hover {
+  color: #ede7d9;
+  background: rgba(113, 84, 56, 0.2);
+}
+
+.sentra-scope-btn.is-active,
+.sentra-scope-btn.is-active:hover {
+  background: linear-gradient(135deg, rgba(217, 164, 65, 0.2), rgba(113, 84, 56, 0.22));
+  color: #ebc675;
+  box-shadow: inset 0 0 0 1px rgba(217, 164, 65, 0.28);
+}

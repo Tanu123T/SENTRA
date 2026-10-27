@@ -46,3 +46,14 @@ htmlcov/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+node_modules/
+frontend/node_modules/
+backend/.venv/
+frontend/dist/
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# TypeScript build cache
+*.tsbuildinfo
