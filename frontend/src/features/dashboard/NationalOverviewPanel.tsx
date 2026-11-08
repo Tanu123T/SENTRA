@@ -29,13 +29,13 @@ const StatRow: React.FC<{
   value: React.ReactNode;
   hint?: string;
   tone?: string;
-}> = ({ icon, label, value, hint, tone = 'text-[#E8EEF5]' }) => (
-  <div className="flex items-center justify-between gap-2 rounded-md border border-[#243342]/70 bg-[#080D13]/55 px-2.5 py-2">
+}> = ({ icon, label, value, hint, tone = 'text-slate-900' }) => (
+  <div className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50/70 px-2.5 py-2">
     <div className="flex min-w-0 items-center gap-2">
       <span className="shrink-0">{icon}</span>
       <div className="min-w-0">
-        <p className="truncate text-[11px] text-[#91A0B3]">{label}</p>
-        {hint && <p className="truncate text-[9px] text-[#5A6E85]">{hint}</p>}
+        <p className="truncate text-[11px] text-slate-500">{label}</p>
+        {hint && <p className="truncate text-[9px] text-slate-400">{hint}</p>}
       </div>
     </div>
     <span className={`shrink-0 font-mono text-sm font-bold ${tone}`}>{value}</span>
@@ -71,16 +71,16 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
 
   return (
     <div className="sentra-panel sentra-panel-accent overflow-hidden">
-      <div className="border-b border-[#243342]/70 px-3.5 py-3">
+      <div className="border-b border-slate-100 px-3.5 py-3">
         <div className="flex items-start justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-md border border-amber-500/30 bg-amber-500/10">
-                <Activity className="h-3.5 w-3.5 text-amber-400" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-amber-200 bg-amber-50">
+                <Activity className="h-3.5 w-3.5 text-amber-600" />
               </span>
               <div>
-                <h2 className="text-sm font-bold tracking-wide text-[#E8EEF5]">India Overview</h2>
-                <p className="text-[10px] text-[#5A6E85]">National summary</p>
+                <h2 className="text-sm font-bold tracking-wide text-slate-900">India Overview</h2>
+                <p className="text-[10px] text-slate-400">National summary</p>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
               {isLoading ? 'SYNCING' : 'API SYNC'}
             </Badge>
             <span
-              className="flex items-center gap-1 font-mono text-[9px] text-[#5A6E85]"
+              className="flex items-center gap-1 font-mono text-[9px] text-slate-400"
               title={formatDate(summary?.generated_at)}
             >
               <Clock3 className="h-2.5 w-2.5" />
@@ -102,42 +102,42 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
       <div className="space-y-2 p-3">
         <div className="grid grid-cols-2 gap-2">
           <StatRow
-            icon={<AlertTriangle className="h-3.5 w-3.5 text-red-400" />}
+            icon={<AlertTriangle className="h-3.5 w-3.5 text-rose-600" />}
             label="Active alerts"
             value={activeAlerts}
-            tone={activeAlerts > 0 ? 'text-red-400' : 'text-emerald-400'}
+            tone={activeAlerts > 0 ? 'text-rose-600' : 'text-emerald-600'}
             hint="Backend records"
           />
           <StatRow
-            icon={<Building2 className="h-3.5 w-3.5 text-amber-400" />}
+            icon={<Building2 className="h-3.5 w-3.5 text-amber-600" />}
             label="Districts"
             value={districts}
             hint={`${states} states / UTs`}
           />
           <StatRow
-            icon={<Truck className="h-3.5 w-3.5 text-emerald-400" />}
+            icon={<Truck className="h-3.5 w-3.5 text-emerald-600" />}
             label="Resources"
             value={formatNumber(registeredResources)}
             hint="Registered units"
           />
           <StatRow
-            icon={<Radio className="h-3.5 w-3.5 text-sky-400" />}
+            icon={<Radio className="h-3.5 w-3.5 text-sky-600" />}
             label="Sensors"
             value={formatNumber(observations)}
             hint="Ingested readings"
           />
         </div>
 
-        <div className="flex items-center justify-between rounded-md border border-[#243342]/60 bg-[#0D151E]/50 px-2.5 py-1.5 text-[10px] text-[#5A6E85]">
+        <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-[10px] text-slate-400">
           <span>Risk assessments</span>
-          <span className="font-mono text-[#91A0B3]">{assessments}</span>
+          <span className="font-mono text-slate-600">{assessments}</span>
         </div>
 
         <div
-          className={`flex items-start gap-2 rounded-md border px-2.5 py-2 text-[10px] leading-relaxed ${
+          className={`flex items-start gap-2 rounded-lg border px-2.5 py-2 text-[10px] leading-relaxed ${
             allUntrained
-              ? 'border-amber-500/25 bg-amber-500/[0.06] text-amber-300/90'
-              : 'border-[#243342] bg-[#080D13]/60 text-[#91A0B3]'
+              ? 'border-amber-200 bg-amber-50 text-amber-800'
+              : 'border-slate-200 bg-slate-50 text-slate-500'
           }`}
         >
           <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" />
@@ -151,7 +151,7 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
         </div>
 
         {activeAlerts === 0 && (
-          <p className="px-0.5 text-[9px] leading-relaxed text-[#5A6E85]">
+          <p className="px-0.5 text-[9px] leading-relaxed text-slate-400">
             No active alerts are currently reported by the backend. Hazard layers remain empty
             rather than displaying illustrative incidents.
           </p>
@@ -160,16 +160,16 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Link
             to="/alerts"
-            className="flex items-center justify-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-1.5 text-[10px] font-semibold text-amber-300 transition-colors hover:bg-amber-500/15"
+            className="flex items-center justify-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-2 py-1.5 text-[10px] font-semibold text-amber-800 transition-colors hover:bg-amber-100"
           >
             <PlusCircle className="h-3 w-3" />
             Broadcast alert
           </Link>
           <Link
             to="/optimization"
-            className="flex items-center justify-center gap-1.5 rounded-md border border-[#243342] bg-[#111C27] px-2 py-1.5 text-[10px] font-medium text-[#91A0B3] transition-colors hover:text-[#E8EEF5]"
+            className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-[10px] font-medium text-slate-600 transition-colors hover:text-slate-900 hover:bg-slate-50"
           >
-            <Cpu className="h-3 w-3 text-amber-400" />
+            <Cpu className="h-3 w-3 text-amber-600" />
             Run solver
           </Link>
         </div>

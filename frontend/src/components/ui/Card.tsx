@@ -9,8 +9,8 @@ export const Card: React.FC<CardProps> = ({ children, className, glow = false, .
   return (
     <div
       className={clsx(
-        'bg-[#0D151E] border border-[#243342] rounded-lg transition-all',
-        glow && 'shadow-[0_0_15px_rgba(245,158,11,0.06)] border-amber-500/30',
+        'bg-white border border-slate-200/90 rounded-xl shadow-xs transition-all',
+        glow && 'shadow-md border-sky-300 ring-1 ring-sky-400/20',
         className
       )}
       {...props}
@@ -22,7 +22,7 @@ export const Card: React.FC<CardProps> = ({ children, className, glow = false, .
 
 export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...props }) => {
   return (
-    <div className={clsx('p-4 border-b border-[#243342]/70 flex items-center justify-between', className)} {...props}>
+    <div className={clsx('p-4 border-b border-slate-100 flex items-center justify-between', className)} {...props}>
       {children}
     </div>
   );
@@ -30,7 +30,7 @@ export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ chi
 
 export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, className, ...props }) => {
   return (
-    <h3 className={clsx('text-sm font-semibold text-[#E8EEF5] tracking-wide flex items-center gap-2', className)} {...props}>
+    <h3 className={clsx('text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2', className)} {...props}>
       {children}
     </h3>
   );
@@ -38,7 +38,7 @@ export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ 
 
 export const CardDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = ({ children, className, ...props }) => {
   return (
-    <p className={clsx('text-xs text-[#91A0B3] mt-0.5', className)} {...props}>
+    <p className={clsx('text-xs text-slate-500 mt-0.5', className)} {...props}>
       {children}
     </p>
   );
@@ -47,6 +47,14 @@ export const CardDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement
 export const CardContent: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...props }) => {
   return (
     <div className={clsx('p-4', className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+export const CardFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...props }) => {
+  return (
+    <div className={clsx('p-4 border-t border-slate-100 bg-slate-50/50 rounded-b-xl flex items-center justify-between', className)} {...props}>
       {children}
     </div>
   );

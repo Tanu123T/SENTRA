@@ -4,7 +4,6 @@ import { LoginPage } from './features/auth/LoginPage';
 import { ProtectedRoute } from './features/auth/ProtectedRoute';
 import { AppLayout } from './components/layout/AppLayout';
 import { CommandDashboardPage } from './features/dashboard/CommandDashboardPage';
-import { LiveMapPage } from './features/map-view/LiveMapPage';
 import { HazardsOverviewPage } from './features/hazards/HazardsOverviewPage';
 import { AlertsPage } from './features/alerts/AlertsPage';
 import { SensorObservationsPage } from './features/observations/SensorObservationsPage';
@@ -24,9 +23,12 @@ export const App: React.FC = () => {
 
         {/* Authenticated Protected Shell */}
         <Route element={<ProtectedRoute />}>
+          {/* Main Google Stitch Digital Twin Command Platform */}
+          <Route path="/" element={<CommandDashboardPage />} />
+          <Route path="/map" element={<CommandDashboardPage />} />
+
+          {/* Detailed Management Views inside Layout */}
           <Route element={<AppLayout />}>
-            <Route path="/" element={<CommandDashboardPage />} />
-            <Route path="/map" element={<LiveMapPage />} />
             <Route path="/hazards" element={<HazardsOverviewPage />} />
             <Route path="/alerts" element={<AlertsPage />} />
             <Route path="/observations" element={<SensorObservationsPage />} />

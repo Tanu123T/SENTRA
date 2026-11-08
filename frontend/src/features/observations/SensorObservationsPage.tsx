@@ -106,36 +106,37 @@ export const SensorObservationsPage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <ChartIcon className="w-4 h-4 text-sky-400" />
+            <ChartIcon className="w-4 h-4 text-sky-600" />
             <span>Precipitation & Stream Runoff Trend (Last 24 Hours)</span>
           </CardTitle>
-          <span className="text-xs font-mono text-[#5A6E85]">IMD / CWC REALTIME FEED</span>
+          <span className="text-[10px] font-bold font-mono text-slate-400 tracking-wider">IMD / CWC REALTIME FEED</span>
         </CardHeader>
         <CardContent className="h-64 pt-2">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#38BDF8" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#38BDF8" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#0284c7" stopOpacity={0.28} />
+                  <stop offset="95%" stopColor="#0284c7" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#243342" vertical={false} />
-              <XAxis dataKey="time" stroke="#5A6E85" fontSize={11} tickLine={false} />
-              <YAxis stroke="#5A6E85" fontSize={11} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <XAxis dataKey="time" stroke="#94a3b8" fontSize={11} tickLine={false} />
+              <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#111C27',
-                  borderColor: '#243342',
-                  borderRadius: '6px',
+                  backgroundColor: '#ffffff',
+                  borderColor: '#e2e8f0',
+                  borderRadius: '8px',
                   fontSize: '11px',
-                  color: '#E8EEF5',
+                  color: '#0f172a',
+                  boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.12)',
                 }}
               />
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="#38BDF8"
+                stroke="#0284c7"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#areaGradient)"
@@ -146,7 +147,7 @@ export const SensorObservationsPage: React.FC = () => {
       </Card>
 
       {/* Filter Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 bg-[#0D151E] p-3 rounded-lg border border-[#243342]">
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
         <div className="w-48">
           <Select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
             <option value="all">All Sensor Types</option>
@@ -176,7 +177,7 @@ export const SensorObservationsPage: React.FC = () => {
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#243342] bg-[#111C27]/50 text-[#5A6E85] font-semibold uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3 px-4">Sensor Type</th>
                 <th className="py-3 px-4">Value</th>
                 <th className="py-3 px-4">Jurisdiction</th>
@@ -185,16 +186,16 @@ export const SensorObservationsPage: React.FC = () => {
                 <th className="py-3 px-4">Observation Timestamp</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#243342]/60">
+            <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#91A0B3]">
+                  <td colSpan={6} className="py-8 text-center text-slate-500">
                     Loading sensor records...
                   </td>
                 </tr>
               ) : observations.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#5A6E85]">
+                  <td colSpan={6} className="py-8 text-center text-slate-400">
                     No sensor observations match the selected filters.
                   </td>
                 </tr>
@@ -204,32 +205,32 @@ export const SensorObservationsPage: React.FC = () => {
                   const loc = district ? `${district.name}, ${district.state}` : obs.district_id;
 
                   return (
-                    <tr key={obs.id} className="hover:bg-[#111C27]/50 transition-colors">
-                      <td className="py-3 px-4 font-mono font-semibold text-sky-400">
+                    <tr key={obs.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3 px-4 font-mono font-semibold text-sky-600">
                         {obs.observation_type}
                       </td>
                       <td className="py-3 px-4">
-                        <span className="text-base font-bold text-[#E8EEF5]">
+                        <span className="text-base font-bold text-slate-900">
                           {obs.value}
                         </span>{' '}
-                        <span className="text-[11px] text-[#91A0B3]">{obs.unit}</span>
+                        <span className="text-[11px] text-slate-500">{obs.unit}</span>
                       </td>
-                      <td className="py-3 px-4 text-[#E8EEF5]">📍 {loc}</td>
-                      <td className="py-3 px-4 text-[#91A0B3] font-mono text-[11px]">
+                      <td className="py-3 px-4 text-slate-700">📍 {loc}</td>
+                      <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
                         {obs.data_source}
                       </td>
                       <td className="py-3 px-4">
                         <span
-                          className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase font-medium border ${
+                          className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold border ${
                             obs.quality_status === 'VERIFIED'
-                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                              : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : 'bg-amber-50 text-amber-700 border-amber-200'
                           }`}
                         >
                           {obs.quality_status}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-[#5A6E85] font-mono">
+                      <td className="py-3 px-4 text-slate-400 font-mono">
                         {formatDate(obs.timestamp)}
                       </td>
                     </tr>

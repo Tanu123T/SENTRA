@@ -101,12 +101,12 @@ export const ScenarioSimulatorPage: React.FC = () => {
                   onChange={(e) => setDescription(e.target.value)}
                 />
 
-                <div className="space-y-1.5 p-3 rounded-lg bg-[#080D13] border border-[#243342]">
+                <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs">
-                    <span className="text-[#91A0B3] font-medium uppercase">
+                    <span className="text-slate-500 font-semibold uppercase">
                       Emergency Demand Surge Multiplier
                     </span>
-                    <span className="font-bold text-red-400 font-mono">
+                    <span className="font-bold text-rose-600 font-mono">
                       {demandMultiplier.toFixed(1)}x (+{Math.round((demandMultiplier - 1) * 100)}%)
                     </span>
                   </div>
@@ -117,19 +117,19 @@ export const ScenarioSimulatorPage: React.FC = () => {
                     step="0.1"
                     value={demandMultiplier}
                     onChange={(e) => setDemandMultiplier(parseFloat(e.target.value))}
-                    className="w-full accent-red-500 bg-[#111C27] cursor-pointer"
+                    className="w-full accent-rose-600 bg-slate-200 cursor-pointer"
                   />
-                  <p className="text-[10px] text-[#5A6E85]">
+                  <p className="text-[10px] text-slate-400">
                     Simulate rapid secondary surges (dam overflow, flash mudslides)
                   </p>
                 </div>
 
-                <div className="space-y-1.5 p-3 rounded-lg bg-[#080D13] border border-[#243342]">
+                <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs">
-                    <span className="text-[#91A0B3] font-medium uppercase">
+                    <span className="text-slate-500 font-semibold uppercase">
                       Operational Fleet Availability Multiplier
                     </span>
-                    <span className="font-bold text-amber-400 font-mono">
+                    <span className="font-bold text-amber-600 font-mono">
                       {capacityMultiplier.toFixed(1)}x ({Math.round(capacityMultiplier * 100)}%)
                     </span>
                   </div>
@@ -140,9 +140,9 @@ export const ScenarioSimulatorPage: React.FC = () => {
                     step="0.05"
                     value={capacityMultiplier}
                     onChange={(e) => setCapacityMultiplier(parseFloat(e.target.value))}
-                    className="w-full accent-amber-500 bg-[#111C27] cursor-pointer"
+                    className="w-full accent-amber-600 bg-slate-200 cursor-pointer"
                   />
-                  <p className="text-[10px] text-[#5A6E85]">
+                  <p className="text-[10px] text-slate-400">
                     Simulate cut-off bridges, damaged ambulances, or flooded access corridors
                   </p>
                 </div>
@@ -166,14 +166,14 @@ export const ScenarioSimulatorPage: React.FC = () => {
 
         {/* Side-by-Side Comparison Display */}
         <div className="lg:col-span-7 space-y-4">
-          <Card className="h-full border-amber-500/30">
-            <CardHeader className="bg-[#111C27]/50">
+          <Card className="h-full border-slate-200">
+            <CardHeader className="bg-slate-50/60">
               <CardTitle>
-                <Layers className="w-4 h-4 text-amber-500" />
+                <Layers className="w-4 h-4 text-sky-600" />
                 <span>Baseline vs Scenario Outcome Contrast</span>
               </CardTitle>
               {activeSimulation && (
-                <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                <span className="text-xs font-mono font-semibold text-emerald-600 flex items-center gap-1">
                   <CheckCircle className="w-3.5 h-3.5" />
                   SIMULATION COMPLETE
                 </span>
@@ -185,41 +185,42 @@ export const ScenarioSimulatorPage: React.FC = () => {
                   <div className="h-64 pt-2">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={barData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#243342" vertical={false} />
-                        <XAxis dataKey="metric" stroke="#5A6E85" fontSize={11} tickLine={false} />
-                        <YAxis stroke="#5A6E85" fontSize={11} tickLine={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                        <XAxis dataKey="metric" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                        <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: '#111C27',
-                            borderColor: '#243342',
-                            borderRadius: '6px',
+                            backgroundColor: '#ffffff',
+                            borderColor: '#e2e8f0',
+                            borderRadius: '8px',
                             fontSize: '11px',
-                            color: '#E8EEF5',
+                            color: '#0f172a',
+                            boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.12)',
                           }}
                         />
                         <Legend
-                          wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }}
+                          wrapperStyle={{ fontSize: '11px', paddingTop: '10px', color: '#475569' }}
                         />
-                        <Bar dataKey="Baseline" fill="#38BDF8" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="Simulation" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="Baseline" fill="#0284c7" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="Simulation" fill="#f59e0b" radius={[4, 4, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#243342]/70 text-xs">
-                    <div className="p-3 rounded bg-[#080D13] border border-[#243342] space-y-1">
-                      <span className="text-[#91A0B3]">Scenario Status:</span>
-                      <p className="font-bold text-amber-400 font-mono uppercase">{activeSimulation.status}</p>
+                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 text-xs">
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+                      <span className="text-slate-500">Scenario Status:</span>
+                      <p className="font-bold text-amber-600 font-mono uppercase">{activeSimulation.status}</p>
                     </div>
-                    <div className="p-3 rounded bg-[#080D13] border border-[#243342] space-y-1">
-                      <span className="text-[#91A0B3]">Simulation Execution ID:</span>
-                      <p className="font-mono text-[#E8EEF5] truncate">{activeSimulation.id}</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+                      <span className="text-slate-500">Simulation Execution ID:</span>
+                      <p className="font-mono text-slate-800 truncate">{activeSimulation.id}</p>
                     </div>
                   </div>
                 </>
               ) : (
-                <div className="p-12 text-center text-xs text-[#5A6E85] space-y-2">
-                  <Sliders className="w-8 h-8 mx-auto text-[#243342]" />
+                <div className="p-12 text-center text-xs text-slate-400 space-y-2">
+                  <Sliders className="w-8 h-8 mx-auto text-slate-300" />
                   <p>Adjust demand/capacity sliders on the left and run simulation to contrast outcomes.</p>
                 </div>
               )}

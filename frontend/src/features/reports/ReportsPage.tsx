@@ -55,27 +55,27 @@ export const ReportsPage: React.FC = () => {
 
       {/* Summary Highlights */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-[#0D151E]">
-          <span className="text-[11px] text-[#91A0B3] uppercase">Districts Audited</span>
-          <p className="text-2xl font-bold text-[#E8EEF5] mt-1">
+        <Card className="p-4 bg-white">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Districts Audited</span>
+          <p className="text-2xl font-bold text-slate-900 mt-1">
             {impactReport?.total_districts_reported ?? 14}
           </p>
         </Card>
-        <Card className="p-4 bg-[#0D151E]">
-          <span className="text-[11px] text-[#91A0B3] uppercase">Total Active Alerts</span>
-          <p className="text-2xl font-bold text-red-400 mt-1">
+        <Card className="p-4 bg-white">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Active Alerts</span>
+          <p className="text-2xl font-bold text-rose-600 mt-1">
             {summary?.total_active_alerts ?? '—'}
           </p>
         </Card>
-        <Card className="p-4 bg-[#0D151E]">
-          <span className="text-[11px] text-[#91A0B3] uppercase">Total Resources Deployed</span>
-          <p className="text-2xl font-bold text-emerald-400 mt-1">
+        <Card className="p-4 bg-white">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Resources Deployed</span>
+          <p className="text-2xl font-bold text-emerald-600 mt-1">
             {summary?.total_registered_resources ?? '—'}
           </p>
         </Card>
-        <Card className="p-4 bg-[#0D151E]">
-          <span className="text-[11px] text-[#91A0B3] uppercase">Telemetry Ingests</span>
-          <p className="text-2xl font-bold text-sky-400 mt-1">
+        <Card className="p-4 bg-white">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Telemetry Ingests</span>
+          <p className="text-2xl font-bold text-sky-600 mt-1">
             {summary?.total_observations ?? '—'}
           </p>
         </Card>
@@ -85,17 +85,17 @@ export const ReportsPage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <FileBarChart2 className="w-4 h-4 text-amber-500" />
+            <FileBarChart2 className="w-4 h-4 text-sky-600" />
             <span>District Disaster Impact Matrix</span>
           </CardTitle>
-          <span className="text-xs font-mono text-[#5A6E85]">
+          <span className="text-[10px] font-bold font-mono text-slate-400 tracking-wider">
             GENERATED AT: {impactReport?.generated_at ? formatDate(impactReport.generated_at) : 'REAL-TIME'}
           </span>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#243342] bg-[#111C27]/50 text-[#5A6E85] font-semibold uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3 px-4">District & State</th>
                 <th className="py-3 px-4">Active Alerts</th>
                 <th className="py-3 px-4">Available Resources</th>
@@ -104,47 +104,47 @@ export const ReportsPage: React.FC = () => {
                 <th className="py-3 px-4">Affected Population</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#243342]/60">
+            <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#91A0B3]">
+                  <td colSpan={6} className="py-8 text-center text-slate-500">
                     Aggregating statewide reports...
                   </td>
                 </tr>
               ) : districts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#5A6E85]">
+                  <td colSpan={6} className="py-8 text-center text-slate-400">
                     No district impact records found.
                   </td>
                 </tr>
               ) : (
                 districts.map((d) => (
-                  <tr key={d.district_id} className="hover:bg-[#111C27]/50 transition-colors">
+                  <tr key={d.district_id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-3.5 px-4">
-                      <div className="font-semibold text-[#E8EEF5]">{d.district_name}</div>
-                      <div className="text-[11px] text-[#91A0B3]">{d.state_name}</div>
+                      <div className="font-semibold text-slate-900">{d.district_name}</div>
+                      <div className="text-[11px] text-slate-500">{d.state_name}</div>
                     </td>
                     <td className="py-3.5 px-4">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold ${
-                          d.active_alerts_count > 0 ? 'text-red-400 bg-red-500/10' : 'text-[#5A6E85]'
+                        className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-bold ${
+                          d.active_alerts_count > 0 ? 'text-rose-700 bg-rose-50 border border-rose-200' : 'text-slate-400'
                         }`}
                       >
                         {d.active_alerts_count} Active
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold">
+                    <td className="py-3.5 px-4 font-mono text-emerald-600 font-bold">
                       {d.available_resources_count} units
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-sky-400">
+                    <td className="py-3.5 px-4 font-mono text-sky-600">
                       {formatNumber(d.total_observations)}
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className="font-mono text-[11px] text-[#91A0B3]">
+                      <span className="font-mono text-[11px] text-slate-500">
                         {d.latest_hazard_assessment || 'NO RECENT EVENT'}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-amber-400">
+                    <td className="py-3.5 px-4 font-mono font-bold text-amber-600">
                       {d.estimated_affected_population ? formatNumber(d.estimated_affected_population) : '—'}
                     </td>
                   </tr>

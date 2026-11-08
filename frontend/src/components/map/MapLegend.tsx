@@ -19,43 +19,43 @@ export const MapLegend: React.FC<MapLegendProps> = ({ viewMode = 'INDIA' }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <div className="bg-[#080D13]/92 backdrop-blur border border-[#243342] rounded-lg shadow-xl text-xs overflow-hidden transition-all">
+    <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-xl shadow-lg text-xs overflow-hidden transition-all">
       <div
         onClick={() => setCollapsed(!collapsed)}
-        className="px-3 py-1.5 bg-[#111C27]/70 flex items-center justify-between gap-3 cursor-pointer hover:bg-[#182635] text-[#91A0B3]"
+        className="px-3 py-1.5 bg-slate-50/80 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 text-slate-600 border-b border-slate-100"
       >
-        <div className="flex items-center gap-1.5 font-medium text-[11px] text-[#E8EEF5]">
-          <Info className="w-3.5 h-3.5 text-amber-500" />
-          <span>Map legend & sources</span>
+        <div className="flex items-center gap-1.5 font-bold text-[11px] text-slate-800">
+          <Info className="w-3.5 h-3.5 text-sky-600" />
+          <span>Map Legend &amp; Sources</span>
         </div>
         {collapsed ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
       </div>
 
       {!collapsed && (
-        <div className="p-3 space-y-2.5 w-[228px]">
+        <div className="p-3 space-y-2.5 w-[230px]">
           <div>
-            <div className="text-[10px] uppercase font-semibold text-[#5A6E85] tracking-wider mb-1">
+            <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
               Hazard layers
             </div>
             <div className="grid grid-cols-2 gap-1.5 text-[11px]">
               {LEGEND_HAZARDS.map((hazard) => (
                 <div key={hazard.key} className="flex items-center gap-1.5">
                   <span
-                    className="w-2 h-2 rounded-full shrink-0"
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: HAZARD_CONFIG[hazard.key].color }}
                   />
-                  <span className="text-[#E8EEF5] truncate">{hazard.label}</span>
+                  <span className="text-slate-700 font-medium truncate">{hazard.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="pt-2 border-t border-[#243342]/70">
-            <div className="text-[10px] uppercase font-semibold text-[#5A6E85] tracking-wider mb-1">
-              Severity halo
+          <div className="pt-2 border-t border-slate-100">
+            <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+              Severity Halo
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-[#91A0B3]">
-              <span className="w-2 h-2 rounded-full bg-red-500" />
+            <div className="flex items-center gap-2 text-[10px] text-slate-500 font-medium">
+              <span className="w-2 h-2 rounded-full bg-rose-500" />
               <span>Critical</span>
               <span className="w-2 h-2 rounded-full bg-orange-500 ml-1" />
               <span>High</span>
@@ -64,30 +64,15 @@ export const MapLegend: React.FC<MapLegendProps> = ({ viewMode = 'INDIA' }) => {
             </div>
           </div>
 
-          <div className="pt-2 border-t border-[#243342]/70">
-            <div className="text-[10px] uppercase font-semibold text-[#5A6E85] tracking-wider mb-1">
-              Operational points
+          <div className="pt-2 border-t border-slate-100">
+            <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+              Active Basemap
             </div>
-            <div className="grid grid-cols-2 gap-1 text-[10px] text-[#91A0B3]">
-              <span className="flex items-center gap-1"><i className="w-1.5 h-1.5 rounded-full bg-sky-400" />Ambulance</span>
-              <span className="flex items-center gap-1"><i className="w-1.5 h-1.5 rounded-full bg-emerald-400" />Hospital</span>
-              <span className="flex items-center gap-1"><i className="w-1.5 h-1.5 rounded-full bg-violet-400" />Medical</span>
-              <span className="flex items-center gap-1"><i className="w-1.5 h-1.5 rounded-full bg-amber-400" />Shelter</span>
-            </div>
-          </div>
-
-          <div className="pt-2 border-t border-[#243342]/70 text-[9px] leading-relaxed text-[#5A6E85]">
-            {viewMode === 'INDIA'
-              ? 'Sentinel-2 cloudless 2023 © EOX (CC BY 4.0) — static mosaic, not live imagery.'
-              : 'OpenFreeMap dark vector basemap © OpenMapTiles / OpenStreetMap contributors.'}
-            <br />
-            State boundaries © geoBoundaries ADM1 (CC BY 2.5 IN).
-            <br />
-            District boundaries © geoBoundaries ADM2 (ODbL 1.0), bundled for 14 reference districts
-            only.
-            <br />
-            Resource points are district reference centroids; facility coordinates are not provided
-            by the API.
+            <p className="text-[10px] text-slate-500 leading-tight">
+              {viewMode === 'REGION'
+                ? 'OpenFreeMap Vector Tiles · OpenStreetMap © Contributors'
+                : 'EOX Sentinel-2 Cloudless · geoBoundaries ADM1'}
+            </p>
           </div>
         </div>
       )}

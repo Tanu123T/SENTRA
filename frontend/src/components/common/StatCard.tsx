@@ -28,8 +28,8 @@ export const StatCard: React.FC<StatCardProps> = ({
     <Card
       onClick={onClick}
       className={clsx(
-        'group relative overflow-hidden transition-all duration-200',
-        onClick && 'cursor-pointer hover:border-slate-600 hover:bg-[#111C27]'
+        'group relative overflow-hidden transition-all duration-200 bg-white border border-slate-200/90 shadow-2xs rounded-xl',
+        onClick && 'cursor-pointer hover:border-sky-300 hover:shadow-xs'
       )}
     >
       {accentColor && (
@@ -41,20 +41,20 @@ export const StatCard: React.FC<StatCardProps> = ({
       <CardContent className="p-4 sm:p-5">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wider text-[#91A0B3]">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               {title}
             </p>
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold tracking-tight text-[#E8EEF5]">
+              <span className="text-2xl font-bold tracking-tight text-slate-900">
                 {value}
               </span>
               {trend && (
                 <span
                   className={clsx(
-                    'text-xs font-semibold px-1.5 py-0.5 rounded',
+                    'text-[10px] font-bold px-1.5 py-0.5 rounded',
                     trend.isPositive
-                      ? 'text-emerald-400 bg-emerald-500/10'
-                      : 'text-red-400 bg-red-500/10'
+                      ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                      : 'text-rose-700 bg-rose-50 border border-rose-200'
                   )}
                 >
                   {trend.value}
@@ -62,11 +62,11 @@ export const StatCard: React.FC<StatCardProps> = ({
               )}
             </div>
             {subtitle && (
-              <p className="text-xs text-[#5A6E85] pt-0.5">{subtitle}</p>
+              <p className="text-xs text-slate-400 font-medium">{subtitle}</p>
             )}
           </div>
           {icon && (
-            <div className="p-2.5 rounded-lg bg-[#111C27] border border-[#243342] text-[#91A0B3] group-hover:text-amber-400 group-hover:border-amber-500/30 transition-colors">
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 transition-colors group-hover:bg-sky-50 group-hover:text-sky-600 group-hover:border-sky-100">
               {icon}
             </div>
           )}

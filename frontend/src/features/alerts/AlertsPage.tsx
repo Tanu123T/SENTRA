@@ -89,9 +89,9 @@ export const AlertsPage: React.FC = () => {
       />
 
       {/* Filter Row */}
-      <div className="flex flex-wrap items-center gap-3 bg-[#0D151E] p-3 rounded-lg border border-[#243342]">
-        <div className="flex items-center gap-2 text-xs text-[#91A0B3] font-medium">
-          <Filter className="w-3.5 h-3.5 text-amber-500" />
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+        <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold">
+          <Filter className="w-3.5 h-3.5 text-sky-600" />
           <span>Filters:</span>
         </div>
 
@@ -126,7 +126,7 @@ export const AlertsPage: React.FC = () => {
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#243342] bg-[#111C27]/50 text-[#5A6E85] font-semibold uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3 px-4">Severity & Hazard</th>
                 <th className="py-3 px-4">Alert Details</th>
                 <th className="py-3 px-4">Jurisdiction</th>
@@ -135,16 +135,16 @@ export const AlertsPage: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#243342]/60">
+            <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#91A0B3]">
+                  <td colSpan={6} className="py-8 text-center text-slate-500">
                     Loading incident records...
                   </td>
                 </tr>
               ) : alerts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-[#5A6E85]">
+                  <td colSpan={6} className="py-8 text-center text-slate-400">
                     No emergency alerts match the selected criteria.
                   </td>
                 </tr>
@@ -154,7 +154,7 @@ export const AlertsPage: React.FC = () => {
                   const loc = district ? `${district.name}, ${district.state}` : alert.district_id;
 
                   return (
-                    <tr key={alert.id} className="hover:bg-[#111C27]/50 transition-colors">
+                    <tr key={alert.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-3.5 px-4 space-y-1">
                         <SeverityBadge severity={alert.severity} size="sm" />
                         <div>
@@ -162,27 +162,27 @@ export const AlertsPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="py-3.5 px-4 max-w-sm">
-                        <div className="font-semibold text-[#E8EEF5] text-xs">
+                        <div className="font-semibold text-slate-900 text-xs">
                           {alert.title}
                         </div>
-                        <div className="text-[11px] text-[#91A0B3] line-clamp-1 mt-0.5">
+                        <div className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
                           {alert.description}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-[#E8EEF5] font-medium whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-700 font-medium whitespace-nowrap">
                         📍 {loc}
                       </td>
-                      <td className="py-3.5 px-4 text-[#91A0B3] font-mono whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-500 font-mono whitespace-nowrap">
                         {formatDate(alert.created_at)}
                       </td>
                       <td className="py-3.5 px-4">
                         <span
-                          className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono uppercase font-medium border ${
+                          className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold border ${
                             alert.status === 'ACTIVE'
-                              ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                              ? 'bg-rose-50 text-rose-700 border-rose-200'
                               : alert.status === 'ACKNOWLEDGED'
-                              ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                              : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                              ? 'bg-amber-50 text-amber-700 border-amber-200'
+                              : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                           }`}
                         >
                           {alert.status}
@@ -273,13 +273,13 @@ export const AlertsPage: React.FC = () => {
           </Select>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-medium text-[#91A0B3] uppercase tracking-wider">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
               Disaster Impact Details & Guidance
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full bg-[#0D151E] border border-[#243342] text-[#E8EEF5] text-sm rounded-md p-3 h-24 focus:outline-none focus:border-amber-500/70"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs rounded-lg p-3 h-24 transition-all placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
               placeholder="Immediate evacuation orders, shelter locations, medical emergency contact details..."
               required
               minLength={10}

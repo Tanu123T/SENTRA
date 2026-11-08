@@ -41,19 +41,16 @@ export const SEED_DISTRICTS: Record<
   'dist-uk-dd': { name: 'Dehradun', state: 'Uttarakhand', stateIso: 'IN-UT', lat: 30.3165, lng: 78.0322, code: 'UK-DD', population: 1696694 },
 };
 
-// Resource marker presentation & deterministic map offsets around a district reference point.
-// The API does not expose facility coordinates, so resources are plotted around the
-// district reference centroid instead of implying an exact facility position.
 export const RESOURCE_CONFIG: Record<
   string,
   { label: string; short: string; color: string; pixelOffset: [number, number] }
 > = {
-  AMBULANCE: { label: 'ALS Ambulance Fleet', short: 'AMB', color: '#38BDF8', pixelOffset: [15, -15] },
-  HOSPITAL_BED: { label: 'Hospital ICU Beds', short: 'BED', color: '#22C55E', pixelOffset: [15, 15] },
-  MEDICAL_TEAM: { label: 'Rapid Medical Teams', short: 'MED', color: '#A78BFA', pixelOffset: [-15, 15] },
-  TEMPORARY_SHELTER: { label: 'Relief Shelter', short: 'SHL', color: '#F59E0B', pixelOffset: [-15, -15] },
-  RESCUE_TEAM: { label: 'Rescue Team', short: 'RSC', color: '#F97316', pixelOffset: [0, -22] },
-  RELIEF_SUPPLY_PACK: { label: 'Relief Supply Pack', short: 'SUP', color: '#EAB308', pixelOffset: [0, 22] },
+  AMBULANCE: { label: 'ALS Ambulance Fleet', short: 'AMB', color: '#0284c7', pixelOffset: [15, -15] },
+  HOSPITAL_BED: { label: 'Hospital ICU Beds', short: 'BED', color: '#16a34a', pixelOffset: [15, 15] },
+  MEDICAL_TEAM: { label: 'Rapid Medical Teams', short: 'MED', color: '#7c3aed', pixelOffset: [-15, 15] },
+  TEMPORARY_SHELTER: { label: 'Relief Shelter', short: 'SHL', color: '#ea580c', pixelOffset: [-15, -15] },
+  RESCUE_TEAM: { label: 'Rescue Team', short: 'RSC', color: '#dc2626', pixelOffset: [0, -22] },
+  RELIEF_SUPPLY_PACK: { label: 'Relief Supply Pack', short: 'SUP', color: '#ca8a04', pixelOffset: [0, 22] },
 };
 
 export const HAZARD_LAYER_KEYS: Partial<Record<HazardType, string>> = {
@@ -65,80 +62,80 @@ export const HAZARD_LAYER_KEYS: Partial<Record<HazardType, string>> = {
   DROUGHT: 'drought',
 };
 
-// Hazard Theme Mapping
+// Hazard Theme Mapping (Bright Stitch Aesthetic)
 export const HAZARD_CONFIG: Record<HazardType, { name: string; color: string; badgeClass: string; icon: string }> = {
   FLOOD: {
     name: 'Flood & Inundation',
-    color: '#38BDF8',
-    badgeClass: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    color: '#0284c7',
+    badgeClass: 'bg-sky-50 text-sky-700 border-sky-200',
     icon: 'Waves',
   },
   CYCLONE: {
     name: 'Tropical Cyclone',
-    color: '#06B6D4',
-    badgeClass: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    color: '#0d9488',
+    badgeClass: 'bg-teal-50 text-teal-700 border-teal-200',
     icon: 'Wind',
   },
   EARTHQUAKE: {
     name: 'Seismic Activity',
-    color: '#EF4444',
-    badgeClass: 'bg-red-500/10 text-red-400 border-red-500/20',
+    color: '#e11d48',
+    badgeClass: 'bg-rose-50 text-rose-700 border-rose-200',
     icon: 'Activity',
   },
   DROUGHT: {
     name: 'Drought & Aridity',
-    color: '#D97706',
-    badgeClass: 'bg-amber-600/10 text-amber-500 border-amber-600/20',
+    color: '#d97706',
+    badgeClass: 'bg-amber-50 text-amber-800 border-amber-200',
     icon: 'Sun',
   },
   LANDSLIDE: {
     name: 'Slope Landslide',
-    color: '#F59E0B',
-    badgeClass: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    color: '#b45309',
+    badgeClass: 'bg-yellow-50 text-yellow-800 border-yellow-200',
     icon: 'Mountain',
   },
   TSUNAMI: {
     name: 'Coastal Tsunami',
-    color: '#14B8A6',
-    badgeClass: 'bg-teal-500/10 text-teal-400 border-teal-500/20',
+    color: '#0891b2',
+    badgeClass: 'bg-cyan-50 text-cyan-700 border-cyan-200',
     icon: 'Anchor',
   },
   HEATWAVE: {
     name: 'Extreme Heatwave',
-    color: '#F97316',
-    badgeClass: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+    color: '#ea580c',
+    badgeClass: 'bg-orange-50 text-orange-700 border-orange-200',
     icon: 'Flame',
   },
 };
 
-// Severity Color Mapping
+// Severity Color Mapping (Bright Stitch Aesthetic)
 export const SEVERITY_CONFIG: Record<AlertSeverityEnum, { label: string; color: string; border: string; bg: string; pulse: boolean }> = {
   CRITICAL: {
     label: 'Critical Alert',
-    color: '#EF4444',
-    border: 'border-red-500/40',
-    bg: 'bg-red-500/15 text-red-400',
+    color: '#e11d48',
+    border: 'border-rose-200',
+    bg: 'bg-rose-50 text-rose-700',
     pulse: true,
   },
   HIGH: {
     label: 'High Warning',
-    color: '#F97316',
-    border: 'border-orange-500/40',
-    bg: 'bg-orange-500/15 text-orange-400',
+    color: '#ea580c',
+    border: 'border-orange-200',
+    bg: 'bg-orange-50 text-orange-700',
     pulse: false,
   },
   MODERATE: {
     label: 'Moderate Watch',
-    color: '#F59E0B',
-    border: 'border-amber-500/40',
-    bg: 'bg-amber-500/15 text-amber-400',
+    color: '#d97706',
+    border: 'border-amber-200',
+    bg: 'bg-amber-50 text-amber-700',
     pulse: false,
   },
   LOW: {
     label: 'Advisory / Low',
-    color: '#22C55E',
-    border: 'border-emerald-500/40',
-    bg: 'bg-emerald-500/15 text-emerald-400',
+    color: '#16a34a',
+    border: 'border-emerald-200',
+    bg: 'bg-emerald-50 text-emerald-700',
     pulse: false,
   },
 };

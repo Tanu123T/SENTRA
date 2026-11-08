@@ -17,24 +17,24 @@ export const LiveIncidentFeed: React.FC<LiveIncidentFeedProps> = ({ alerts, isLo
     <Card className="flex flex-col h-full">
       <CardHeader>
         <CardTitle>
-          <AlertCircle className="w-4 h-4 text-amber-500" />
+          <AlertCircle className="w-4 h-4 text-sky-600" />
           <span>Active Incident Stream</span>
         </CardTitle>
         <Link
           to="/alerts"
-          className="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1"
+          className="text-xs text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1"
         >
           <span>All Alerts</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </Link>
       </CardHeader>
-      <CardContent className="p-0 flex-1 overflow-y-auto max-h-[380px] divide-y divide-[#243342]/60">
+      <CardContent className="p-0 flex-1 overflow-y-auto max-h-[380px] divide-y divide-slate-100">
         {isLoading ? (
-          <div className="p-8 text-center text-xs text-[#91A0B3] animate-pulse">
+          <div className="p-8 text-center text-xs text-slate-500 animate-pulse">
             Polling active telemetry alerts...
           </div>
         ) : alerts.length === 0 ? (
-          <div className="p-8 text-center text-xs text-[#5A6E85]">
+          <div className="p-8 text-center text-xs text-slate-400">
             No active incident records reported by the backend.
           </div>
         ) : (
@@ -45,20 +45,20 @@ export const LiveIncidentFeed: React.FC<LiveIncidentFeedProps> = ({ alerts, isLo
             return (
               <div
                 key={alert.id}
-                className="p-3.5 hover:bg-[#111C27]/70 transition-colors flex items-start justify-between gap-3"
+                className="p-3.5 hover:bg-slate-50/80 transition-colors flex items-start justify-between gap-3"
               >
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <SeverityBadge severity={alert.severity} size="sm" />
                     <HazardBadge hazard={alert.hazard_type} size="sm" />
                   </div>
-                  <h4 className="text-xs font-semibold text-[#E8EEF5] truncate">
+                  <h4 className="text-xs font-semibold text-slate-900 truncate">
                     {alert.title}
                   </h4>
-                  <p className="text-[11px] text-[#91A0B3] line-clamp-1">
+                  <p className="text-[11px] text-slate-500 line-clamp-1">
                     {alert.description}
                   </p>
-                  <div className="flex items-center gap-3 text-[10px] text-[#5A6E85] font-mono pt-0.5">
+                  <div className="flex items-center gap-3 text-[10px] text-slate-400 font-mono pt-0.5">
                     <span>📍 {locName}</span>
                     <span>•</span>
                     <span>{formatTimeAgo(alert.created_at)}</span>

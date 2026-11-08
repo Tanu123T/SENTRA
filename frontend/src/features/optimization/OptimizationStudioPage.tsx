@@ -142,9 +142,9 @@ export const OptimizationStudioPage: React.FC = () => {
                 />
 
                 {/* Demands Builder */}
-                <div className="space-y-2 pt-2 border-t border-[#243342]/70">
+                <div className="space-y-2 pt-2 border-t border-slate-100">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#E8EEF5] uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Emergency Demand Points ({demands.length})
                     </span>
                     <Button
@@ -162,7 +162,7 @@ export const OptimizationStudioPage: React.FC = () => {
                     {demands.map((demand, idx) => (
                       <div
                         key={idx}
-                        className="p-3 bg-[#080D13] border border-[#243342] rounded-lg space-y-2 text-xs"
+                        className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs"
                       >
                         <div className="flex items-center justify-between">
                           <input
@@ -173,12 +173,12 @@ export const OptimizationStudioPage: React.FC = () => {
                               updated[idx].name = e.target.value;
                               setDemands(updated);
                             }}
-                            className="bg-transparent font-semibold text-[#E8EEF5] focus:outline-none focus:underline truncate w-full"
+                            className="bg-transparent font-semibold text-slate-800 focus:outline-none focus:underline truncate w-full"
                           />
                           <button
                             type="button"
                             onClick={() => handleRemoveDemand(idx)}
-                            className="text-[#91A0B3] hover:text-red-400 p-1"
+                            className="text-slate-400 hover:text-rose-600 p-1 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -192,7 +192,7 @@ export const OptimizationStudioPage: React.FC = () => {
                               updated[idx].resource_type = e.target.value;
                               setDemands(updated);
                             }}
-                            className="bg-[#111C27] border border-[#243342] text-[11px] text-[#E8EEF5] p-1.5 rounded"
+                            className="bg-white border border-slate-200 text-[11px] text-slate-700 p-1.5 rounded-lg focus:outline-none focus:border-sky-500"
                           >
                             <option value="AMBULANCE">Ambulance</option>
                             <option value="HOSPITAL_BED">Hospital Bed</option>
@@ -211,7 +211,7 @@ export const OptimizationStudioPage: React.FC = () => {
                                 updated[idx].quantity_demanded = parseInt(e.target.value) || 1;
                                 setDemands(updated);
                               }}
-                              className="w-full bg-[#111C27] border border-[#243342] text-[11px] text-[#E8EEF5] p-1.5 rounded"
+                              className="w-full bg-white border border-slate-200 text-[11px] text-slate-700 p-1.5 rounded-lg focus:outline-none focus:border-sky-500"
                             />
                           </div>
 
@@ -228,7 +228,7 @@ export const OptimizationStudioPage: React.FC = () => {
                                 updated[idx].priority_weight = parseFloat(e.target.value) || 1.0;
                                 setDemands(updated);
                               }}
-                              className="w-full bg-[#111C27] border border-[#243342] text-[11px] text-[#E8EEF5] p-1.5 rounded"
+                              className="w-full bg-white border border-slate-200 text-[11px] text-slate-700 p-1.5 rounded-lg focus:outline-none focus:border-sky-500"
                             />
                           </div>
                         </div>
@@ -256,14 +256,14 @@ export const OptimizationStudioPage: React.FC = () => {
 
         {/* Solver Execution Results */}
         <div className="lg:col-span-7 space-y-4">
-          <Card className="h-full border-amber-500/30">
-            <CardHeader className="bg-[#111C27]/50">
+          <Card className="h-full border-slate-200">
+            <CardHeader className="bg-slate-50/60">
               <CardTitle>
-                <Cpu className="w-4 h-4 text-amber-500" />
+                <Cpu className="w-4 h-4 text-sky-600" />
                 <span>Solver Optimization Solution</span>
               </CardTitle>
               {activeRunResult && (
-                <span className="font-mono text-xs px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase font-semibold">
+                <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase font-semibold">
                   STATUS: {activeRunResult.status}
                 </span>
               )}
@@ -271,22 +271,22 @@ export const OptimizationStudioPage: React.FC = () => {
             <CardContent className="p-5 space-y-4">
               {activeRunResult ? (
                 <>
-                  <div className="grid grid-cols-3 gap-3 p-3 bg-[#080D13] border border-[#243342] rounded-lg text-xs">
+                  <div className="grid grid-cols-3 gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs">
                     <div>
-                      <span className="text-[#91A0B3]">Objective Value:</span>
-                      <p className="text-lg font-bold text-amber-400 font-mono">
+                      <span className="text-slate-500">Objective Value:</span>
+                      <p className="text-lg font-bold text-amber-600 font-mono">
                         {activeRunResult.objective_value?.toFixed(2) ?? '—'}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[#91A0B3]">Solver Status:</span>
-                      <p className="text-sm font-semibold text-[#E8EEF5]">
+                      <span className="text-slate-500">Solver Status:</span>
+                      <p className="text-sm font-semibold text-slate-900">
                         {activeRunResult.solver_status}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[#91A0B3]">Proposed Allocations:</span>
-                      <p className="text-lg font-bold text-sky-400 font-mono">
+                      <span className="text-slate-500">Proposed Allocations:</span>
+                      <p className="text-lg font-bold text-sky-600 font-mono">
                         {activeRunResult.allocations.length}
                       </p>
                     </div>
@@ -294,19 +294,19 @@ export const OptimizationStudioPage: React.FC = () => {
 
                   {/* Proposed Plan Table */}
                   <div className="space-y-2">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#91A0B3]">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                       Proposed Allocation Decisions (x_i,j)
                     </h4>
 
                     {activeRunResult.allocations.length === 0 ? (
-                      <div className="p-6 text-center text-xs text-[#5A6E85] border border-[#243342] rounded-lg">
+                      <div className="p-6 text-center text-xs text-slate-400 border border-slate-200 rounded-xl">
                         Solver returned no viable allocation paths under given transit constraints.
                       </div>
                     ) : (
-                      <div className="overflow-x-auto border border-[#243342] rounded-lg">
+                      <div className="overflow-x-auto border border-slate-200 rounded-xl">
                         <table className="w-full text-left text-xs">
                           <thead>
-                            <tr className="bg-[#111C27] text-[#5A6E85] font-semibold border-b border-[#243342]">
+                            <tr className="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200">
                               <th className="py-2.5 px-3">Destination Demand Point</th>
                               <th className="py-2.5 px-3">Supply Resource Depot</th>
                               <th className="py-2.5 px-3">Type</th>
@@ -314,24 +314,24 @@ export const OptimizationStudioPage: React.FC = () => {
                               <th className="py-2.5 px-3 text-right">Commit Lock</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-[#243342]/60">
+                          <tbody className="divide-y divide-slate-100">
                             {activeRunResult.allocations.map((alloc, idx) => (
-                              <tr key={idx} className="hover:bg-[#111C27]/50">
-                                <td className="py-3 px-3 font-semibold text-[#E8EEF5]">
+                              <tr key={idx} className="hover:bg-slate-50/80">
+                                <td className="py-3 px-3 font-semibold text-slate-900">
                                   {alloc.demand_id}
                                 </td>
-                                <td className="py-3 px-3 text-[#91A0B3]">{alloc.resource_name}</td>
-                                <td className="py-3 px-3 font-mono text-[11px] text-sky-400">
+                                <td className="py-3 px-3 text-slate-500">{alloc.resource_name}</td>
+                                <td className="py-3 px-3 font-mono text-[11px] text-sky-600">
                                   {alloc.resource_type}
                                 </td>
-                                <td className="py-3 px-3 font-mono font-bold text-amber-400">
+                                <td className="py-3 px-3 font-mono font-bold text-amber-600">
                                   {alloc.allocated_quantity} units
                                 </td>
                                 <td className="py-3 px-3 text-right">
                                   <Button
                                     variant="secondary"
                                     size="sm"
-                                    icon={<Lock className="w-3 h-3 text-amber-400" />}
+                                    icon={<Lock className="w-3 h-3 text-amber-600" />}
                                     onClick={() => setConfirmingAllocationId(alloc.resource_id)}
                                   >
                                     Confirm
@@ -346,8 +346,8 @@ export const OptimizationStudioPage: React.FC = () => {
                   </div>
                 </>
               ) : (
-                <div className="p-12 text-center text-xs text-[#5A6E85] space-y-2">
-                  <Cpu className="w-8 h-8 mx-auto text-[#243342]" />
+                <div className="p-12 text-center text-xs text-slate-400 space-y-2">
+                  <Cpu className="w-8 h-8 mx-auto text-slate-300" />
                   <p>Configure demands and click "Run OR-Tools Solver" to generate mathematical solutions.</p>
                 </div>
               )}
@@ -364,7 +364,7 @@ export const OptimizationStudioPage: React.FC = () => {
         description="Safety-first live inventory deduction policy"
       >
         <div className="space-y-4">
-          <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-300">
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800">
             Confirming this allocation acquires a database row-lock and immediately deducts allocated units from live emergency inventory.
           </div>
 

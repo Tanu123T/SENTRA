@@ -72,7 +72,7 @@ export const ResourceInventoryPage: React.FC = () => {
       />
 
       {/* Filter Row */}
-      <div className="flex flex-wrap items-center gap-3 bg-[#0D151E] p-3 rounded-lg border border-[#243342]">
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
         <div className="w-48">
           <Select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
             <option value="all">All Resource Types</option>
@@ -108,11 +108,11 @@ export const ResourceInventoryPage: React.FC = () => {
       {/* Resource Inventory Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {isLoading ? (
-          <div className="col-span-full py-12 text-center text-[#91A0B3]">
+          <div className="col-span-full py-12 text-center text-slate-500">
             Loading real-time resource units...
           </div>
         ) : resources.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-[#5A6E85]">
+          <div className="col-span-full py-12 text-center text-slate-400">
             No resource inventory matches current filters.
           </div>
         ) : (
@@ -125,13 +125,13 @@ export const ResourceInventoryPage: React.FC = () => {
               <Card key={res.id} className="flex flex-col justify-between">
                 <CardHeader className="pb-3">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-mono text-sky-400 uppercase font-semibold">
+                    <span className="text-[10px] font-mono text-sky-600 uppercase font-semibold">
                       {res.resource_type.replace(/_/g, ' ')}
                     </span>
                     <CardTitle className="text-sm font-semibold truncate max-w-[200px]">
                       {res.name}
                     </CardTitle>
-                    <p className="text-[11px] text-[#5A6E85]">📍 {loc}</p>
+                    <p className="text-[11px] text-slate-500">📍 {loc}</p>
                   </div>
                   <OperationalBadge status={res.operational_status} />
                 </CardHeader>
@@ -140,12 +140,12 @@ export const ResourceInventoryPage: React.FC = () => {
                   {/* Capacity Meter */}
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs font-mono">
-                      <span className="text-[#91A0B3]">Available:</span>
-                      <span className="font-bold text-[#E8EEF5]">
+                      <span className="text-slate-500">Available:</span>
+                      <span className="font-bold text-slate-900">
                         {res.available_capacity} / {res.total_capacity} ({pct}%)
                       </span>
                     </div>
-                    <div className="w-full bg-[#080D13] h-2 rounded-full overflow-hidden border border-[#243342]">
+                    <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                       <div
                         className={`h-full rounded-full transition-all ${
                           pct > 50 ? 'bg-emerald-500' : pct > 20 ? 'bg-amber-500' : 'bg-red-500'
@@ -155,8 +155,8 @@ export const ResourceInventoryPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between border-t border-[#243342]/70">
-                    <span className="text-[10px] text-[#5A6E85] font-mono">
+                  <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+                    <span className="text-[10px] text-slate-400 font-mono">
                       ID: {res.id.slice(0, 8)}...
                     </span>
                     <Button
@@ -184,14 +184,14 @@ export const ResourceInventoryPage: React.FC = () => {
       >
         {editingResource && (
           <form onSubmit={handleUpdateSubmit} className="space-y-4">
-            <div className="bg-[#080D13] p-3 rounded border border-[#243342] text-xs space-y-1">
-              <div className="flex justify-between text-[#91A0B3]">
+            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs space-y-1">
+              <div className="flex justify-between text-slate-500">
                 <span>Total Fleet Units:</span>
-                <span className="text-[#E8EEF5] font-bold">{editingResource.total_capacity}</span>
+                <span className="text-slate-900 font-bold">{editingResource.total_capacity}</span>
               </div>
-              <div className="flex justify-between text-[#91A0B3]">
+              <div className="flex justify-between text-slate-500">
                 <span>Type:</span>
-                <span className="text-amber-400">{editingResource.resource_type}</span>
+                <span className="text-sky-600 font-medium">{editingResource.resource_type}</span>
               </div>
             </div>
 

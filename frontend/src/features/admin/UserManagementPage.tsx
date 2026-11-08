@@ -101,7 +101,7 @@ export const UserManagementPage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Users className="w-4 h-4 text-amber-500" />
+              <Users className="w-4 h-4 text-sky-600" />
               <span>Registered Emergency Operators</span>
             </CardTitle>
             <Button
@@ -116,7 +116,7 @@ export const UserManagementPage: React.FC = () => {
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#243342] bg-[#111C27]/50 text-[#5A6E85] font-semibold uppercase tracking-wider">
+                <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                   <th className="py-3 px-4">Operator</th>
                   <th className="py-3 px-4">Assigned Roles</th>
                   <th className="py-3 px-4">Geographic Jurisdiction</th>
@@ -124,16 +124,16 @@ export const UserManagementPage: React.FC = () => {
                   <th className="py-3 px-4">Created Date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#243342]/60">
+              <tbody className="divide-y divide-slate-100">
                 {isUsersLoading ? (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-[#91A0B3]">
+                    <td colSpan={5} className="py-8 text-center text-slate-500">
                       Loading operator directory...
                     </td>
                   </tr>
                 ) : users.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-[#5A6E85]">
+                    <td colSpan={5} className="py-8 text-center text-slate-400">
                       No operators found.
                     </td>
                   </tr>
@@ -147,38 +147,38 @@ export const UserManagementPage: React.FC = () => {
                       : 'National Clearance';
 
                     return (
-                      <tr key={u.id} className="hover:bg-[#111C27]/50 transition-colors">
+                      <tr key={u.id} className="hover:bg-slate-50/80 transition-colors">
                         <td className="py-3.5 px-4">
-                          <div className="font-semibold text-[#E8EEF5]">{u.full_name}</div>
-                          <div className="text-[11px] text-[#91A0B3]">{u.email}</div>
+                          <div className="font-semibold text-slate-900">{u.full_name}</div>
+                          <div className="text-[11px] text-slate-500">{u.email}</div>
                         </td>
                         <td className="py-3.5 px-4">
                           <div className="flex flex-wrap gap-1">
                             {u.roles.map((r) => (
                               <span
                                 key={r.id}
-                                className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium"
+                                className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-amber-50 text-amber-700 border border-amber-200 font-semibold"
                               >
                                 {r.name}
                               </span>
                             ))}
                           </div>
                         </td>
-                        <td className="py-3.5 px-4 font-medium text-[#E8EEF5]">
+                        <td className="py-3.5 px-4 font-medium text-slate-700">
                           📍 {scopeLabel}
                         </td>
                         <td className="py-3.5 px-4">
                           <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase ${
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold ${
                               u.is_active
-                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                                : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                : 'bg-rose-50 text-rose-700 border border-rose-200'
                             }`}
                           >
                             {u.is_active ? 'ACTIVE' : 'LOCKED'}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-[#5A6E85] font-mono">
+                        <td className="py-3.5 px-4 text-slate-400 font-mono">
                           {formatDate(u.created_at)}
                         </td>
                       </tr>
@@ -193,14 +193,14 @@ export const UserManagementPage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <History className="w-4 h-4 text-sky-400" />
+              <History className="w-4 h-4 text-sky-600" />
               <span>Immutable System Audit Trail</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#243342] bg-[#111C27]/50 text-[#5A6E85] font-semibold uppercase tracking-wider">
+                <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                   <th className="py-3 px-4">Action</th>
                   <th className="py-3 px-4">Entity Type</th>
                   <th className="py-3 px-4">Operator / Actor ID</th>
@@ -208,27 +208,27 @@ export const UserManagementPage: React.FC = () => {
                   <th className="py-3 px-4">Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#243342]/60">
+              <tbody className="divide-y divide-slate-100">
                 {isAuditLoading ? (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-[#91A0B3]">
+                    <td colSpan={5} className="py-8 text-center text-slate-500">
                       Retrieving audit logs...
                     </td>
                   </tr>
                 ) : auditLogs.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-[#5A6E85]">
+                    <td colSpan={5} className="py-8 text-center text-slate-400">
                       No audit trail recorded.
                     </td>
                   </tr>
                 ) : (
                   auditLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-[#111C27]/50 transition-colors font-mono">
-                      <td className="py-3 px-4 font-semibold text-amber-400">{log.action}</td>
-                      <td className="py-3 px-4 text-[#E8EEF5]">{log.entity_type}</td>
-                      <td className="py-3 px-4 text-[#91A0B3]">{log.user_id ? log.user_id.slice(0, 12) + '...' : 'SYSTEM'}</td>
-                      <td className="py-3 px-4 text-[#5A6E85]">{log.ip_address || '127.0.0.1'}</td>
-                      <td className="py-3 px-4 text-[#5A6E85]">{formatDate(log.timestamp)}</td>
+                    <tr key={log.id} className="hover:bg-slate-50/80 transition-colors font-mono">
+                      <td className="py-3 px-4 font-semibold text-amber-600">{log.action}</td>
+                      <td className="py-3 px-4 text-slate-900">{log.entity_type}</td>
+                      <td className="py-3 px-4 text-slate-500">{log.user_id ? log.user_id.slice(0, 12) + '...' : 'SYSTEM'}</td>
+                      <td className="py-3 px-4 text-slate-400">{log.ip_address || '127.0.0.1'}</td>
+                      <td className="py-3 px-4 text-slate-400">{formatDate(log.timestamp)}</td>
                     </tr>
                   ))
                 )}

@@ -56,27 +56,29 @@ export const RegionScopeBadge: React.FC = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="sentra-scope-chip flex items-center gap-1.5 px-3 py-1 rounded-md text-xs">
-        <MapPin className="w-3.5 h-3.5 text-[#d9a441] shrink-0" />
-        <span className="sentra-scope-label hidden md:inline">
+      <div className="flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded-lg shadow-2xs text-xs">
+        <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+        <span className="text-slate-400 font-medium hidden md:inline">
           {selectedDistrict || selectedStateName
             ? 'Selected:'
             : isNational
             ? 'Scope:'
             : 'Assigned:'}
         </span>
-        <span className="sentra-scope-value font-medium tracking-wide truncate max-w-[180px]">
+        <span className="text-slate-800 font-bold tracking-tight truncate max-w-[180px]">
           {regionLabel}
         </span>
       </div>
 
-      <div className="sentra-scope-switch flex items-center p-0.5 rounded-md text-xs">
+      <div className="flex items-center p-0.5 bg-slate-100 border border-slate-200 rounded-lg text-xs font-semibold">
         <button
           type="button"
           onClick={openRegionView}
           className={clsx(
-            'sentra-scope-btn px-2.5 py-1 rounded font-medium flex items-center gap-1.5',
-            viewMode === 'REGION' && 'is-active'
+            'px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5',
+            viewMode === 'REGION'
+              ? 'bg-white text-sky-700 shadow-2xs'
+              : 'text-slate-600 hover:text-slate-900'
           )}
           title="Focus on the selected or assigned administrative region"
         >
@@ -88,8 +90,10 @@ export const RegionScopeBadge: React.FC = () => {
           type="button"
           onClick={() => setViewMode('INDIA')}
           className={clsx(
-            'sentra-scope-btn px-2.5 py-1 rounded font-medium flex items-center gap-1.5',
-            viewMode === 'INDIA' && 'is-active'
+            'px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5',
+            viewMode === 'INDIA'
+              ? 'bg-white text-sky-700 shadow-2xs'
+              : 'text-slate-600 hover:text-slate-900'
           )}
           title="Expand view to nationwide India"
         >
