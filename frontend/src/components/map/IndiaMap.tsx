@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
   MapContainer,
   Marker,
@@ -14,7 +15,8 @@ import { maplibreGL } from '@maplibre/maplibre-gl-leaflet';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapStore } from '../../stores/mapStore';
 import { useAuthStore } from '../../stores/authStore';
-import { AlertRead, ResourceRead, ObservationRead } from '../../types';
+import { AlertRead, ResourceRead, ObservationRead, HistoricalEvent } from '../../types';
+import { hazardsApi } from '../../api/hazards.api';
 import {
   HAZARD_CONFIG,
   HAZARD_LAYER_KEYS,
@@ -259,6 +261,33 @@ const createRegionPin = (label: string, tone: 'amber' | 'sky' = 'amber') =>
     iconAnchor: [0, 0],
   });
 
+const HISTORICAL_EVENT_COORDS: Record<string, [number, number]> = {
+  'FL-HIST-2023-AS': [26.1445, 91.7362],
+  'FL-HIST-2018-KL': [9.9816, 76.2999],
+  'FL-HIST-2005-MH': [18.9388, 72.8354],
+  'EQ-HIST-2001-GJ': [23.2420, 69.6669],
+  'EQ-HIST-1999-UK': [30.4231, 79.3283],
+  'EQ-HIST-2011-SK': [27.5330, 88.5122],
+  'DR-HIST-2015-MH': [18.4088, 76.5604],
+  'DR-HIST-2018-RJ': [26.9157, 70.9083],
+  'TS-HIST-2004-IO': [10.7656, 79.8424],
+  'TS-HIST-1945-MK': [22.8000, 69.0000],
+};
+
+const createHistoricalEventIcon = (hazardType: string) => {
+  const color = HAZARD_CONFIG[hazardType as keyof typeof HAZARD_CONFIG]?.color || '#F59E0B';
+  return L.divIcon({
+    className: 'custom-historical-marker',
+    html: `
+      <div class="sentra-historical-marker" style="width:24px; height:24px; border-radius:6px; background:#0f172a; border:2px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 0 8px ${color}80;">
+        <span style="font-size:10px; font-weight:800; color:#fff; font-family:monospace;">H</span>
+      </div>
+    `,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+};
+
 interface IndiaMapProps {
   alerts?: AlertRead[];
   resources?: ResourceRead[];
@@ -294,6 +323,12 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
 
   const statesQuery = useIndiaStates();
   const districtsQuery = useIndiaDistricts();
+
+  const { data: historicalData = [] } = useQuery<HistoricalEvent[]>({
+    queryKey: ['historical-events'],
+    queryFn: () => hazardsApi.getHistoricalEvents(),
+    staleTime: 1000 * 60 * 15,
+  });
 
   const selectedDistrict = selectedDistrictId ? SEED_DISTRICTS[selectedDistrictId] : null;
 
@@ -566,6 +601,44 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
                 </Popup>
               </Marker>
             </React.Fragment>
+          );
+        })}
+
+        {historicalData.map((ev) => {
+          const coords = HISTORICAL_EVENT_COORDS[ev.event_id];
+          if (!coords) return null;
+          const layerKey = HAZARD_LAYER_KEYS[ev.hazard_type];
+          if (layerKey && activeLayers[layerKey as keyof typeof activeLayers] === false) {
+            return null;
+          }
+
+          return (
+            <Marker
+              key={ev.event_id}
+              position={coords}
+              icon={createHistoricalEventIcon(ev.hazard_type)}
+              zIndexOffset={750}
+            >
+              <Popup className="sentra-map-popup">
+                <div className="sentra-popup-card">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[10px] text-amber-400 font-mono uppercase font-bold tracking-wider">
+                      HISTORICAL BENCHMARK
+                    </span>
+                    <span className="text-[10px] text-[#91A0B3] font-mono">{ev.event_year}</span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#E8EEF5] mb-1">{ev.event_name}</h4>
+                  <p className="text-[10px] text-[#91A0B3] mb-2">{ev.district_name}, {ev.state_name}</p>
+                  <div className="bg-[#090D12] p-2 rounded border border-[#1F2C3A] text-[10px] mb-2">
+                    <div className="text-amber-300 font-semibold">
+                      {ev.peak_metric_name}: {ev.peak_metric_value} {ev.peak_metric_unit}
+                    </div>
+                    <div className="text-[#5A6E85] text-[9px] mt-0.5">{ev.data_source}</div>
+                  </div>
+                  <p className="text-[9px] text-[#5A6E85] italic leading-relaxed">{ev.description}</p>
+                </div>
+              </Popup>
+            </Marker>
           );
         })}
 

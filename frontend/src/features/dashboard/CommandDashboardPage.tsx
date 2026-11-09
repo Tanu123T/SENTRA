@@ -33,6 +33,9 @@ import {
   Check,
   Ship,
   Compass,
+  Sun,
+  CheckCircle2,
+  Lock,
 } from 'lucide-react';
 
 export const CommandDashboardPage: React.FC = () => {
@@ -84,6 +87,12 @@ export const CommandDashboardPage: React.FC = () => {
     refetchInterval: 30000,
   });
 
+  const { data: modelStatuses } = useQuery({
+    queryKey: ['dashboard-hazard-models-status'],
+    queryFn: hazardsApi.getModelStatuses,
+    refetchInterval: 60000,
+  });
+
   const alerts = alertsData?.items || [];
   const resources = resourcesData?.items || [];
 
@@ -92,6 +101,8 @@ export const CommandDashboardPage: React.FC = () => {
     cycloneSurge: true,
     floodInundation: true,
     earthquakeSeismic: false,
+    droughtAridity: false,
+    tsunamiCoastal: false,
     dopplerRadar: true,
     populationDensity: false,
     ndrfAssets: true,
@@ -105,6 +116,8 @@ export const CommandDashboardPage: React.FC = () => {
       if (key === 'cycloneSurge') toggleLayer('cyclone');
       if (key === 'floodInundation') toggleLayer('flood');
       if (key === 'earthquakeSeismic') toggleLayer('earthquake');
+      if (key === 'droughtAridity') toggleLayer('drought');
+      if (key === 'tsunamiCoastal') toggleLayer('tsunami');
       if (key === 'ndrfAssets') toggleLayer('resources');
       return updated;
     });
@@ -115,6 +128,8 @@ export const CommandDashboardPage: React.FC = () => {
       cycloneSurge: true,
       floodInundation: true,
       earthquakeSeismic: false,
+      droughtAridity: false,
+      tsunamiCoastal: false,
       dopplerRadar: true,
       populationDensity: false,
       ndrfAssets: true,
@@ -294,6 +309,8 @@ export const CommandDashboardPage: React.FC = () => {
                   { id: 'cycloneSurge', label: 'Cyclone & Surge', icon: Wind, active: layers.cycloneSurge },
                   { id: 'floodInundation', label: 'Flood Inundation', icon: Droplets, active: layers.floodInundation },
                   { id: 'earthquakeSeismic', label: 'Earthquake Seismic', icon: Activity, active: layers.earthquakeSeismic },
+                  { id: 'droughtAridity', label: 'Drought Aridity (SPEI)', icon: Sun, active: layers.droughtAridity },
+                  { id: 'tsunamiCoastal', label: 'Tsunami Coastal (Blocked)', icon: Waves, active: layers.tsunamiCoastal },
                   { id: 'dopplerRadar', label: 'IMD Doppler Radar', icon: Radar, active: layers.dopplerRadar },
                   { id: 'populationDensity', label: 'Population Density', icon: Users, active: layers.populationDensity },
                   { id: 'ndrfAssets', label: 'NDRF Assets & Fleet', icon: Truck, active: layers.ndrfAssets },
@@ -553,6 +570,44 @@ export const CommandDashboardPage: React.FC = () => {
               >
                 Deploy Model →
               </button>
+            </div>
+          </div>
+
+          {/* MULTI-HAZARD ENGINES READINESS CARD */}
+          <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 text-left space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                Hazard Research Engines
+              </span>
+              <button
+                onClick={() => navigate('/hazards')}
+                className="text-[10px] font-bold text-sky-600 hover:text-sky-700 hover:underline"
+              >
+                Open Studio →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+              {[
+                { name: 'Flood', status: 'VALIDATED', color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+                { name: 'Earthquake', status: 'VALIDATED', color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+                { name: 'Drought', status: 'VALIDATED', color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+                { name: 'Tsunami', status: 'BLOCKED', color: 'text-rose-700 bg-rose-50 border-rose-200' },
+                { name: 'Cyclone', status: 'PLANNED', color: 'text-amber-700 bg-amber-50 border-amber-200' },
+                { name: 'Landslide', status: 'PLANNED', color: 'text-amber-700 bg-amber-50 border-amber-200' },
+                { name: 'Heatwave', status: 'PLANNED', color: 'text-amber-700 bg-amber-50 border-amber-200' },
+              ].map((h) => (
+                <div
+                  key={h.name}
+                  onClick={() => navigate('/hazards')}
+                  className="p-1.5 bg-white border border-slate-200/80 rounded-lg flex items-center justify-between cursor-pointer hover:border-sky-300 transition"
+                >
+                  <span className="font-semibold text-slate-700">{h.name}</span>
+                  <span className={`text-[9px] font-mono px-1 py-0.2 rounded border font-bold ${h.color}`}>
+                    {h.status}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </aside>

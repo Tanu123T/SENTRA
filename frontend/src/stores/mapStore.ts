@@ -20,6 +20,7 @@ interface MapState {
     heatwave: boolean;
     landslide: boolean;
     drought: boolean;
+    tsunami: boolean;
     rainfall: boolean;
     resources: boolean;
     shelters: boolean;
@@ -55,6 +56,7 @@ export const useMapStore = create<MapState>((set) => ({
     heatwave: true,
     landslide: true,
     drought: false,
+    tsunami: false,
     rainfall: true,
     resources: true,
     shelters: true,

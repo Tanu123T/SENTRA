@@ -55,5 +55,12 @@ frontend/dist/
 # TypeScript build cache
 *.tsbuildinfo
 
-# TypeScript build cache
-*.tsbuildinfo
+# Temporary archives & data download packs
+sentra_data_pack/
+*.zip
+*.tar.gz
+*.7z
+
+# Application logs
+*.log
+

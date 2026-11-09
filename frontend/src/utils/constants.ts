@@ -60,6 +60,7 @@ export const HAZARD_LAYER_KEYS: Partial<Record<HazardType, string>> = {
   HEATWAVE: 'heatwave',
   LANDSLIDE: 'landslide',
   DROUGHT: 'drought',
+  TSUNAMI: 'tsunami',
 };
 
 // Hazard Theme Mapping (Bright Stitch Aesthetic)

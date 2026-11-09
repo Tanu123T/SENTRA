@@ -107,6 +107,75 @@ export type HazardType =
   | 'TSUNAMI'
   | 'HEATWAVE';
 
+export interface EvaluationMetric {
+  metric_name: string;
+  value: number;
+  unit?: string | null;
+  description: string;
+  benchmark_dataset: string;
+}
+
+export interface HazardReadinessInfo {
+  hazard_type: HazardType;
+  model_name: string;
+  model_version: string;
+  is_available: boolean;
+  readiness_status: string;
+  scientific_methodology: string;
+  expected_inputs: string[];
+  input_units: Record<string, string>;
+  wave_propagation?: string | null;
+  coastal_inundation?: string | null;
+  blocker_reason?: string | null;
+  evaluation_metrics: EvaluationMetric[];
+  last_calibrated_at?: string | null;
+  provenance_reference: string;
+}
+
+export interface HistoricalEvent {
+  event_id: string;
+  event_name: string;
+  event_year: number;
+  hazard_type: HazardType;
+  state_code: string;
+  state_name: string;
+  district_name: string;
+  start_date: string;
+  severity: string;
+  peak_metric_name: string;
+  peak_metric_value: number;
+  peak_metric_unit: string;
+  estimated_exposed_population: number;
+  reported_fatalities: number;
+  economic_loss_inr_cr: number;
+  description: string;
+  data_source: string;
+}
+
+export interface HazardPredictionOutput {
+  hazard_type: HazardType;
+  risk_score: number;
+  severity_level: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
+  confidence_score: number;
+  primary_metric_name: string;
+  primary_metric_value: number;
+  primary_metric_unit: string;
+  secondary_metrics: Record<string, any>;
+  summary: string;
+  recommended_actions: string[];
+  assumptions_and_limitations: string[];
+  calculated_at: string;
+}
+
+export interface GeospatialImpactEnvelope {
+  hazard_type: HazardType;
+  center: { latitude: number; longitude: number };
+  estimated_impact_radius_km: number;
+  severity_level: string;
+  envelope_geometry_type: string;
+  disclaimer: string;
+}
+
 export interface HazardModelStatus {
   hazard_type: HazardType;
   model_name: string;
