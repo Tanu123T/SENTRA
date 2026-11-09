@@ -3,6 +3,7 @@
 from typing import Any, Dict, List
 from app.core.exceptions import ModelUnavailableException
 from app.hazards.base import BaseHazardModule, EvaluationMetric, HazardPredictionOutput, HazardReadinessInfo, HistoricalEvent
+from app.hazards.services.hazard_data_pack_loader import hazard_data_pack_loader
 from app.schemas.risk_assessment import HazardType
 
 
@@ -42,7 +43,8 @@ class CyclonePlannedHazardModule(BaseHazardModule):
 
     @property
     def historical_events(self) -> List[HistoricalEvent]:
-        return [
+        ibtracs_events = hazard_data_pack_loader.load_cyclone_events(limit=30)
+        baseline_landmarks = [
             HistoricalEvent(
                 event_id="CY-HIST-1999-OD",
                 event_name="1999 Odisha Super Cyclone (05B)",
@@ -82,6 +84,7 @@ class CyclonePlannedHazardModule(BaseHazardModule):
                 data_source="Odisha State Disaster Management Authority (OSDMA) Post-Fani Recovery Assessment",
             ),
         ]
+        return baseline_landmarks + list(ibtracs_events)
 
     def validate_features(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         return input_data
