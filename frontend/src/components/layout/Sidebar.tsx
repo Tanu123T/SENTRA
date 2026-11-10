@@ -87,8 +87,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         {/* Top Area: Logo + Regional Command Selector + Nav */}
         <div className="flex-1 overflow-y-auto px-5 py-6 space-y-6">
           {/* Exact Brand Header */}
-          <div className="px-1">
-            <SentraLogo size="md" />
+          <div className="px-1 py-0.5">
+            <SentraLogo size="lg" />
           </div>
 
           {/* Regional Command Selector Card */}

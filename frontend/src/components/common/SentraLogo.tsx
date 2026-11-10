@@ -17,20 +17,20 @@ export const SentraLogo: React.FC<SentraLogoProps> = ({
 }) => {
   const sizeMap = {
     sm: {
-      lockupClass: 'h-5 w-auto',
-      iconClass: 'h-5 w-auto',
+      lockupClass: 'h-6 w-auto',
+      iconClass: 'h-6 w-auto',
     },
     md: {
-      lockupClass: 'h-7 w-auto',
-      iconClass: 'h-7 w-auto',
-    },
-    lg: {
       lockupClass: 'h-9 w-auto',
       iconClass: 'h-9 w-auto',
     },
+    lg: {
+      lockupClass: 'h-10 w-auto',
+      iconClass: 'h-10 w-auto',
+    },
     xl: {
-      lockupClass: 'h-12 w-auto',
-      iconClass: 'h-12 w-auto',
+      lockupClass: 'h-14 w-auto',
+      iconClass: 'h-14 w-auto',
     },
   };
 
