@@ -174,8 +174,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                       clsx(
                         'flex items-center justify-between px-3.5 py-3 rounded-xl text-[13.5px] transition-all group select-none min-h-[44px]',
                         isActive
-                          ? 'bg-[#0F172A] text-white font-medium shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-normal'
+                          ? 'bg-slate-100 text-[#0F172A] font-semibold'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-normal'
                       )
                     }
                   >
@@ -185,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                           <Icon
                             className={clsx(
                               'w-[18px] h-[18px] shrink-0 transition-colors',
-                              isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-900'
+                              isActive ? 'text-[#0F172A]' : 'text-slate-400 group-hover:text-slate-700'
                             )}
                           />
                           <span className="truncate">{item.name}</span>
@@ -195,14 +195,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                             className={clsx(
                               'px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-colors',
                               isActive
-                                ? 'bg-slate-800 text-slate-200'
+                                ? 'bg-slate-200 text-slate-900 font-bold'
                                 : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
                             )}
                           >
                             {item.badge}
                           </span>
                         ) : isActive ? (
-                          <span className="w-1.5 h-1.5 rounded-full bg-white/90 shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0F172A] shrink-0" />
                         ) : null}
                       </>
                     )}
