@@ -100,7 +100,7 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
                     step="0.05"
                     value={severityScore}
                     onChange={(e) => setSeverityScore(parseFloat(e.target.value))}
-                    className="w-full accent-sky-600 bg-slate-200 cursor-pointer"
+                    className="w-full accent-slate-900 bg-slate-200 cursor-pointer"
                   />
                   <p className="text-[10px] text-slate-400">
                     Scaled impact severity score (0.0 = Minor Event, 1.0 = Catastrophic)
@@ -192,7 +192,7 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1">
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                        <Bed className="w-4 h-4 text-sky-600" />
+                        <Bed className="w-4 h-4 text-slate-800" />
                         <span>Hospital Beds</span>
                       </div>
                       <span className="text-lg font-bold text-slate-900">
@@ -308,7 +308,7 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
                       <td className="py-3 px-4 font-bold text-amber-600">
                         {formatNumber(imp.estimated_affected)}
                       </td>
-                      <td className="py-3 px-4 text-sky-600 font-medium">
+                      <td className="py-3 px-4 text-slate-800 font-medium">
                         {formatNumber(imp.estimated_medical_demand.hospital_beds)}
                       </td>
                       <td className="py-3 px-4 text-orange-600 font-medium">

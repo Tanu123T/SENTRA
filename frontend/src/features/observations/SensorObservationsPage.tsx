@@ -105,7 +105,7 @@ export const SensorObservationsPage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <ChartIcon className="w-4 h-4 text-sky-600" />
+            <ChartIcon className="w-4 h-4 text-slate-800" />
             <span>Precipitation & Stream Runoff Trend (Last 24 Hours)</span>
           </CardTitle>
           <span className="text-[10px] font-bold font-mono text-slate-400 tracking-wider">IMD / CWC REALTIME FEED</span>
@@ -115,8 +115,8 @@ export const SensorObservationsPage: React.FC = () => {
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#0284c7" stopOpacity={0.28} />
-                  <stop offset="95%" stopColor="#0284c7" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#0F172A" stopOpacity="0.18" />
+                  <stop offset="95%" stopColor="#0F172A" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
@@ -135,7 +135,7 @@ export const SensorObservationsPage: React.FC = () => {
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="#0284c7"
+                stroke="#0F172A"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#areaGradient)"
@@ -205,7 +205,7 @@ export const SensorObservationsPage: React.FC = () => {
 
                   return (
                     <tr key={obs.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-4 font-mono font-semibold text-sky-600">
+                      <td className="py-3 px-4 font-mono font-bold text-slate-900">
                         {obs.observation_type}
                       </td>
                       <td className="py-3 px-4">

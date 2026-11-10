@@ -89,11 +89,11 @@ export const LayerControlPanel: React.FC<LayerControlPanelProps> = ({ inline = f
         className={clsx(
           'flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold shadow-2xs transition-all',
           isOpen
-            ? 'bg-sky-50 text-sky-700 border-sky-300'
+            ? 'bg-[#0F172A] text-white border-[#0F172A]'
             : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
         )}
       >
-        <Layers className="w-3.5 h-3.5 text-sky-600" />
+        <Layers className={`w-3.5 h-3.5 ${isOpen ? 'text-white' : 'text-slate-700'}`} />
         <span>Map Layers</span>
       </button>
 

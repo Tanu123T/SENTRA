@@ -66,7 +66,7 @@ export const StatCard: React.FC<StatCardProps> = ({
             )}
           </div>
           {icon && (
-            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 transition-colors group-hover:bg-sky-50 group-hover:text-sky-600 group-hover:border-sky-100">
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 transition-colors group-hover:bg-slate-100 group-hover:text-slate-900 group-hover:border-slate-200">
               {icon}
             </div>
           )}

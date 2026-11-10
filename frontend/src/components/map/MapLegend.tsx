@@ -25,7 +25,7 @@ export const MapLegend: React.FC<MapLegendProps> = ({ viewMode = 'INDIA' }) => {
         className="px-3 py-1.5 bg-slate-50/80 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 text-slate-600 border-b border-slate-100"
       >
         <div className="flex items-center gap-1.5 font-bold text-[11px] text-slate-800">
-          <Info className="w-3.5 h-3.5 text-sky-600" />
+          <Info className="w-3.5 h-3.5 text-slate-800" />
           <span>Map Legend &amp; Sources</span>
         </div>
         {collapsed ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}

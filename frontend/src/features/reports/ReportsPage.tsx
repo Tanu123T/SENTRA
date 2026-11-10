@@ -74,7 +74,7 @@ export const ReportsPage: React.FC = () => {
         </Card>
         <Card className="p-4 bg-white">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Telemetry Ingests</span>
-          <p className="text-2xl font-bold text-sky-600 mt-1">
+          <p className="text-2xl font-bold text-slate-900 mt-1">
             {summary?.total_observations ?? '—'}
           </p>
         </Card>
@@ -84,7 +84,7 @@ export const ReportsPage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <FileBarChart2 className="w-4 h-4 text-sky-600" />
+            <FileBarChart2 className="w-4 h-4 text-slate-800" />
             <span>District Disaster Impact Matrix</span>
           </CardTitle>
           <span className="text-[10px] font-bold font-mono text-slate-400 tracking-wider">
@@ -138,7 +138,7 @@ export const ReportsPage: React.FC = () => {
                     <td className="py-3.5 px-4 font-mono text-emerald-600 font-bold">
                       {d.available_resources_count} units
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-sky-600">
+                    <td className="py-3.5 px-4 font-mono text-slate-800 font-semibold">
                       {formatNumber(d.total_observations)}
                     </td>
                     <td className="py-3.5 px-4">

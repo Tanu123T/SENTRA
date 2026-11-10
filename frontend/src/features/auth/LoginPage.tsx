@@ -91,7 +91,7 @@ export const LoginPage: React.FC = () => {
           <button
             type="button"
             onClick={handleDirectAccess}
-            className="w-full py-2.5 px-4 bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-xs rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all"
+            className="w-full py-2.5 px-4 bg-[#0F172A] hover:bg-slate-800 active:bg-black text-white font-semibold text-xs rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all border border-[#0F172A]"
           >
             <Compass className="w-4 h-4" />
             <span>Direct Access: Open Command Workspace</span>
@@ -118,7 +118,7 @@ export const LoginPage: React.FC = () => {
               onClick={() => handleRoleSelect('alex.carter@sentra.gov.in')}
               className={`p-2.5 rounded-xl border text-left transition-all ${
                 email === 'alex.carter@sentra.gov.in'
-                  ? 'border-[#2563EB] bg-[#EFF6FF] text-[#2563EB]'
+                  ? 'border-slate-900 bg-slate-100 text-slate-900 font-semibold ring-1 ring-slate-900/10'
                   : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700'
               }`}
             >
@@ -131,7 +131,7 @@ export const LoginPage: React.FC = () => {
               onClick={() => handleRoleSelect('admin@sentra.gov.in')}
               className={`p-2.5 rounded-xl border text-left transition-all ${
                 email === 'admin@sentra.gov.in'
-                  ? 'border-[#2563EB] bg-[#EFF6FF] text-[#2563EB]'
+                  ? 'border-slate-900 bg-slate-100 text-slate-900 font-semibold ring-1 ring-slate-900/10'
                   : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700'
               }`}
             >
@@ -157,7 +157,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="operator@sentra.gov.in"
                 required
-                className="w-full pl-10 pr-3 py-2.5 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#2563EB] rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all font-medium"
+                className="w-full pl-10 pr-3 py-2.5 bg-white border border-slate-200 hover:border-slate-300 focus:border-slate-900 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10 transition-all font-medium"
               />
             </div>
           </div>
@@ -178,7 +178,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
                 required
-                className="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-200 hover:border-slate-300 focus:border-[#2563EB] rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all font-medium"
+                className="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-200 hover:border-slate-300 focus:border-slate-900 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10 transition-all font-medium"
               />
               <button
                 type="button"

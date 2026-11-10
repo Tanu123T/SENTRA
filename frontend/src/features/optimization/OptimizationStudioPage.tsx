@@ -293,7 +293,7 @@ export const OptimizationStudioPage: React.FC = () => {
           <Card className="h-full border-slate-200">
             <CardHeader className="bg-slate-50/60">
               <CardTitle>
-                <Cpu className="w-4 h-4 text-sky-600" />
+                <Cpu className="w-4 h-4 text-slate-800" />
                 <span>Solver Optimization Solution</span>
               </CardTitle>
               {activeRunResult && (
@@ -320,7 +320,7 @@ export const OptimizationStudioPage: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-slate-500">Proposed Allocations:</span>
-                      <p className="text-lg font-bold text-sky-600 font-mono">
+                      <p className="text-lg font-bold text-slate-900 font-mono">
                         {activeRunResult.allocations.length}
                       </p>
                     </div>
@@ -355,7 +355,7 @@ export const OptimizationStudioPage: React.FC = () => {
                                   {alloc.demand_id}
                                 </td>
                                 <td className="py-3 px-3 text-slate-500">{alloc.resource_name}</td>
-                                <td className="py-3 px-3 font-mono text-[11px] text-sky-600">
+                                <td className="py-3 px-3 font-mono text-[11px] text-slate-800 font-semibold">
                                   {alloc.resource_type}
                                 </td>
                                 <td className="py-3 px-3 font-mono font-bold text-amber-600">

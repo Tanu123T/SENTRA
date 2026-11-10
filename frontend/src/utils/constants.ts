@@ -127,9 +127,9 @@ export const SEVERITY_CONFIG: Record<AlertSeverityEnum, { label: string; color: 
   },
   MODERATE: {
     label: 'Moderate',
-    color: '#0284c7',
-    border: 'border-sky-200/80',
-    bg: 'bg-sky-50/70 text-sky-700',
+    color: '#475569',
+    border: 'border-slate-200/90',
+    bg: 'bg-slate-100/80 text-slate-700',
     pulse: false,
   },
   LOW: {

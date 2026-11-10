@@ -61,7 +61,7 @@ export const RegionalSummaryCard: React.FC<RegionalSummaryCardProps> = ({
 
             <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200 shadow-2xs">
               <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mb-1">
-                <Maximize className="w-3.5 h-3.5 text-sky-600" />
+                <Maximize className="w-3.5 h-3.5 text-slate-700" />
                 <span>Area Coverage</span>
               </div>
               <span className="text-base font-bold text-slate-900">

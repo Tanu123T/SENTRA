@@ -90,7 +90,7 @@ export const AlertsPage: React.FC = () => {
       {/* Filter Row */}
       <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
         <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold">
-          <Filter className="w-3.5 h-3.5 text-sky-600" />
+          <Filter className="w-3.5 h-3.5 text-slate-800" />
           <span>Filters:</span>
         </div>
 

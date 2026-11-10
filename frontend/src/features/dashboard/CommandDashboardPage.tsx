@@ -55,7 +55,7 @@ export const CommandDashboardPage: React.FC = () => {
 
   // 8 Hazard categories with clean outline SVG icons (no emojis)
   const hazardPills = [
-    { id: 'all', name: 'All hazards', count: 38, icon: Layers, iconColor: 'text-[#2563EB]' },
+    { id: 'all', name: 'All hazards', count: 38, icon: Layers, iconColor: 'text-slate-900' },
     { id: 'flood', name: 'Flood', count: 14, icon: Waves, iconColor: 'text-blue-500' },
     { id: 'drought', name: 'Drought', count: 6, icon: Droplets, iconColor: 'text-amber-500' },
     { id: 'earthquake', name: 'Earthquake', count: 8, icon: Activity, iconColor: 'text-orange-500' },
@@ -164,7 +164,7 @@ export const CommandDashboardPage: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setReportMenuOpen((prev) => !prev)}
-              className="px-4 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white rounded-lg text-xs font-semibold shadow-xs flex items-center gap-2 transition-all"
+              className="px-4 py-2.5 bg-[#0F172A] hover:bg-slate-800 active:bg-black text-white rounded-lg text-xs font-semibold shadow-xs flex items-center gap-2 transition-all border border-[#0F172A]"
             >
               <Download className="w-4 h-4" />
               <span>Generate report</span>
@@ -206,7 +206,7 @@ export const CommandDashboardPage: React.FC = () => {
                     className="w-full text-left px-3.5 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between font-medium"
                   >
                     <span>Automated Recovery Audit</span>
-                    <span className="text-[10px] text-[#2563EB] font-bold">JSON</span>
+                    <span className="text-[10px] text-slate-800 font-bold bg-slate-100 px-1.5 py-0.5 rounded">JSON</span>
                   </button>
                 </div>
               </>
@@ -306,18 +306,18 @@ export const CommandDashboardPage: React.FC = () => {
             <span className="text-sm font-medium text-slate-500">
               Active hazard events
             </span>
-            <Radio className="w-5 h-5 text-[#2563EB]" />
+            <Radio className="w-5 h-5 text-slate-800" />
           </div>
           <div className="my-3 flex items-baseline justify-between">
             <span className="text-4xl font-extrabold text-[#0F172A] tracking-tight">
               38
             </span>
-            {/* Smooth Blue Sparkline with Gradient Fill */}
+            {/* Smooth Monochrome Slate Sparkline */}
             <svg width="96" height="32" viewBox="0 0 96 32" fill="none">
               <defs>
                 <linearGradient id="blueSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
+                  <stop offset="0%" stopColor="#0F172A" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#0F172A" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
               <path
@@ -326,7 +326,7 @@ export const CommandDashboardPage: React.FC = () => {
               />
               <path
                 d="M2 24L18 22L36 26L52 14L68 16L94 6"
-                stroke="#2563EB"
+                stroke="#0F172A"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -483,7 +483,7 @@ export const CommandDashboardPage: React.FC = () => {
 
             <button
               onClick={() => navigate('/map')}
-              className="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 transition-colors"
+              className="text-[13px] font-semibold text-slate-900 hover:text-slate-700 flex items-center gap-1 transition-colors"
             >
               <span>Explore map</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -501,17 +501,17 @@ export const CommandDashboardPage: React.FC = () => {
                   onClick={() => setActiveHazardFilter(pill.id)}
                   className={`px-3 py-1.5 rounded-lg border flex items-center gap-2 shrink-0 transition-all font-medium ${
                     isSelected
-                      ? 'bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE] font-semibold shadow-2xs'
+                      ? 'bg-[#0F172A] text-white border-[#0F172A] font-semibold shadow-xs'
                       : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#2563EB]' : pill.iconColor}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : pill.iconColor}`} />
                   <span>{pill.name}</span>
                   {pill.count && (
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                         isSelected
-                          ? 'bg-[#DBEAFE] text-[#1E40AF]'
+                          ? 'bg-slate-800 text-slate-200'
                           : 'bg-slate-100 text-slate-500'
                       }`}
                     >
@@ -586,7 +586,7 @@ export const CommandDashboardPage: React.FC = () => {
                   max="100"
                   value={timelineProgress}
                   onChange={(e) => setTimelineProgress(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
                 />
               </div>
 
@@ -633,7 +633,7 @@ export const CommandDashboardPage: React.FC = () => {
                 </span>
                 <span className="text-[11px] text-slate-400">4m ago</span>
               </div>
-              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-slate-900 transition-colors">
                 Mahanadi Basin Flash Flood Surge
               </h3>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
@@ -643,7 +643,7 @@ export const CommandDashboardPage: React.FC = () => {
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">River level</span>
                 <span className="font-semibold text-slate-900 flex items-center gap-1">
-                  +2.8 m above HFL (820,000 cusecs) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
+                  +2.8 m above HFL (820,000 cusecs) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-900" />
                 </span>
               </div>
             </div>
@@ -660,7 +660,7 @@ export const CommandDashboardPage: React.FC = () => {
                 </span>
                 <span className="text-[11px] text-slate-400">12m ago</span>
               </div>
-              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-slate-900 transition-colors">
                 Bay of Bengal Severe Storm Surge &amp; Cyclone Watch
               </h3>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
@@ -670,7 +670,7 @@ export const CommandDashboardPage: React.FC = () => {
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Sustained winds</span>
                 <span className="font-semibold text-slate-900 flex items-center gap-1">
-                  110 km/h (Doppler Radar Track) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
+                  110 km/h (Doppler Radar Track) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-900" />
                 </span>
               </div>
             </div>
@@ -687,7 +687,7 @@ export const CommandDashboardPage: React.FC = () => {
                 </span>
                 <span className="text-[11px] text-slate-400">28m ago</span>
               </div>
-              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-slate-900 transition-colors">
                 Kachchh Fault Line Seismic Movement
               </h3>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
@@ -697,7 +697,7 @@ export const CommandDashboardPage: React.FC = () => {
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Magnitude</span>
                 <span className="font-semibold text-slate-900 flex items-center gap-1">
-                  5.4 Mw (PGA 0.18g, Depth 16km) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
+                  5.4 Mw (PGA 0.18g, Depth 16km) <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-900" />
                 </span>
               </div>
             </div>
@@ -739,7 +739,7 @@ export const CommandDashboardPage: React.FC = () => {
 
               <button
                 onClick={() => navigate('/alerts')}
-                className="text-xs font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 transition-colors"
+                className="text-xs font-semibold text-slate-900 hover:text-slate-700 flex items-center gap-1 transition-colors"
               >
                 <span>View all events</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -798,7 +798,7 @@ export const CommandDashboardPage: React.FC = () => {
                     <td className="py-3.5 text-right">
                       <button
                         onClick={() => navigate('/hazards')}
-                        className="text-xs font-semibold text-[#2563EB] hover:text-[#1D4ED8] inline-flex items-center gap-1"
+                        className="text-xs font-semibold text-slate-900 hover:text-slate-700 inline-flex items-center gap-1"
                       >
                         Inspect <ArrowRight className="w-3 h-3" />
                       </button>

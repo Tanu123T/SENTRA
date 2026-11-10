@@ -188,7 +188,7 @@ export const HazardsOverviewPage: React.FC = () => {
               }}
               className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between min-h-[72px] ${
                 isSelected
-                  ? 'bg-white border-[#2563EB] shadow-sm ring-2 ring-[#2563EB]/15'
+                  ? 'bg-white border-[#0F172A] shadow-xs ring-2 ring-slate-900/10'
                   : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
               }`}
             >
@@ -298,7 +298,7 @@ export const HazardsOverviewPage: React.FC = () => {
             <Card className="border-slate-200/80 shadow-xs">
               <CardHeader className="pb-3 border-b border-slate-100/90 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <History className="w-4 h-4 text-blue-600" />
+                  <History className="w-4 h-4 text-slate-800" />
                   <h2 className="text-sm font-semibold text-slate-900 tracking-tight">
                     Verified Historical Records
                   </h2>
@@ -334,7 +334,7 @@ export const HazardsOverviewPage: React.FC = () => {
                             <td className="py-2.5 px-4 font-mono font-medium text-slate-800">
                               {event.event_year}
                             </td>
-                            <td className="py-2.5 px-4 text-blue-600 font-mono font-medium">
+                            <td className="py-2.5 px-4 text-slate-900 font-mono font-bold">
                               {event.peak_metric_value} {event.peak_metric_unit}
                             </td>
                             <td className="py-2.5 px-4 font-mono text-slate-700">
@@ -364,7 +364,7 @@ export const HazardsOverviewPage: React.FC = () => {
             <Card className="border-slate-200/80 shadow-xs">
               <CardHeader className="pb-3 border-b border-slate-100/90">
                 <div className="flex items-center gap-2">
-                  <Calculator className="w-4 h-4 text-blue-600" />
+                  <Calculator className="w-4 h-4 text-slate-800" />
                   <h2 className="text-sm font-semibold text-slate-900 tracking-tight">
                     Model Simulator
                   </h2>
@@ -752,14 +752,14 @@ export const HazardsOverviewPage: React.FC = () => {
             <Card className="bg-slate-50/70 border-slate-200/80 shadow-xs">
               <CardContent className="p-4 space-y-2.5">
                 <div className="flex items-center gap-2 text-slate-900 font-semibold text-xs">
-                  <Activity className="w-4 h-4 text-blue-600" />
+                  <Activity className="w-4 h-4 text-slate-800" />
                   <span>Health Surge Projection</span>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed">
                   Calculate required hospital ICU beds, ambulances, and triage logistics based on calibrated casualty rates.
                 </p>
                 <Link to="/health" className="block pt-1">
-                  <Button variant="outline" size="sm" className="w-full justify-center" icon={<ArrowUpRight className="w-3.5 h-3.5 text-blue-600" />}>
+                  <Button variant="outline" size="sm" className="w-full justify-center" icon={<ArrowUpRight className="w-3.5 h-3.5 text-slate-700" />}>
                     Open Health Surge Estimator
                   </Button>
                 </Link>

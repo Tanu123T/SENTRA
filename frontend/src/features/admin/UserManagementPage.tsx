@@ -100,7 +100,7 @@ export const UserManagementPage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Users className="w-4 h-4 text-sky-600" />
+              <Users className="w-4 h-4 text-slate-800" />
               <span>Registered Emergency Operators</span>
             </CardTitle>
             <Button
@@ -200,7 +200,7 @@ export const UserManagementPage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <History className="w-4 h-4 text-sky-600" />
+              <History className="w-4 h-4 text-slate-800" />
               <span>Immutable System Audit Trail</span>
             </CardTitle>
           </CardHeader>

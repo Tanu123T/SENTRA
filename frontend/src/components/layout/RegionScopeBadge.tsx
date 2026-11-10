@@ -57,7 +57,7 @@ export const RegionScopeBadge: React.FC = () => {
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded-lg shadow-2xs text-xs">
-        <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+        <MapPin className="w-3.5 h-3.5 text-slate-800 shrink-0" />
         <span className="text-slate-400 font-medium hidden md:inline">
           {selectedDistrict || selectedStateName
             ? 'Selected:'

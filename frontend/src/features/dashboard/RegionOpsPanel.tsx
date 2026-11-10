@@ -224,7 +224,7 @@ export const RegionOpsPanel: React.FC<RegionOpsPanelProps> = ({
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
                 <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider text-slate-400">
-                  <Crosshair className="h-3 w-3 text-sky-600" />
+                  <Crosshair className="h-3 w-3 text-slate-700" />
                   Reference point
                 </div>
                 <p className="mt-1 font-mono text-[10px] font-semibold text-slate-800">

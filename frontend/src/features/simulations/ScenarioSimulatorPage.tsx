@@ -168,7 +168,7 @@ export const ScenarioSimulatorPage: React.FC = () => {
           <Card className="h-full border-slate-200">
             <CardHeader className="bg-slate-50/60">
               <CardTitle>
-                <Layers className="w-4 h-4 text-sky-600" />
+                <Layers className="w-4 h-4 text-slate-800" />
                 <span>Baseline vs Scenario Outcome Contrast</span>
               </CardTitle>
               {activeSimulation && (

@@ -46,10 +46,10 @@ export const SeverityBadge: React.FC<SeverityBadgeProps> = ({ severity, size = '
       dot: 'bg-amber-500',
     },
     MODERATE: {
-      bg: 'bg-sky-50/70',
-      text: 'text-sky-700',
-      border: 'border-sky-200/80',
-      dot: 'bg-sky-500',
+      bg: 'bg-slate-100',
+      text: 'text-slate-700',
+      border: 'border-slate-300',
+      dot: 'bg-slate-600',
     },
     LOW: {
       bg: 'bg-slate-50',

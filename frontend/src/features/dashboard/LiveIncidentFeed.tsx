@@ -17,12 +17,12 @@ export const LiveIncidentFeed: React.FC<LiveIncidentFeedProps> = ({ alerts, isLo
     <Card className="flex flex-col h-full">
       <CardHeader>
         <CardTitle>
-          <AlertCircle className="w-4 h-4 text-sky-600" />
+          <AlertCircle className="w-4 h-4 text-slate-800" />
           <span>Active Incident Stream</span>
         </CardTitle>
         <Link
           to="/alerts"
-          className="text-xs text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1"
+          className="text-xs text-slate-800 hover:text-slate-900 font-semibold flex items-center gap-1"
         >
           <span>All Alerts</span>
           <ChevronRight className="w-3.5 h-3.5" />

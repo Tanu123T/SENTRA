@@ -121,7 +121,7 @@ export const NationalOverviewPanel: React.FC<NationalOverviewPanelProps> = ({
             hint="Registered units"
           />
           <StatRow
-            icon={<Radio className="h-3.5 w-3.5 text-sky-600" />}
+            icon={<Radio className="h-3.5 w-3.5 text-slate-700" />}
             label="Sensors"
             value={formatNumber(observations)}
             hint="Ingested readings"

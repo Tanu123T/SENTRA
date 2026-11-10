@@ -93,7 +93,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onToggleSidebar }) => {
           <input
             type="text"
             placeholder="Search anything..."
-            className="w-64 lg:w-72 pl-9 pr-12 py-2 bg-white text-xs text-slate-800 rounded-lg border border-slate-200 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 transition-all placeholder:text-slate-400"
+            className="w-64 lg:w-72 pl-9 pr-12 py-2 bg-white text-xs text-slate-800 rounded-lg border border-slate-200 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-900/20 focus:border-slate-900 transition-all placeholder:text-slate-400"
           />
           <kbd className="absolute right-2 px-1.5 py-0.5 text-[10px] font-medium text-slate-400 bg-slate-50 border border-slate-200 rounded shadow-2xs pointer-events-none font-sans">
             ⌘ K
@@ -123,7 +123,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onToggleSidebar }) => {
         <div className="relative">
           <button
             onClick={() => setProfileOpen((prev) => !prev)}
-            className="w-8 h-8 rounded-full bg-[#E0E7FF] text-[#3730A3] font-bold text-xs flex items-center justify-center transition-all hover:ring-2 hover:ring-blue-500/30 focus:outline-none"
+            className="w-8 h-8 rounded-full bg-[#0F172A] text-white font-bold text-xs flex items-center justify-center transition-all hover:ring-2 hover:ring-slate-900/20 focus:outline-none"
             title={user?.full_name || 'Alex Carter'}
           >
             {userInitials}
@@ -144,7 +144,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onToggleSidebar }) => {
                   <p className="text-[11px] text-slate-500 font-mono mt-0.5">
                     {user?.email || 'alex.carter@sentra.gov.in'}
                   </p>
-                  <span className="inline-block mt-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-medium text-[10px]">
+                  <span className="inline-block mt-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-800 font-medium text-[10px]">
                     {user?.roles?.[0]?.name || 'Operations Analyst'}
                   </span>
                 </div>

@@ -71,7 +71,7 @@ export const LiveMapPage: React.FC = () => {
                 className={clsx(
                   'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all',
                   viewMode === 'INDIA'
-                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    ? 'bg-[#0F172A] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 )}
               >
@@ -92,7 +92,7 @@ export const LiveMapPage: React.FC = () => {
                 className={clsx(
                   'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all',
                   viewMode === 'REGION'
-                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    ? 'bg-[#0F172A] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 )}
               >
