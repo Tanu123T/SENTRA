@@ -89,7 +89,14 @@ export const ResourceInventoryPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="LOGISTICS & FLEET ASSETS"
         title="Resource & Fleet Inventory"
+        subtitle="Real-time availability, readiness status, and geo-allocation for emergency relief fleets and NDRF battalions."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+            NDRF / SDRF FLEET
+          </span>
+        }
       />
 
       {/* Filter Row */}

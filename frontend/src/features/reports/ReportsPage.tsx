@@ -26,7 +26,14 @@ export const ReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="EXECUTIVE INTELLIGENCE"
         title="Operational Reports"
+        subtitle="Automated post-disaster damage assessments, situational briefings, and audit-ready NDMA reports."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#0F172A] text-[11px] font-bold border border-slate-200">
+            NDMA AUDIT ARCHIVE
+          </span>
+        }
         actions={
           <div className="flex items-center gap-2">
             <div className="w-48">

@@ -56,7 +56,14 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="PUBLIC HEALTH & CLINICAL SURGE"
         title="Health Surge Estimator"
+        subtitle="Dynamic casualty projection, triage load balancing, and trauma ICU bed surge estimation across healthcare networks."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 text-[11px] font-bold border border-rose-200">
+            ICU / TRIAGE
+          </span>
+        }
       />
 
       {/* Interactive Estimator Canvas */}

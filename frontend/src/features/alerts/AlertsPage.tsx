@@ -75,7 +75,14 @@ export const AlertsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="EARLY WARNING DISSEMINATION"
         title="Emergency Alerts"
+        subtitle="Authoritative multi-channel CAP alerts, evacuation advisories, and cell-broadcast sirens across high-risk sectors."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold border border-amber-200">
+            CAP v1.2
+          </span>
+        }
         actions={
           <Button
             variant="primary"

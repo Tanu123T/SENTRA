@@ -122,7 +122,14 @@ export const OptimizationStudioPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="OPERATIONAL LOGISTICS"
         title="Resource Allocation Solver"
+        subtitle="Mixed-integer linear programming (MILP) solver for rapid evacuation routing and resource dispatch."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[11px] font-bold border border-purple-200">
+            MILP OPTIMIZER
+          </span>
+        }
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

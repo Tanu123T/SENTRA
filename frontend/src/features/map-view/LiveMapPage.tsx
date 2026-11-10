@@ -61,7 +61,14 @@ export const LiveMapPage: React.FC = () => {
   return (
     <div className="space-y-4">
       <PageHeader
+        eyebrow="GEOSPATIAL SITUATIONAL AWARENESS"
         title="Geospatial Command Center"
+        subtitle="Interactive unified multi-layer GIS vector canvas with real-time district telemetry overlays and vulnerability envelopes."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+            GIS VECTOR ENGINE
+          </span>
+        }
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-2xs">

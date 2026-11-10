@@ -148,15 +148,32 @@ export const CommandDashboardPage: React.FC = () => {
   return (
     <div className="p-6 sm:p-8 space-y-6 max-w-[1600px] mx-auto select-none font-sans antialiased">
       {/* ── Top Header Section ────────────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight leading-tight">
-            Operational Overview
-          </h1>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-slate-200/80">
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+              NATIONAL INCIDENT COMMAND SYSTEM
+            </span>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              LIVE SURVEILLANCE
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-[-0.03em] leading-tight">
+              Operational Overview
+            </h1>
+            <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#0F172A] text-[11px] font-bold border border-slate-200">
+              NDMA HQ
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed max-w-3xl">
+            Real-time multi-hazard telemetry, physics-informed AI early warning, and resource dispatch across all 732 districts.
+          </p>
         </div>
 
         {/* Right actions: • Updated just now + Generate Report Split Button */}
-        <div className="flex items-center gap-4 self-start md:self-auto">
+        <div className="flex items-center gap-4 self-start md:self-end">
           <div className="flex items-center gap-1.5 text-xs text-slate-500 font-normal">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>Updated just now</span>

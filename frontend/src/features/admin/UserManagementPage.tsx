@@ -73,7 +73,14 @@ export const UserManagementPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        eyebrow="SECURITY & ACCESS CONTROL"
         title="User Governance"
+        subtitle="Role-based access management, command authorization, and audit logs for incident operators."
+        badge={
+          <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#0F172A] text-[11px] font-bold border border-slate-200">
+            RBAC / OIDC
+          </span>
+        }
         actions={
           <div className="flex items-center gap-2">
             <Button
