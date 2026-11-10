@@ -10,6 +10,7 @@ from app.core.permissions import Permission, RoleName, enforce_geographic_scope,
 from app.core.security import decode_access_token
 from app.db.session import get_db
 from app.models.user import User
+from app.models.role import Role
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/auth/token",
@@ -36,8 +37,8 @@ def get_current_user(
             state_id="st-od",
             district_id="dist-od-pu",
         )
-        mock_role_admin = type("Role", (), {"id": "role-admin", "name": "ADMINISTRATOR", "description": "Admin"})()
-        mock_role_ops = type("Role", (), {"id": "role-ops", "name": "OPERATOR", "description": "Operations"})()
+        mock_role_admin = Role(id="role-admin", name="ADMINISTRATOR", description="Admin")
+        mock_role_ops = Role(id="role-ops", name="OPERATOR", description="Operations")
         mock_user.roles = [mock_role_admin, mock_role_ops]
         request.state.current_user = mock_user
         return mock_user
