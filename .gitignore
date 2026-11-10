@@ -64,3 +64,8 @@ sentra_data_pack/
 # Application logs
 *.log
 
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+

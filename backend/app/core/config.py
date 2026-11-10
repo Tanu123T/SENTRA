@@ -87,7 +87,7 @@ class Settings(BaseSettings):
 
     # Initial Bootstrap Superuser
     FIRST_SUPERUSER_EMAIL: str = "admin@sentra.gov.in"
-    FIRST_SUPERUSER_PASSWORD: str = "ChangeMeAdmin@2026!"
+    FIRST_SUPERUSER_PASSWORD: str = "AdminSecurePassword123!"
     FIRST_SUPERUSER_NAME: str = "National Disaster Administrator"
 
 

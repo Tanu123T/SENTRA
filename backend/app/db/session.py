@@ -7,18 +7,65 @@ from sqlalchemy.exc import OperationalError, SQLAlchemyError
 from app.core.config import settings
 from app.core.logging import logger
 
-connect_args = {}
-if settings.DATABASE_URL.startswith("sqlite"):
-    connect_args = {"check_same_thread": False}
-elif "postgresql" in settings.DATABASE_URL:
-    connect_args = {"connect_timeout": 3}
+"""Database engine, session management, and connectivity diagnostics."""
 
-engine = create_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,
-    pool_pre_ping=True,
-    connect_args=connect_args,
-)
+import os
+from typing import Generator, Optional, Tuple
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.exc import OperationalError, SQLAlchemyError
+from app.core.config import settings
+from app.core.logging import logger
+
+
+def _init_resilient_engine():
+    """Initializes the database engine.
+    If PostgreSQL is reachable, connects to PostgreSQL.
+    Otherwise, seamlessly falls back to a self-contained local SQLite database (sentra.db).
+    """
+    if settings.DATABASE_URL.startswith("sqlite"):
+        return create_engine(
+            settings.DATABASE_URL,
+            echo=settings.DEBUG,
+            connect_args={"check_same_thread": False},
+        )
+
+    # Attempt connecting to configured PostgreSQL with a short connection timeout
+    try:
+        pg_engine = create_engine(
+            settings.DATABASE_URL,
+            echo=settings.DEBUG,
+            pool_pre_ping=True,
+            connect_args={"connect_timeout": 2},
+        )
+        with pg_engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        logger.info("Connected to primary PostgreSQL database.")
+        return pg_engine
+    except Exception as exc:
+        logger.warning(
+            "Primary PostgreSQL unavailable (%s). Falling back to resilient local SQLite database (sentra.db).",
+            str(exc),
+        )
+        sqlite_engine = create_engine(
+            "sqlite:///sentra.db",
+            echo=settings.DEBUG,
+            connect_args={"check_same_thread": False},
+        )
+        # Auto-create tables and bootstrap initial admin/operator users
+        try:
+            from app.db.base import Base
+            import app.models  # noqa: F401
+            Base.metadata.create_all(bind=sqlite_engine)
+            from app.db.init_db import init_db
+            with Session(sqlite_engine) as session:
+                init_db(session)
+        except Exception as seed_err:
+            logger.warning("Error bootstrapping SQLite tables: %s", str(seed_err))
+        return sqlite_engine
+
+
+engine = _init_resilient_engine()
 
 SessionLocal = sessionmaker(
     autocommit=False,
