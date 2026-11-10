@@ -65,15 +65,15 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-screen w-full bg-[#F8FAFC] flex flex-col justify-center items-center p-6 relative overflow-hidden font-sans select-none antialiased">
       {/* Background Subtle Radial Grid Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:28px_28px] opacity-40 pointer-events-none" />
-      <div className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-[140px] pointer-events-none -top-32 -left-32" />
-      <div className="absolute w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-[140px] pointer-events-none -bottom-32 -right-32" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-slate-900/[0.03] blur-[140px] pointer-events-none -top-32 -left-32" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-slate-900/[0.03] blur-[140px] pointer-events-none -bottom-32 -right-32" />
 
       {/* Main Authentication Card */}
-      <div className="relative w-full max-w-[440px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/40 p-8 z-10">
+      <div className="relative w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 p-8 z-10">
         {/* Header Branding matching Figma design */}
-        <div className="flex flex-col items-center text-center mb-7">
-          <SentraLogo size="lg" className="mb-2" />
-          <p className="text-xs text-slate-500 max-w-xs font-normal">
+        <div className="flex flex-col items-center text-center mb-6">
+          <SentraLogo size="lg" className="mb-2.5" />
+          <p className="text-xs text-slate-500 font-medium">
             Unified Multi-Hazard Disaster Intelligence Platform
           </p>
         </div>
@@ -91,11 +91,11 @@ export const LoginPage: React.FC = () => {
           <button
             type="button"
             onClick={handleDirectAccess}
-            className="w-full py-2.5 px-4 bg-[#0F172A] hover:bg-slate-800 active:bg-black text-white font-semibold text-xs rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all border border-[#0F172A]"
+            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-900 font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-all border border-slate-200 shadow-2xs"
           >
-            <Compass className="w-4 h-4" />
+            <Compass className="w-4 h-4 text-slate-700" />
             <span>Direct Access: Open Command Workspace</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
           </button>
 
           <div className="relative flex py-4 items-center">
@@ -193,7 +193,7 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 px-4 bg-[#0F172A] hover:bg-[#1E293B] active:bg-black text-white font-semibold text-xs rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all mt-2 disabled:opacity-50"
+            className="w-full py-2.5 px-4 bg-[#0F172A] hover:bg-slate-800 active:bg-black text-white font-semibold text-xs rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all mt-2 disabled:opacity-50"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
@@ -208,17 +208,6 @@ export const LoginPage: React.FC = () => {
             )}
           </button>
         </form>
-
-        {/* Footer Security Badge */}
-        <div className="mt-7 pt-4 border-t border-slate-100 flex flex-col items-center gap-1.5 text-center">
-          <div className="flex items-center gap-2 text-[10px] font-medium text-slate-500">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>All systems operational &bull; 12 Data Sources Connected</span>
-          </div>
-          <p className="text-[9px] text-slate-400 tracking-wider uppercase font-medium">
-            USGS &bull; NOAA &bull; CWC &bull; IMD &bull; Sentinel &bull; Disaster Twin v2.4
-          </p>
-        </div>
       </div>
     </div>
   );
