@@ -40,6 +40,15 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     DEBUG: bool = False
 
+    @field_validator("DEBUG", mode="before")
+    @classmethod
+    def parse_debug_bool(cls, v: Any) -> bool:
+        if isinstance(v, bool):
+            return v
+        if isinstance(v, str):
+            return v.strip().lower() in ("true", "1", "yes", "debug", "dev", "development")
+        return bool(v)
+
     # Database
     DATABASE_URL: str = "postgresql+psycopg://sentra_user:sentra_password@localhost:5432/sentra_db"
 

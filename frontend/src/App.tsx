@@ -12,6 +12,7 @@ import { ResourceInventoryPage } from './features/resources/ResourceInventoryPag
 import { OptimizationStudioPage } from './features/optimization/OptimizationStudioPage';
 import { ScenarioSimulatorPage } from './features/simulations/ScenarioSimulatorPage';
 import { ReportsPage } from './features/reports/ReportsPage';
+import { LiveMapPage } from './features/map-view/LiveMapPage';
 import { UserManagementPage } from './features/admin/UserManagementPage';
 
 export const App: React.FC = () => {
@@ -21,14 +22,17 @@ export const App: React.FC = () => {
         {/* Public Login Route */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Authenticated Protected Shell */}
+        {/* Authenticated Workspace Shell */}
         <Route element={<ProtectedRoute />}>
-          {/* Main Google Stitch Digital Twin Command Platform */}
-          <Route path="/" element={<CommandDashboardPage />} />
-          <Route path="/map" element={<CommandDashboardPage />} />
-
-          {/* Detailed Management Views inside Layout */}
           <Route element={<AppLayout />}>
+            {/* Operational Overview (Figma Make Design) */}
+            <Route path="/" element={<CommandDashboardPage />} />
+            <Route path="/overview" element={<CommandDashboardPage />} />
+
+            {/* Geographic Explorer */}
+            <Route path="/map" element={<LiveMapPage />} />
+
+            {/* Core Modules */}
             <Route path="/hazards" element={<HazardsOverviewPage />} />
             <Route path="/alerts" element={<AlertsPage />} />
             <Route path="/observations" element={<SensorObservationsPage />} />

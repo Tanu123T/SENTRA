@@ -19,12 +19,12 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98]';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98]';
 
   const variants = {
-    primary: 'bg-sky-600 text-white font-semibold hover:bg-sky-500 shadow-sm shadow-sky-600/25 border border-sky-600',
+    primary: 'bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-sm shadow-blue-600/20 border border-blue-600',
     secondary: 'bg-slate-100 text-slate-800 hover:bg-slate-200/80 border border-slate-200 shadow-2xs',
-    danger: 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 shadow-2xs',
+    danger: 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 shadow-2xs',
     outline: 'border border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 shadow-2xs',
     ghost: 'text-slate-600 hover:text-slate-900 hover:bg-slate-100',
   };
