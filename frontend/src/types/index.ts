@@ -156,15 +156,17 @@ export interface HazardPredictionOutput {
   hazard_type: HazardType;
   risk_score: number;
   severity_level: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
-  confidence_score: number;
+  confidence_score?: number;
   primary_metric_name: string;
   primary_metric_value: number;
   primary_metric_unit: string;
-  secondary_metrics: Record<string, any>;
+  secondary_metrics?: Record<string, any>;
   summary: string;
   recommended_actions: string[];
-  assumptions_and_limitations: string[];
+  assumptions_and_limitations?: string[];
   calculated_at: string;
+  model_version?: string;
+  evaluated_at?: string;
 }
 
 export interface GeospatialImpactEnvelope {

@@ -29,7 +29,7 @@ class HazardRegistry:
         self._modules[HazardType.EARTHQUAKE] = EarthquakeHazardModule()
         # 3. Drought (Operational Validated)
         self._modules[HazardType.DROUGHT] = DroughtHazardModule()
-        # 4. Tsunami (Preserved MODEL_TRAINING_BLOCKED)
+        # 4. Tsunami (Operational Validated - NOAA Calibrated)
         self._modules[HazardType.TSUNAMI] = TsunamiHazardModule()
         # 5. Cyclone (Planned)
         self._modules[HazardType.CYCLONE] = CyclonePlannedHazardModule()
