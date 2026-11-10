@@ -11,24 +11,15 @@ import { HAZARD_CONFIG, SEED_DISTRICTS } from '../../utils/constants';
 import { HazardType, HazardPredictionOutput } from '../../types';
 import {
   Play,
-  Info,
   ArrowUpRight,
   AlertCircle,
   CheckCircle2,
   Lock,
-  Layers,
   History,
   Activity,
   Calculator,
   ShieldCheck,
-  Database,
-  Calendar,
-  Waves,
   Zap,
-  TrendingUp,
-  Clock,
-  Gauge,
-  Sliders,
   Sparkles,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -105,7 +96,7 @@ export const HazardsOverviewPage: React.FC = () => {
         setModalFeedback({
           type: 'info',
           message:
-            'Trained ML model weights for this hazard are currently blocked or uncalibrated. A traceable audit entry was logged. For deterministic projections, use the Health Impact Estimator.',
+            'Trained ML model weights for this hazard are currently blocked or uncalibrated. A traceable audit entry was logged.',
         });
       } else {
         setModalFeedback({
@@ -165,8 +156,8 @@ export const HazardsOverviewPage: React.FC = () => {
     <div className="space-y-6 max-w-[1600px] mx-auto pb-12 font-sans">
       {/* Page Header */}
       <PageHeader
-        title="Hazard Intelligence & Predictive Modeling"
-        subtitle="Independent scientific hazard categories, empirical calibration benchmarks, and verified inference pipelines"
+        title="Hazard Intelligence"
+        subtitle="Empirical disaster physics models, calibration benchmarks, and real-time inference"
         actions={
           <Button
             variant="primary"
@@ -181,22 +172,12 @@ export const HazardsOverviewPage: React.FC = () => {
         }
       />
 
-      {/* Seven Hazard Categories Ribbon */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+      {/* Clean Seven Hazard Categories Ribbon */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
         {(Object.keys(HAZARD_CONFIG) as HazardType[]).map((type) => {
           const readiness = readinessList?.find((r) => r.hazard_type === type);
           const isSelected = activeTab === type;
           const isAvailable = readiness?.is_available ?? ['FLOOD', 'EARTHQUAKE', 'DROUGHT', 'TSUNAMI'].includes(type);
-
-          const categorySubtitles: Record<HazardType, string> = {
-            FLOOD: 'Hydrological',
-            EARTHQUAKE: 'Seismic',
-            DROUGHT: 'Meteorological',
-            TSUNAMI: 'Coastal',
-            CYCLONE: 'Tropical',
-            LANDSLIDE: 'Slope',
-            HEATWAVE: 'Extreme',
-          };
 
           return (
             <button
@@ -206,29 +187,24 @@ export const HazardsOverviewPage: React.FC = () => {
                 setSimResult(null);
                 setSimError(null);
               }}
-              className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between min-h-[96px] ${
+              className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between min-h-[72px] ${
                 isSelected
                   ? 'bg-white border-[#2563EB] shadow-sm ring-2 ring-[#2563EB]/15'
                   : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
               }`}
             >
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                    {categorySubtitles[type]}
-                  </span>
-                  {isAvailable ? (
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-100" />
-                  ) : (
-                    <Lock className="w-3 h-3 text-slate-300" />
-                  )}
-                </div>
-                <div className="text-xs font-semibold text-slate-900 tracking-tight">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-900 tracking-tight">
                   {HAZARD_CONFIG[type].name.split(' ')[0]}
-                </div>
+                </span>
+                {isAvailable ? (
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-100" />
+                ) : (
+                  <Lock className="w-3 h-3 text-slate-300" />
+                )}
               </div>
 
-              <div className="mt-2.5 flex items-center justify-between">
+              <div className="mt-2">
                 <span
                   className={`text-[9px] font-mono font-medium px-2 py-0.5 rounded-full border uppercase tracking-wider ${
                     isAvailable
@@ -236,10 +212,7 @@ export const HazardsOverviewPage: React.FC = () => {
                       : 'bg-slate-50 text-slate-500 border-slate-200/80'
                   }`}
                 >
-                  {isAvailable ? 'VALIDATED' : 'PLANNED'}
-                </span>
-                <span className="text-[10px] font-mono text-slate-400">
-                  {type.slice(0, 3)}
+                  {isAvailable ? 'Operational' : 'Planned'}
                 </span>
               </div>
             </button>
@@ -247,10 +220,10 @@ export const HazardsOverviewPage: React.FC = () => {
         })}
       </div>
 
-      {/* Active Hazard Deep-Dive Grid */}
+      {/* Active Hazard Main Content */}
       {activeReadiness && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          {/* Left Column: Scientific Specification, Calibration, & Historical Events */}
+          {/* Left Column: Key Model Intelligence & Historical Benchmarks */}
           <div className="lg:col-span-2 space-y-6">
             <Card className="border-slate-200/80 shadow-xs">
               <CardHeader className="pb-4 border-b border-slate-100/90 flex flex-row items-center justify-between">
@@ -261,161 +234,81 @@ export const HazardsOverviewPage: React.FC = () => {
                       {activeReadiness.model_name}
                     </h2>
                     <p className="text-[11px] text-slate-500 font-mono mt-0.5">
-                      Release {activeReadiness.model_version} • Provenance: {activeReadiness.provenance_reference || 'SENTRA Operational Engine'}
+                      Release {activeReadiness.model_version}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`text-[11px] font-mono font-medium px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5 ${
-                      activeReadiness.is_available
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
-                        : 'bg-slate-50 text-slate-600 border-slate-200'
-                    }`}
-                  >
-                    {activeReadiness.is_available ? (
-                      <>
-                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>OPERATIONAL_VALIDATED</span>
-                      </>
-                    ) : (
-                      <>
-                        <Lock className="w-3.5 h-3.5 text-slate-400" />
-                        <span>PLANNED_RESEARCH</span>
-                      </>
-                    )}
-                  </span>
-                </div>
+                <span
+                  className={`text-[11px] font-mono font-medium px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5 ${
+                    activeReadiness.is_available
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
+                      : 'bg-slate-50 text-slate-600 border-slate-200'
+                  }`}
+                >
+                  {activeReadiness.is_available ? (
+                    <>
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Validated</span>
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Planned Research</span>
+                    </>
+                  )}
+                </span>
               </CardHeader>
 
-              <CardContent className="space-y-5 pt-5">
-                {/* Operational Calibration Banner */}
-                {activeReadiness.is_available ? (
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/70 via-slate-50/60 to-emerald-50/40 border border-blue-100 text-xs text-slate-800 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 font-semibold text-blue-900">
-                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                        <span>Operational Model Calibration: Verified & Ground-Truth Calibrated</span>
-                      </div>
-                      <span className="text-[10px] font-mono font-medium text-blue-600 bg-blue-100/60 px-2 py-0.5 rounded">
-                        Active In Core Runtime
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
-                      <div className="bg-white/90 p-2.5 rounded-lg border border-slate-200/80 flex items-center justify-between">
-                        <span className="text-slate-500">Propagation Solver:</span>
-                        <span className="text-emerald-700 font-bold">
-                          {activeReadiness.wave_propagation || 'CALIBRATED'}
-                        </span>
-                      </div>
-                      <div className="bg-white/90 p-2.5 rounded-lg border border-slate-200/80 flex items-center justify-between">
-                        <span className="text-slate-500">Inundation Classification:</span>
-                        <span className="text-emerald-700 font-bold">
-                          {activeReadiness.coastal_inundation || 'CALIBRATED'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="text-[11px] text-slate-600 leading-relaxed pt-0.5">
+              <CardContent className="space-y-4 pt-4">
+                {/* Clean, Non-Redundant Operational Summary */}
+                <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/70 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 text-slate-700 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>
                       {activeTab === 'TSUNAMI'
-                        ? "Coupled Nonlinear Shallow-Water wave propagation c = √(g·H) with 1,012-event NOAA/NCEI Gradient-Boosted runup regression and Green's law shoaling amplification."
+                        ? 'Coupled Shallow-Water wave propagation with 1,012-event NOAA ML runup regression.'
                         : activeReadiness.scientific_methodology}
-                    </p>
+                    </span>
                   </div>
-                ) : (
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1.5">
-                    <div className="flex items-center gap-2 font-semibold text-slate-800">
-                      <Info className="w-4 h-4 text-slate-500" />
-                      <span>Planned Research Module</span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 leading-relaxed">
-                      {activeReadiness.blocker_reason || 'Scientific telemetry data integration and calibration scheduled for future development phases.'}
-                    </p>
-                  </div>
-                )}
-
-                {/* Benchmark Evaluation Metrics */}
-                {activeReadiness.evaluation_metrics && activeReadiness.evaluation_metrics.length > 0 && (
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                        <Layers className="w-3.5 h-3.5 text-blue-600" />
-                        Empirical Benchmark Calibration Metrics
-                      </h3>
-                      <span className="text-[10px] font-mono text-slate-400">
-                        Calibrated {activeReadiness.last_calibrated_at ? new Date(activeReadiness.last_calibrated_at).toLocaleDateString() : 'Active'}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {activeReadiness.evaluation_metrics.map((m) => (
-                        <div
-                          key={m.metric_name}
-                          className="p-3.5 rounded-xl bg-slate-50/70 border border-slate-200/70 hover:border-slate-300 transition-colors"
-                        >
-                          <div className="flex items-baseline justify-between mb-1.5">
-                            <span className="text-xs font-medium text-slate-700">{m.metric_name}</span>
-                            <span className="text-base font-semibold font-mono text-slate-900">
-                              {m.value} <span className="text-xs text-slate-500 font-normal">{m.unit || ''}</span>
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-slate-500 leading-snug">{m.description}</p>
-                          <div className="mt-2 text-[10px] text-slate-400 font-mono flex items-center gap-1">
-                            <span className="text-slate-300">Dataset:</span> {m.benchmark_dataset}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Scientific Methodology */}
-                <div>
-                  <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Activity className="w-3.5 h-3.5 text-blue-600" />
-                    Scientific Methodology & Physics Formulation
-                  </h3>
-                  <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/70 font-sans">
-                    {activeReadiness.scientific_methodology}
-                  </div>
+                  <span className="text-[10px] font-mono font-semibold text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded shrink-0 ml-3">
+                    Active
+                  </span>
                 </div>
 
-                {/* Input Feature Schema & Units */}
-                <div>
-                  <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Database className="w-3.5 h-3.5 text-blue-600" />
-                    Input Feature Schema & Physical Dimensions
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {activeReadiness.expected_inputs.map((feature) => (
+                {/* Important Benchmark Metrics Only */}
+                {activeReadiness.evaluation_metrics && activeReadiness.evaluation_metrics.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    {activeReadiness.evaluation_metrics.map((m) => (
                       <div
-                        key={feature}
-                        className="p-2.5 rounded-lg bg-white border border-slate-200/80 flex items-center justify-between"
+                        key={m.metric_name}
+                        className="p-3 rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 transition-colors"
                       >
-                        <span className="font-mono text-slate-700 text-[11px] truncate mr-2">{feature}</span>
-                        <span className="text-[10px] text-slate-500 font-mono font-medium bg-slate-100 px-1.5 py-0.5 rounded shrink-0">
-                          {activeReadiness.input_units[feature] || 'metric'}
-                        </span>
+                        <div className="flex items-baseline justify-between mb-1">
+                          <span className="text-xs font-medium text-slate-700">{m.metric_name}</span>
+                          <span className="text-base font-semibold font-mono text-slate-900">
+                            {m.value} <span className="text-xs text-slate-500 font-normal">{m.unit || ''}</span>
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-500 leading-snug">{m.description}</p>
                       </div>
                     ))}
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
 
-            {/* Historical Ground-Truth Events Table */}
+            {/* Historical Ground-Truth Records Table */}
             <Card className="border-slate-200/80 shadow-xs">
               <CardHeader className="pb-3 border-b border-slate-100/90 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <History className="w-4 h-4 text-blue-600" />
                   <h2 className="text-sm font-semibold text-slate-900 tracking-tight">
-                    Verified Historical Ground-Truth Records
+                    Verified Historical Records
                   </h2>
                 </div>
                 <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                  {historicalEvents?.length || 0} Benchmarks Recorded
+                  {historicalEvents?.length || 0} Events
                 </span>
               </CardHeader>
 
@@ -424,35 +317,34 @@ export const HazardsOverviewPage: React.FC = () => {
                   <table className="w-full text-xs text-left">
                     <thead className="bg-slate-50/90 border-b border-slate-100 text-slate-400 text-[10px] font-semibold uppercase tracking-wider">
                       <tr>
-                        <th className="py-2.5 px-4">Event Identity</th>
-                        <th className="py-2.5 px-4">Geographic Locus</th>
+                        <th className="py-2.5 px-4">Event</th>
+                        <th className="py-2.5 px-4">Location</th>
                         <th className="py-2.5 px-4">Year</th>
-                        <th className="py-2.5 px-4">Peak Observed Metric</th>
-                        <th className="py-2.5 px-4">Economic Loss</th>
-                        <th className="py-2.5 px-4">Source Authority</th>
+                        <th className="py-2.5 px-4">Peak Metric</th>
+                        <th className="py-2.5 px-4">Loss</th>
+                        <th className="py-2.5 px-4">Source</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-sans">
                       {historicalEvents && historicalEvents.length > 0 ? (
-                        historicalEvents.slice(0, 10).map((event) => (
+                        historicalEvents.slice(0, 8).map((event) => (
                           <tr key={event.event_id} className="hover:bg-slate-50/60 transition-colors">
-                            <td className="py-3 px-4 font-medium text-slate-900">
-                              <div>{event.event_name}</div>
-                              <div className="text-[10px] text-slate-400 font-mono mt-0.5">{event.event_id}</div>
+                            <td className="py-2.5 px-4 font-medium text-slate-900">
+                              {event.event_name}
                             </td>
-                            <td className="py-3 px-4 text-slate-600">
+                            <td className="py-2.5 px-4 text-slate-600">
                               {event.district_name}, {event.state_name}
                             </td>
-                            <td className="py-3 px-4 font-mono font-medium text-slate-800">
+                            <td className="py-2.5 px-4 font-mono font-medium text-slate-800">
                               {event.event_year}
                             </td>
-                            <td className="py-3 px-4 text-blue-600 font-mono font-medium">
+                            <td className="py-2.5 px-4 text-blue-600 font-mono font-medium">
                               {event.peak_metric_value} {event.peak_metric_unit}
                             </td>
-                            <td className="py-3 px-4 font-mono text-slate-700">
+                            <td className="py-2.5 px-4 font-mono text-slate-700">
                               ₹{event.economic_loss_inr_cr.toLocaleString()} Cr
                             </td>
-                            <td className="py-3 px-4 text-[11px] text-slate-500 max-w-xs truncate" title={event.data_source}>
+                            <td className="py-2.5 px-4 text-[11px] text-slate-500 max-w-xs truncate" title={event.data_source}>
                               {event.data_source}
                             </td>
                           </tr>
@@ -478,11 +370,11 @@ export const HazardsOverviewPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <Calculator className="w-4 h-4 text-blue-600" />
                   <h2 className="text-sm font-semibold text-slate-900 tracking-tight">
-                    Interactive Model Simulator
+                    Model Simulator
                   </h2>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-0.5">
-                  Execute physics & ML inference parameters across verified hazard pipelines.
+                  Simulate scenario parameters on the active model.
                 </p>
               </CardHeader>
 
@@ -596,17 +488,10 @@ export const HazardsOverviewPage: React.FC = () => {
                           onChange={(e) => setSimInputs({ ...simInputs, fault_mechanism: e.target.value })}
                           className="w-full text-xs px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 font-mono bg-white"
                         >
-                          <option value="THRUST">THRUST (Subduction Zone - Max Displacement)</option>
+                          <option value="THRUST">THRUST (Subduction Zone)</option>
                           <option value="NORMAL">NORMAL (Extensional Fault)</option>
-                          <option value="STRIKE_SLIP">STRIKE_SLIP (Lateral Shear - Low Surge)</option>
+                          <option value="STRIKE_SLIP">STRIKE_SLIP (Lateral Shear)</option>
                         </select>
-                      </div>
-
-                      <div className="p-3 bg-emerald-50/80 border border-emerald-200/80 rounded-xl text-[11px] text-emerald-800 flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>
-                          Operational solver active: wave speed c = √(g·H), Green's law shoaling, and NOAA ML runup prediction.
-                        </span>
                       </div>
                     </>
                   )}
@@ -770,9 +655,9 @@ export const HazardsOverviewPage: React.FC = () => {
 
                   {['CYCLONE', 'LANDSLIDE', 'HEATWAVE'].includes(activeTab) && (
                     <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 space-y-1">
-                      <div className="font-semibold text-slate-800">Module Under Planned Research</div>
+                      <div className="font-semibold text-slate-800">Planned Research Module</div>
                       <p className="text-[11px] text-slate-500">
-                        Calibrated empirical weights are scheduled for future radar and geotechnical sensor feeds.
+                        Scheduled for future radar and telemetry feeds.
                       </p>
                     </div>
                   )}
@@ -795,7 +680,7 @@ export const HazardsOverviewPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] uppercase font-mono text-blue-400 font-semibold tracking-wider flex items-center gap-1.5">
                         <Sparkles className="w-3 h-3" />
-                        Inference Result • {simResult.model_version || 'v1.0.0-validated'}
+                        Inference Result
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider ${
@@ -812,13 +697,13 @@ export const HazardsOverviewPage: React.FC = () => {
 
                     <div className="flex items-baseline justify-between border-b border-slate-800/80 pb-3">
                       <div>
-                        <span className="text-[11px] text-slate-400 block">Synthesized Risk Index</span>
+                        <span className="text-[11px] text-slate-400 block">Risk Score</span>
                         <span className="text-2xl font-bold font-mono text-white tracking-tight">
                           {simResult.risk_score} <span className="text-xs text-slate-400 font-normal">/ 100</span>
                         </span>
                       </div>
                       <div className="text-right">
-                        <span className="text-[10px] text-slate-400 uppercase font-mono block">Evaluated At</span>
+                        <span className="text-[10px] text-slate-400 uppercase font-mono block">Evaluated</span>
                         <span className="text-[11px] font-mono text-slate-300">
                           {new Date(simResult.calculated_at || simResult.evaluated_at || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
@@ -839,7 +724,7 @@ export const HazardsOverviewPage: React.FC = () => {
                     {simResult.recommended_actions.length > 0 && (
                       <div className="pt-1">
                         <div className="text-[10px] uppercase font-mono font-semibold text-slate-400 mb-2">
-                          Operational Response Protocols:
+                          Operational Actions:
                         </div>
                         <ul className="space-y-1.5 text-[11px] text-slate-300 pl-1">
                           {simResult.recommended_actions.map((act, i) => (
@@ -859,7 +744,7 @@ export const HazardsOverviewPage: React.FC = () => {
                   <div className="mt-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-start gap-2">
                     <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold">Model Unavailable (HTTP 503)</div>
+                      <div className="font-semibold">Model Unavailable</div>
                       <div className="text-[11px] mt-0.5 leading-relaxed">{simError}</div>
                     </div>
                   </div>
@@ -867,12 +752,12 @@ export const HazardsOverviewPage: React.FC = () => {
               </CardContent>
             </Card>
 
-            {/* Deterministic Health Estimator Link */}
+            {/* Health Surge Estimator Link */}
             <Card className="bg-slate-50/70 border-slate-200/80 shadow-xs">
               <CardContent className="p-4 space-y-2.5">
                 <div className="flex items-center gap-2 text-slate-900 font-semibold text-xs">
                   <Activity className="w-4 h-4 text-blue-600" />
-                  <span>Deterministic Health Surge Projection</span>
+                  <span>Health Surge Projection</span>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed">
                   Calculate required hospital ICU beds, ambulances, and triage logistics based on calibrated casualty rates.

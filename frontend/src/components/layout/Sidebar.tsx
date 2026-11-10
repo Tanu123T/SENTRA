@@ -201,33 +201,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Bottom Area: Operational Status Card + Settings + Profile + Platform Tag */}
+        {/* Bottom Area: Settings + Profile */}
         <div className="p-5 border-t border-slate-100 space-y-4 shrink-0">
-          {/* Operational Status Card with Exact Mint Histogram */}
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1.5">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-              <span className="text-xs font-bold text-slate-900">
-                All systems operational
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500 font-normal">
-              12 data sources connected
-            </p>
-            {/* Exactly 20-bar mint green histogram sparkline from Figma design */}
-            <div className="flex items-end gap-1 h-5 pt-1.5">
-              {[8, 12, 16, 9, 14, 11, 15, 18, 12, 10, 16, 13, 15, 11, 14, 17, 12, 15, 18, 13].map(
-                (h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-[1px] bg-[#86EFAC] transition-all"
-                    style={{ height: `${h * 1.1}px` }}
-                  />
-                )
-              )}
-            </div>
-          </div>
-
           {/* Settings & Help Links */}
           <div className="space-y-0.5">
             <button
@@ -298,12 +273,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 </div>
               </>
             )}
-          </div>
-
-          {/* SENTRA Intelligence Platform v2.4 Footer */}
-          <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400 pt-1 px-1">
-            <span>Sentra Intelligence Platform</span>
-            <span>v2.4</span>
           </div>
         </div>
       </aside>
