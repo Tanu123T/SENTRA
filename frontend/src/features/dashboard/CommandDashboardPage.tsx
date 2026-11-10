@@ -466,214 +466,156 @@ export const CommandDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* ── AI Disaster Prediction & Early Warning Section ────────────────── */}
-      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* ── Predictive Disaster Intelligence Section ─────────────────────── */}
+      <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3.5">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#0F172A] text-white flex items-center justify-center shrink-0 shadow-2xs">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-[15px] font-bold text-[#0F172A]">
-                  AI Early Warning &amp; Predictive Disaster Intelligence
-                </h2>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold tracking-wide uppercase border border-slate-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Real-Time Inference
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Physics-informed machine learning projections, hydrological wave crest models, and seismic ground motion simulations
-              </p>
-            </div>
+            <h2 className="text-[14px] font-bold text-[#0F172A]">
+              Predictive disaster intelligence
+            </h2>
+            <span className="text-slate-300">|</span>
+            <span className="text-xs text-slate-500 font-normal">
+              6-hour physics-informed forecast horizon
+            </span>
           </div>
 
           <button
             onClick={() => navigate('/hazards')}
-            className="text-xs font-semibold text-slate-900 hover:text-slate-700 flex items-center gap-1 transition-colors self-start sm:self-auto shrink-0"
+            className="text-xs font-semibold text-slate-900 hover:text-slate-700 flex items-center gap-1 transition-colors"
           >
-            <span>Explore all predictive models</span>
+            <span>All predictive models</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* 3 AI Predictive Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-          {/* Card 1: Hydro-Flood Runoff ML */}
+        {/* 3 Minimal Hazard Intelligence Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          {/* Card 1: Hydro-Flood Runoff */}
           <div
             onClick={() => navigate('/hazards')}
-            className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between"
+            className="p-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer bg-white group flex flex-col justify-between space-y-3"
           >
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-blue-100/70 text-blue-700 flex items-center justify-center">
-                    <Droplets className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-                    Hydro-Flood Runoff ML
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-md bg-red-100 text-red-700 text-[10px] font-bold">
-                  Critical Crest
+            <div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Hydro-Flood Runoff
+                </span>
+                <span className="text-[11px] font-semibold text-rose-600">
+                  Peak in 3h 25m
                 </span>
               </div>
-
-              <div>
-                <h4 className="text-[13px] font-bold text-[#0F172A] group-hover:text-blue-900 transition-colors">
-                  Mahanadi River Basin Runoff Surge
-                </h4>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
-                  <MapPin className="w-3 h-3 text-slate-400" />
-                  <span>Cuttack &amp; Puri Corridor, Odisha</span>
-                </div>
-              </div>
-
-              {/* Prediction Metrics Grid */}
-              <div className="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-white border border-slate-200/80 text-xs">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Peak Wave Arrival</span>
-                  <span className="font-bold text-[#0F172A] text-xs">ETA 3h 25m</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Projected Level</span>
-                  <span className="font-bold text-red-600 text-xs">+2.8m above HFL</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Peak Discharge</span>
-                  <span className="font-semibold text-slate-700 text-[11px]">820,000 cusecs</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Inundation Envelope</span>
-                  <span className="font-semibold text-slate-700 text-[11px]">18.4 km² radius</span>
-                </div>
+              <h3 className="text-[13px] font-bold text-[#0F172A] mt-1.5 group-hover:text-slate-700 transition-colors">
+                Mahanadi Basin Flash Flood
+              </h3>
+              <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                <MapPin className="w-3 h-3 text-slate-400" />
+                <span>Cuttack &amp; Puri, Odisha</span>
               </div>
             </div>
 
-            <div className="pt-2.5 mt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px]">
-              <span className="text-slate-500 font-medium">NSE 0.84 • CWC Telemetry</span>
-              <span className="font-semibold text-slate-900 flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                View Simulation <ArrowRight className="w-3 h-3" />
-              </span>
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div>
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Projected Crest
+                </span>
+                <span className="font-bold text-[#0F172A] text-xs">
+                  +2.8m above HFL
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Peak Discharge
+                </span>
+                <span className="font-semibold text-slate-700 text-xs">
+                  820,000 cusecs
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Card 2: SLOSH Storm Surge AI */}
+          {/* Card 2: SLOSH Storm Surge */}
           <div
             onClick={() => navigate('/hazards')}
-            className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between"
+            className="p-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer bg-white group flex flex-col justify-between space-y-3"
           >
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-purple-100/70 text-purple-700 flex items-center justify-center">
-                    <Wind className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-                    SLOSH Cyclone Surge
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold">
-                  Squall Trajectory
+            <div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  SLOSH Storm Surge
+                </span>
+                <span className="text-[11px] font-semibold text-amber-700">
+                  Landfall in 5h 40m
                 </span>
               </div>
-
-              <div>
-                <h4 className="text-[13px] font-bold text-[#0F172A] group-hover:text-purple-900 transition-colors">
-                  Bay of Bengal Deep Depression Track
-                </h4>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
-                  <MapPin className="w-3 h-3 text-slate-400" />
-                  <span>Balasore Arc &amp; Digha Border, Odisha</span>
-                </div>
-              </div>
-
-              {/* Prediction Metrics Grid */}
-              <div className="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-white border border-slate-200/80 text-xs">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Landfall Window</span>
-                  <span className="font-bold text-[#0F172A] text-xs">ETA 5h 40m</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Max Doppler Gust</span>
-                  <span className="font-bold text-amber-700 text-xs">110 km/h squalls</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Central Pressure</span>
-                  <span className="font-semibold text-slate-700 text-[11px]">988 hPa</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Surge Amplitude</span>
-                  <span className="font-semibold text-slate-700 text-[11px]">3.4m wave runup</span>
-                </div>
+              <h3 className="text-[13px] font-bold text-[#0F172A] mt-1.5 group-hover:text-slate-700 transition-colors">
+                Bay of Bengal Deep Depression
+              </h3>
+              <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                <MapPin className="w-3 h-3 text-slate-400" />
+                <span>Balasore Arc, Odisha</span>
               </div>
             </div>
 
-            <div className="pt-2.5 mt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px]">
-              <span className="text-slate-500 font-medium">Coupled SLOSH • Paradip Radar</span>
-              <span className="font-semibold text-slate-900 flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                View Simulation <ArrowRight className="w-3 h-3" />
-              </span>
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div>
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Max Doppler Gust
+                </span>
+                <span className="font-bold text-[#0F172A] text-xs">
+                  110 km/h squalls
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Surge Runup
+                </span>
+                <span className="font-semibold text-slate-700 text-xs">
+                  3.4m wave
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Card 3: GMPE Ground Motion Attenuation */}
+          {/* Card 3: GMPE Ground Motion */}
           <div
             onClick={() => navigate('/hazards')}
-            className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between"
+            className="p-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all cursor-pointer bg-white group flex flex-col justify-between space-y-3"
           >
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-amber-100/70 text-amber-700 flex items-center justify-center">
-                    <Activity className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-                    GMPE Ground Motion ML
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-800 text-[10px] font-bold">
-                  Aftershock Zone
+            <div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  GMPE Ground Motion
+                </span>
+                <span className="text-[11px] font-semibold text-slate-700">
+                  Intensity VI (Strong)
                 </span>
               </div>
-
-              <div>
-                <h4 className="text-[13px] font-bold text-[#0F172A] group-hover:text-amber-900 transition-colors">
-                  Kachchh Fault Rupture Attenuation
-                </h4>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
-                  <MapPin className="w-3 h-3 text-slate-400" />
-                  <span>Bhuj, Anjar &amp; Gandhidham, Gujarat</span>
-                </div>
-              </div>
-
-              {/* Prediction Metrics Grid */}
-              <div className="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-white border border-slate-200/80 text-xs">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Peak Ground Accel</span>
-                  <span className="font-bold text-[#0F172A] text-xs">0.18g (PGA)</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Rupture Depth</span>
-                  <span className="font-bold text-slate-700 text-xs">16 km (Thrust)</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">ShakeMap Intensity</span>
-                  <span className="font-semibold text-amber-700 text-[11px]">VI (Strong)</span>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Attenuation Envelope</span>
-                  <span className="font-semibold text-slate-700 text-[11px]">42 km radius</span>
-                </div>
+              <h3 className="text-[13px] font-bold text-[#0F172A] mt-1.5 group-hover:text-slate-700 transition-colors">
+                Kachchh Fault Line Rupture
+              </h3>
+              <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                <MapPin className="w-3 h-3 text-slate-400" />
+                <span>Bhuj &amp; Gandhidham, Gujarat</span>
               </div>
             </div>
 
-            <div className="pt-2.5 mt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px]">
-              <span className="text-slate-500 font-medium">NextGen GMPE • NCS Array</span>
-              <span className="font-semibold text-slate-900 flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                View Simulation <ArrowRight className="w-3 h-3" />
-              </span>
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div>
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Peak Accel (PGA)
+                </span>
+                <span className="font-bold text-[#0F172A] text-xs">
+                  0.18g
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">
+                  Impact Radius
+                </span>
+                <span className="font-semibold text-slate-700 text-xs">
+                  42 km envelope
+                </span>
+              </div>
             </div>
           </div>
         </div>
