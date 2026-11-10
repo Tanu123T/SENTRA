@@ -45,7 +45,7 @@ export const SettingsPage: React.FC = () => {
   );
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-7xl mx-auto font-sans antialiased">
+    <div className="space-y-6 max-w-7xl font-sans antialiased">
       <PageHeader
         eyebrow="SYSTEM CONFIGURATION"
         title="Settings & Operator Preferences"

@@ -153,7 +153,7 @@ export const HazardsOverviewPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto pb-12 font-sans">
+    <div className="space-y-6 pb-12 font-sans">
       {/* Page Header */}
       <PageHeader
         eyebrow="MULTI-HAZARD INTELLIGENCE"

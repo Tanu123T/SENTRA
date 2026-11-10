@@ -146,7 +146,7 @@ export const CommandDashboardPage: React.FC = () => {
   });
 
   return (
-    <div className="p-6 sm:p-8 space-y-6 max-w-[1600px] mx-auto select-none font-sans antialiased">
+    <div className="space-y-6 select-none font-sans antialiased">
       {/* ── Top Header Section ────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-slate-200/80">
         <div className="space-y-1.5">
