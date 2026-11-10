@@ -8,7 +8,7 @@ import { Dialog } from '../../components/ui/Dialog';
 import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { SEED_DISTRICTS } from '../../utils/constants';
-import { formatDate } from '../../utils/formatters';
+import { formatDate, formatTimeAgo } from '../../utils/formatters';
 import { ObservationCreate, ObservationType } from '../../types';
 import { Radio, Plus, LineChart as ChartIcon, Gauge, MapPin } from 'lucide-react';
 import {
@@ -234,8 +234,16 @@ export const SensorObservationsPage: React.FC = () => {
                           {obs.quality_status}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-slate-400 font-mono">
-                        {formatDate(obs.timestamp)}
+                      <td className="py-3 px-4 font-mono">
+                        <div className="flex flex-col">
+                          <span className="text-slate-800 font-medium flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            {formatTimeAgo(obs.timestamp)}
+                          </span>
+                          <span className="text-[10px] text-slate-400">
+                            {formatDate(obs.timestamp)}
+                          </span>
+                        </div>
                       </td>
                     </tr>
                   );

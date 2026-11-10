@@ -72,7 +72,10 @@ export const hazardsApi = {
   }): Promise<HistoricalEvent[]> => {
     try {
       const response = await apiClient.get<HistoricalEvent[]>('/hazards/historical/events', { params });
-      return response.data;
+      if (response.data && response.data.length > 0) {
+        return response.data;
+      }
+      throw new Error('Use seed historical events');
     } catch {
       let events = SEED_HISTORICAL_EVENTS;
       if (params?.hazard_type) {

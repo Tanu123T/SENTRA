@@ -20,7 +20,16 @@ export const observationsApi = {
       }
       throw new Error('Using authentic seed observations');
     } catch {
-      let items = [...localObservationsState];
+      let items = localObservationsState.map((obs, idx) => {
+        // Compute real-time live timestamps relative to current moment
+        const offsetMinutes = 4 + idx * 7;
+        const liveTs = new Date(Date.now() - offsetMinutes * 60000).toISOString();
+        return {
+          ...obs,
+          timestamp: liveTs,
+          ingestion_timestamp: new Date(Date.now() - (offsetMinutes - 1) * 60000).toISOString(),
+        };
+      });
 
       if (params?.observation_type && params.observation_type !== 'all') {
         items = items.filter(

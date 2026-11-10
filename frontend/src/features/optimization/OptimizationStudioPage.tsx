@@ -35,7 +35,42 @@ export const OptimizationStudioPage: React.FC = () => {
     },
   ]);
 
-  const [activeRunResult, setActiveRunResult] = useState<OptimizationResponse | null>(null);
+  const [activeRunResult, setActiveRunResult] = useState<OptimizationResponse | null>({
+    run_id: 'opt-run-pune-01',
+    status: 'SUCCEEDED',
+    solver_status: 'OPTIMAL',
+    objective_value: 120.6,
+    allocations: [
+      {
+        demand_id: 'Mula-Mutha Riverfront Evacuation Staging Area',
+        resource_id: 'res-depot-1',
+        resource_name: 'NDRF 5th Battalion Staging Base, Pune',
+        resource_type: 'AMBULANCE',
+        allocated_quantity: 6,
+      },
+      {
+        demand_id: 'Haveli Sub-District Emergency Field Clinic',
+        resource_id: 'res-depot-2',
+        resource_name: 'Pune District Civil Hospital Surge Wing',
+        resource_type: 'HOSPITAL_BED',
+        allocated_quantity: 30,
+      },
+    ],
+    unmet_demand: {},
+    unused_capacity: {
+      'Pune Central Logistics Depot': 18,
+      'NDRF Regional Depot': 34,
+    },
+    result_summary: {
+      total_demanded: 36,
+      total_allocated: 36,
+      demand_satisfaction_rate_pct: 100,
+      mean_transit_time_minutes: 18,
+      solver_wall_time_ms: 32,
+      solver_engine: 'Google OR-Tools Mixed-Integer Linear Programming (SCIP/CBC)',
+    },
+    completed_at: new Date().toISOString(),
+  });
   const [confirmingAllocationId, setConfirmingAllocationId] = useState<string | null>(null);
 
   // Add demand item

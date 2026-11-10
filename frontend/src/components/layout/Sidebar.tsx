@@ -30,15 +30,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
 
-  const [selectedRegion, setSelectedRegion] = useState('Southeast Asia');
+  const [selectedRegion, setSelectedRegion] = useState('India National Command');
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const regionOptions = [
-    { name: 'Southeast Asia', code: 'SE-ASIA', count: 38 },
-    { name: 'India National Command', code: 'IND-HQ', count: 24 },
-    { name: 'Bay of Bengal Arc', code: 'BOB-COAST', count: 14 },
-    { name: 'Arabian Sea Basin', code: 'AS-BASIN', count: 8 },
+    { name: 'India National Command', code: 'IND-HQ', count: 38 },
+    { name: 'Eastern Command (Odisha, WB)', code: 'IND-EAST', count: 14 },
+    { name: 'Western Command (Maharashtra, Gujarat)', code: 'IND-WEST', count: 12 },
+    { name: 'Northeastern Command (Assam, Cachar)', code: 'IND-NE', count: 8 },
+    { name: 'Southern Coastal Command (Kerala, TN)', code: 'IND-SOUTH', count: 4 },
   ];
 
   // Exact 8 workspace navigation items from Figma Make design
