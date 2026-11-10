@@ -44,6 +44,8 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onToggleSidebar }) => {
         return 'Risk Simulator';
       case '/reports':
         return 'Reports';
+      case '/settings':
+        return 'Settings & Preferences';
       case '/admin':
         return 'User Management';
       default:

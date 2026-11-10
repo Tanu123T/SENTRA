@@ -14,6 +14,7 @@ import { ScenarioSimulatorPage } from './features/simulations/ScenarioSimulatorP
 import { ReportsPage } from './features/reports/ReportsPage';
 import { LiveMapPage } from './features/map-view/LiveMapPage';
 import { UserManagementPage } from './features/admin/UserManagementPage';
+import { SettingsPage } from './features/settings/SettingsPage';
 
 export const App: React.FC = () => {
   return (
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
             <Route path="/optimization" element={<OptimizationStudioPage />} />
             <Route path="/simulations" element={<ScenarioSimulatorPage />} />
             <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
 
             {/* Admin only route */}
             <Route element={<ProtectedRoute requiredRole="ADMINISTRATOR" />}>
