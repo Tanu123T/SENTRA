@@ -10,7 +10,7 @@ import { Select } from '../../components/ui/Select';
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { formatDate } from '../../utils/formatters';
 import { ObservationCreate, ObservationType } from '../../types';
-import { Radio, Plus, LineChart as ChartIcon, Gauge } from 'lucide-react';
+import { Radio, Plus, LineChart as ChartIcon, Gauge, MapPin } from 'lucide-react';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -215,7 +215,12 @@ export const SensorObservationsPage: React.FC = () => {
                         </span>{' '}
                         <span className="text-[11px] text-slate-500">{obs.unit}</span>
                       </td>
-                      <td className="py-3 px-4 text-slate-700">📍 {loc}</td>
+                      <td className="py-3 px-4 text-slate-700">
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{loc}</span>
+                        </span>
+                      </td>
                       <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
                         {obs.data_source}
                       </td>

@@ -10,7 +10,7 @@ import { Select } from '../../components/ui/Select';
 import { OperationalBadge } from '../../components/common/StatusBadge';
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { ResourceRead, OperationalStatusEnum, ResourceTypeEnum } from '../../types';
-import { Truck, Plus, Edit2, ShieldCheck, Activity } from 'lucide-react';
+import { Truck, Plus, Edit2, ShieldCheck, Activity, MapPin } from 'lucide-react';
 
 export const ResourceInventoryPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -131,7 +131,10 @@ export const ResourceInventoryPage: React.FC = () => {
                     <CardTitle className="text-sm font-semibold truncate max-w-[200px]">
                       {res.name}
                     </CardTitle>
-                    <p className="text-[11px] text-slate-500">📍 {loc}</p>
+                    <p className="text-[11px] text-slate-500 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-slate-400" />
+                      <span>{loc}</span>
+                    </p>
                   </div>
                   <OperationalBadge status={res.operational_status} />
                 </CardHeader>

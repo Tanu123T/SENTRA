@@ -9,7 +9,7 @@ import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { formatDate } from '../../utils/formatters';
 import { SEED_DISTRICTS } from '../../utils/constants';
-import { Users, Shield, Plus, Lock, History, AlertCircle } from 'lucide-react';
+import { Users, Shield, Plus, Lock, History, AlertCircle, MapPin } from 'lucide-react';
 
 export const UserManagementPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -165,7 +165,10 @@ export const UserManagementPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="py-3.5 px-4 font-medium text-slate-700">
-                          📍 {scopeLabel}
+                          <span className="inline-flex items-center gap-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                            <span>{scopeLabel}</span>
+                          </span>
                         </td>
                         <td className="py-3.5 px-4">
                           <span
@@ -291,7 +294,7 @@ export const UserManagementPage: React.FC = () => {
             value={newUser.district_id}
             onChange={(e) => setNewUser({ ...newUser, district_id: e.target.value })}
           >
-            <option value="">🌐 National Scope (Unconstrained)</option>
+            <option value="">National Scope (Unconstrained)</option>
             <optgroup label="Maharashtra">
               <option value="dist-mh-pu">Pune (District Sector)</option>
               <option value="dist-mh-mc">Mumbai City</option>

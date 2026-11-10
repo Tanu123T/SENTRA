@@ -8,7 +8,7 @@ import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { formatNumber, formatDate } from '../../utils/formatters';
-import { HeartPulse, Bed, Ambulance, Users, Home, Package, Calculator, CheckCircle2 } from 'lucide-react';
+import { HeartPulse, Bed, Ambulance, Users, Home, Package, Calculator, CheckCircle2, MapPin } from 'lucide-react';
 import { HealthImpactRead } from '../../types';
 
 export const HealthSurgeEstimatorPage: React.FC = () => {
@@ -294,7 +294,12 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
 
                   return (
                     <tr key={imp.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-4 font-semibold text-slate-900">📍 {loc}</td>
+                      <td className="py-3 px-4 font-semibold text-slate-900">
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{loc}</span>
+                        </span>
+                      </td>
                       <td className="py-3 px-4 text-slate-600">{formatNumber(imp.exposed_population)}</td>
                       <td className="py-3 px-4 font-bold text-amber-600">
                         {formatNumber(imp.estimated_affected)}

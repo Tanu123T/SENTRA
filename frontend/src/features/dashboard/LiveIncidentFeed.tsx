@@ -4,7 +4,7 @@ import { AlertRead } from '../../types';
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { formatTimeAgo } from '../../utils/formatters';
 import { SeverityBadge, HazardBadge } from '../../components/common/StatusBadge';
-import { AlertCircle, ChevronRight } from 'lucide-react';
+import { AlertCircle, ChevronRight, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface LiveIncidentFeedProps {
@@ -59,7 +59,10 @@ export const LiveIncidentFeed: React.FC<LiveIncidentFeedProps> = ({ alerts, isLo
                     {alert.description}
                   </p>
                   <div className="flex items-center gap-3 text-[10px] text-slate-400 font-mono pt-0.5">
-                    <span>📍 {locName}</span>
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-slate-400" />
+                      <span>{locName}</span>
+                    </span>
                     <span>•</span>
                     <span>{formatTimeAgo(alert.created_at)}</span>
                   </div>

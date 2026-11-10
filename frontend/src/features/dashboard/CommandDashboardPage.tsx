@@ -1,53 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { alertsApi } from '../../api/alerts.api';
-import { hazardsApi } from '../../api/hazards.api';
-import { reportsApi } from '../../api/reports.api';
 import { IndiaMap } from '../../components/map/IndiaMap';
-import { useMapStore } from '../../stores/mapStore';
 import {
   Radio,
   AlertTriangle,
   Users,
-  Compass,
-  ChevronDown,
-  Calendar,
+  Scan,
   Globe,
-  Waves,
-  Droplets,
-  Activity,
-  Wind,
-  Flame,
+  Calendar,
+  ChevronDown,
   ArrowRight,
   ArrowUpRight,
+  ArrowDown,
+  ArrowUp,
   MoreHorizontal,
   Search,
   SlidersHorizontal,
   Play,
   Pause,
   Download,
+  MapPin,
+  Waves,
+  Droplets,
+  Activity,
+  Wind,
+  Mountain,
+  Flame,
+  Layers,
   CheckCircle2,
   ExternalLink,
-  ShieldAlert,
-  Zap,
-  Mountain,
 } from 'lucide-react';
-
-interface HazardPill {
-  id: string;
-  name: string;
-  count?: number;
-  icon: React.FC<{ className?: string }>;
-  color: string;
-  activeBg: string;
-}
 
 export const CommandDashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const { setViewMode, setFlyTo } = useMapStore();
 
-  const [selectedRegion, setSelectedRegion] = useState('Southeast Asia / Indo-Pacific');
+  const [selectedRegion, setSelectedRegion] = useState('Southeast Asia');
   const [selectedTimeframe, setSelectedTimeframe] = useState('Last 24 hours');
   const [activeHazardFilter, setActiveHazardFilter] = useState('all');
   const [regionMenuOpen, setRegionMenuOpen] = useState(false);
@@ -56,52 +45,36 @@ export const CommandDashboardPage: React.FC = () => {
   const [isPlayingTimeline, setIsPlayingTimeline] = useState(false);
   const [timelineProgress, setTimelineProgress] = useState(100);
   const [searchEventsQuery, setSearchEventsQuery] = useState('');
-  const [liveDateFormatted, setLiveDateFormatted] = useState('MON, 16 JUN 2025');
 
-  // Live Date formatting matching Figma design
-  useEffect(() => {
-    const d = new Date();
-    const formatted = d
-      .toLocaleDateString('en-US', {
-        weekday: 'short',
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      })
-      .toUpperCase();
-    setLiveDateFormatted(formatted);
-  }, []);
-
-  // Fetch alerts from backend
+  // Live alerts query
   const { data: alertsData } = useQuery({
     queryKey: ['dashboard-alerts'],
     queryFn: () => alertsApi.getAlerts({ page_size: 50 }),
     refetchInterval: 15000,
   });
 
-  const hazardPills: HazardPill[] = [
-    { id: 'all', name: 'All hazards', count: 38, icon: Radio, color: 'text-blue-600', activeBg: 'bg-blue-50 text-blue-700 border-blue-200' },
-    { id: 'flood', name: 'Flood', count: 14, icon: Waves, color: 'text-blue-500', activeBg: 'bg-blue-50 text-blue-700 border-blue-200' },
-    { id: 'drought', name: 'Drought', count: 6, icon: Droplets, color: 'text-amber-500', activeBg: 'bg-amber-50 text-amber-700 border-amber-200' },
-    { id: 'earthquake', name: 'Earthquake', count: 8, icon: Zap, color: 'text-orange-500', activeBg: 'bg-orange-50 text-orange-700 border-orange-200' },
-    { id: 'cyclone', name: 'Cyclone', count: 3, icon: Wind, color: 'text-indigo-500', activeBg: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-    { id: 'landslide', name: 'Landslide', count: 4, icon: Mountain, color: 'text-emerald-500', activeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    { id: 'tsunami', name: 'Tsunami', count: 2, icon: Activity, color: 'text-cyan-500', activeBg: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-    { id: 'heatwave', name: 'Heatwave', count: 1, icon: Flame, color: 'text-rose-500', activeBg: 'bg-rose-50 text-rose-700 border-rose-200' },
+  // 8 Hazard categories with clean outline SVG icons (no emojis)
+  const hazardPills = [
+    { id: 'all', name: 'All hazards', count: 38, icon: Layers, iconColor: 'text-[#2563EB]' },
+    { id: 'flood', name: 'Flood', count: 14, icon: Waves, iconColor: 'text-blue-500' },
+    { id: 'drought', name: 'Drought', count: 6, icon: Droplets, iconColor: 'text-amber-500' },
+    { id: 'earthquake', name: 'Earthquake', count: 8, icon: Activity, iconColor: 'text-orange-500' },
+    { id: 'cyclone', name: 'Cyclone', count: 3, icon: Wind, iconColor: 'text-purple-500' },
+    { id: 'landslide', name: 'Landslide', count: 4, icon: Mountain, iconColor: 'text-emerald-500' },
+    { id: 'tsunami', name: 'Tsunami', count: 2, icon: Waves, iconColor: 'text-cyan-500' },
+    { id: 'heatwave', name: 'Heatwave', count: 1, icon: Flame, iconColor: 'text-red-500' },
   ];
 
-  // Active events mock catalog mirroring Figma screen
+  // Active events catalog matching Figma screen
   const activeEventsList = [
     {
       id: 'EVT-01',
-      title: 'Severe Flooding in Central Java',
+      title: 'Severe flooding in Central Java',
       hazard: 'Flood',
       location: 'Central Java, Indonesia',
       severity: 'Critical',
       time: '4m ago',
-      metric: '+2.8m above normal river level',
-      lat: -7.15,
-      lng: 110.14,
+      metric: '+2.8 m above normal river level',
     },
     {
       id: 'EVT-02',
@@ -111,19 +84,15 @@ export const CommandDashboardPage: React.FC = () => {
       severity: 'High',
       time: '12m ago',
       metric: 'Sustained winds 95 km/h',
-      lat: 11.24,
-      lng: 125.0,
     },
     {
       id: 'EVT-03',
-      title: 'M5.8 Earthquake near Sumatra',
+      title: 'M5.8 earthquake near Sumatra',
       hazard: 'Earthquake',
       location: 'West Sumatra, Indonesia',
       severity: 'High',
       time: '28m ago',
       metric: 'Magnitude 5.8 Mw (Depth 24km)',
-      lat: -0.58,
-      lng: 100.35,
     },
     {
       id: 'EVT-04',
@@ -133,8 +102,6 @@ export const CommandDashboardPage: React.FC = () => {
       severity: 'Critical',
       time: '35m ago',
       metric: 'Discharge 850,000 cusecs',
-      lat: 20.46,
-      lng: 85.88,
     },
     {
       id: 'EVT-05',
@@ -144,8 +111,6 @@ export const CommandDashboardPage: React.FC = () => {
       severity: 'Moderate',
       time: '1h ago',
       metric: 'SPEI-3 Index -1.82 (Severe)',
-      lat: 15.87,
-      lng: 100.99,
     },
     {
       id: 'EVT-06',
@@ -155,8 +120,6 @@ export const CommandDashboardPage: React.FC = () => {
       severity: 'Moderate',
       time: '2h ago',
       metric: 'Central pressure 994 hPa',
-      lat: 15.91,
-      lng: 80.46,
     },
     {
       id: 'EVT-07',
@@ -166,8 +129,6 @@ export const CommandDashboardPage: React.FC = () => {
       severity: 'Moderate',
       time: '3h ago',
       metric: 'M5.2 seismic event (NOAA DART active)',
-      lat: 9.15,
-      lng: 92.75,
     },
   ];
 
@@ -184,18 +145,18 @@ export const CommandDashboardPage: React.FC = () => {
   });
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-[1600px] mx-auto select-none">
+    <div className="p-6 sm:p-8 space-y-6 max-w-[1600px] mx-auto select-none font-sans antialiased">
       {/* ── Top Header Section ────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           {/* Subtitle tag: • SITUATIONAL AWARENESS */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.14em]">
               Situational Awareness
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-[34px] font-bold text-[#0F172A] tracking-tight leading-tight">
             Operational overview
           </h1>
           <p className="text-sm text-slate-500 mt-1">
@@ -203,9 +164,9 @@ export const CommandDashboardPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Right actions: • Updated just now + Generate Report Button */}
-        <div className="flex items-center gap-3 self-start md:self-auto">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+        {/* Right actions: • Updated just now + Generate Report Split Button */}
+        <div className="flex items-center gap-4 self-start md:self-auto">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-normal">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>Updated just now</span>
           </div>
@@ -213,7 +174,7 @@ export const CommandDashboardPage: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setReportMenuOpen((prev) => !prev)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl text-xs font-semibold shadow-sm shadow-blue-600/20 flex items-center gap-2 transition-all"
+              className="px-4 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white rounded-lg text-xs font-semibold shadow-xs flex items-center gap-2 transition-all"
             >
               <Download className="w-4 h-4" />
               <span>Generate report</span>
@@ -226,36 +187,36 @@ export const CommandDashboardPage: React.FC = () => {
                   className="fixed inset-0 z-20"
                   onClick={() => setReportMenuOpen(false)}
                 />
-                <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-lg p-1.5 z-30 text-xs">
+                <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-lg p-1.5 z-30 text-xs animate-in fade-in duration-150">
                   <button
                     onClick={() => {
                       setReportMenuOpen(false);
                       navigate('/reports');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between"
+                    className="w-full text-left px-3.5 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between font-medium"
                   >
                     <span>Situational Brief (PDF)</span>
-                    <span className="text-[10px] text-slate-400">Executive</span>
+                    <span className="text-[10px] text-slate-400 font-normal">Executive</span>
                   </button>
                   <button
                     onClick={() => {
                       setReportMenuOpen(false);
                       navigate('/reports');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between"
+                    className="w-full text-left px-3.5 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between font-medium"
                   >
                     <span>Multi-Hazard Impact CSV</span>
-                    <span className="text-[10px] text-slate-400">Raw Data</span>
+                    <span className="text-[10px] text-slate-400 font-normal">Raw Data</span>
                   </button>
                   <button
                     onClick={() => {
                       setReportMenuOpen(false);
                       navigate('/reports');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between"
+                    className="w-full text-left px-3.5 py-2 rounded-lg hover:bg-slate-50 text-slate-700 flex items-center justify-between font-medium"
                   >
                     <span>Automated Recovery Audit</span>
-                    <span className="text-[10px] text-blue-600 font-bold">JSON</span>
+                    <span className="text-[10px] text-[#2563EB] font-bold">JSON</span>
                   </button>
                 </div>
               </>
@@ -265,15 +226,15 @@ export const CommandDashboardPage: React.FC = () => {
       </div>
 
       {/* ── Filters & Timezone Bar ────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs pt-1 border-t border-slate-200/60">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs pt-1">
+        <div className="flex flex-wrap items-center gap-2.5">
           {/* Region selector pill */}
           <div className="relative">
             <button
               onClick={() => setRegionMenuOpen((prev) => !prev)}
-              className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 text-slate-800 font-medium flex items-center gap-2 transition-colors shadow-2xs"
             >
-              <Globe className="w-3.5 h-3.5 text-slate-400" />
+              <Globe className="w-4 h-4 text-slate-500" />
               <span>{selectedRegion}</span>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
             </button>
@@ -284,12 +245,12 @@ export const CommandDashboardPage: React.FC = () => {
                   className="fixed inset-0 z-20"
                   onClick={() => setRegionMenuOpen(false)}
                 />
-                <div className="absolute left-0 mt-1.5 w-64 bg-white border border-slate-200 rounded-xl shadow-lg p-1.5 z-30 text-xs">
+                <div className="absolute left-0 mt-1.5 w-60 bg-white border border-slate-200 rounded-xl shadow-lg p-1.5 z-30 text-xs">
                   {[
-                    'Southeast Asia / Indo-Pacific',
-                    'India National Command (All Basins)',
-                    'Odisha & Bay of Bengal Arc',
-                    'Gujarat & Arabian Sea Coastal Zone',
+                    'Southeast Asia',
+                    'India National Command',
+                    'Bay of Bengal Arc',
+                    'Arabian Sea Basin',
                   ].map((r) => (
                     <button
                       key={r}
@@ -297,7 +258,7 @@ export const CommandDashboardPage: React.FC = () => {
                         setSelectedRegion(r);
                         setRegionMenuOpen(false);
                       }}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700"
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 font-medium"
                     >
                       {r}
                     </button>
@@ -311,9 +272,9 @@ export const CommandDashboardPage: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setTimeframeMenuOpen((prev) => !prev)}
-              className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 text-slate-800 font-medium flex items-center gap-2 transition-colors shadow-2xs"
             >
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+              <Calendar className="w-4 h-4 text-slate-500" />
               <span>{selectedTimeframe}</span>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
             </button>
@@ -333,7 +294,7 @@ export const CommandDashboardPage: React.FC = () => {
                           setSelectedTimeframe(t);
                           setTimeframeMenuOpen(false);
                         }}
-                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700"
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 font-medium"
                       >
                         {t}
                       </button>
@@ -344,36 +305,44 @@ export const CommandDashboardPage: React.FC = () => {
             )}
           </div>
 
-          <span className="text-slate-400 text-xs pl-1">
-            Operational timezone: UTC +05:30 (IST)
+          <span className="text-slate-500 text-xs pl-1 font-normal">
+            Operational timezone: UTC +07:00
           </span>
         </div>
 
-        <div className="text-[11px] font-bold text-slate-400 tracking-wider">
-          {liveDateFormatted}
+        <div className="text-xs font-medium text-slate-500 tracking-wider uppercase">
+          MON, 16 JUN 2025
         </div>
       </div>
 
-      {/* ── 4 KPI Metric Cards ───────────────────────────────────────────── */}
+      {/* ── 4 Metric KPI Cards ───────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Active hazard events */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-sm font-medium text-slate-500">
               Active hazard events
             </span>
-            <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-              <Radio className="w-4 h-4" />
-            </div>
+            <Radio className="w-5 h-5 text-[#2563EB]" />
           </div>
           <div className="my-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-4xl font-extrabold text-[#0F172A] tracking-tight">
               38
             </span>
-            {/* Blue smooth upward sparkline */}
-            <svg width="90" height="28" viewBox="0 0 90 28" fill="none">
+            {/* Smooth Blue Sparkline with Gradient Fill */}
+            <svg width="96" height="32" viewBox="0 0 96 32" fill="none">
+              <defs>
+                <linearGradient id="blueSparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
               <path
-                d="M2 20L20 18L38 22L54 12L70 14L88 4"
+                d="M2 24L18 22L36 26L52 14L68 16L94 6V30H2V24Z"
+                fill="url(#blueSparkGrad)"
+              />
+              <path
+                d="M2 24L18 22L36 26L52 14L68 16L94 6"
                 stroke="#2563EB"
                 strokeWidth="2.5"
                 strokeLinecap="round"
@@ -381,29 +350,40 @@ export const CommandDashboardPage: React.FC = () => {
               />
             </svg>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-amber-600 font-semibold">
-            <span>↗ +6 from previous 24h</span>
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-semibold text-orange-600 flex items-center gap-0.5">
+              <ArrowUpRight className="w-3.5 h-3.5" /> +6
+            </span>
+            <span className="text-slate-500 font-normal">from previous 24h</span>
           </div>
         </div>
 
         {/* Card 2: High-risk regions */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-sm font-medium text-slate-500">
               High-risk regions
             </span>
-            <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-              <AlertTriangle className="w-4 h-4" />
-            </div>
+            <AlertTriangle className="w-5 h-5 text-[#F59E0B]" />
           </div>
           <div className="my-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-4xl font-extrabold text-[#0F172A] tracking-tight">
               12
             </span>
-            {/* Amber smooth sparkline */}
-            <svg width="90" height="28" viewBox="0 0 90 28" fill="none">
+            {/* Smooth Orange Sparkline with Gradient Fill */}
+            <svg width="96" height="32" viewBox="0 0 96 32" fill="none">
+              <defs>
+                <linearGradient id="amberSparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
               <path
-                d="M2 18L18 21L36 14L54 18L72 10L88 6"
+                d="M2 22L18 25L36 18L54 22L72 14L94 8V30H2V22Z"
+                fill="url(#amberSparkGrad)"
+              />
+              <path
+                d="M2 22L18 25L36 18L54 22L72 14L94 8"
                 stroke="#F59E0B"
                 strokeWidth="2.5"
                 strokeLinecap="round"
@@ -411,59 +391,81 @@ export const CommandDashboardPage: React.FC = () => {
               />
             </svg>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-amber-600 font-semibold">
-            <span>↗ +2 require attention</span>
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-semibold text-amber-600 flex items-center gap-0.5">
+              <ArrowUpRight className="w-3.5 h-3.5" /> +2
+            </span>
+            <span className="text-slate-500 font-normal">require attention</span>
           </div>
         </div>
 
         {/* Card 3: Population exposed */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-sm font-medium text-slate-500">
               Population exposed
             </span>
-            <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
-              <Users className="w-4 h-4" />
-            </div>
+            <Users className="w-5 h-5 text-[#0D9488]" />
           </div>
           <div className="my-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
-              2.4M
+            <span className="text-4xl font-extrabold text-[#0F172A] tracking-tight">
+              2.4<span className="text-2xl font-bold ml-0.5">M</span>
             </span>
-            {/* Teal smooth downward sparkline */}
-            <svg width="90" height="28" viewBox="0 0 90 28" fill="none">
+            {/* Smooth Teal Sparkline with Gradient Fill */}
+            <svg width="96" height="32" viewBox="0 0 96 32" fill="none">
+              <defs>
+                <linearGradient id="tealSparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0D9488" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#0D9488" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
               <path
-                d="M2 10L20 8L38 18L56 14L74 20L88 16"
-                stroke="#0EA5E9"
+                d="M2 12L20 10L38 20L56 16L74 22L94 18V30H2V12Z"
+                fill="url(#tealSparkGrad)"
+              />
+              <path
+                d="M2 12L20 10L38 20L56 16L74 22L94 18"
+                stroke="#0D9488"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
-            <span>↘ 8.2% from previous 24h</span>
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-semibold text-emerald-600 flex items-center gap-0.5">
+              <ArrowDown className="w-3.5 h-3.5" /> 8.2%
+            </span>
+            <span className="text-slate-500 font-normal">from previous 24h</span>
           </div>
         </div>
 
         {/* Card 4: Monitoring coverage */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-sm font-medium text-slate-500">
               Monitoring coverage
             </span>
-            <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <Compass className="w-4 h-4" />
-            </div>
+            <Scan className="w-5 h-5 text-[#6366F1]" />
           </div>
           <div className="my-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
-              98.6%
+            <span className="text-4xl font-extrabold text-[#0F172A] tracking-tight">
+              98.6<span className="text-2xl font-bold ml-0.5">%</span>
             </span>
-            {/* Purple upward sparkline */}
-            <svg width="90" height="28" viewBox="0 0 90 28" fill="none">
+            {/* Smooth Purple Sparkline with Gradient Fill */}
+            <svg width="96" height="32" viewBox="0 0 96 32" fill="none">
+              <defs>
+                <linearGradient id="purpleSparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#6366F1" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#6366F1" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
               <path
-                d="M2 22L18 20L36 24L54 16L72 12L88 8"
+                d="M2 26L18 24L36 28L54 20L72 16L94 10V30H2V26Z"
+                fill="url(#purpleSparkGrad)"
+              />
+              <path
+                d="M2 26L18 24L36 28L54 20L72 16L94 10"
                 stroke="#6366F1"
                 strokeWidth="2.5"
                 strokeLinecap="round"
@@ -471,8 +473,11 @@ export const CommandDashboardPage: React.FC = () => {
               />
             </svg>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
-            <span>↗ +0.4% across monitored zones</span>
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-semibold text-emerald-600 flex items-center gap-0.5">
+              <ArrowUpRight className="w-3.5 h-3.5" /> +0.4%
+            </span>
+            <span className="text-slate-500 font-normal">across 11 countries</span>
           </div>
         </div>
       </div>
@@ -480,30 +485,30 @@ export const CommandDashboardPage: React.FC = () => {
       {/* ── Middle Two-Column Grid: Map + Priority Alerts ─────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left 8 Cols: Regional hazard map */}
-        <div className="lg:col-span-8 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+        <div className="lg:col-span-8 p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
           {/* Map Header */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900">
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-[15px] font-bold text-[#0F172A]">
                 Regional hazard map
               </h2>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#ECFDF5] text-[#047857] text-[11px] font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
                 LIVE
               </span>
             </div>
 
             <button
               onClick={() => navigate('/map')}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors"
+              className="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 transition-colors"
             >
               <span>Explore map</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Hazard category filter pills matching Figma design */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs scrollbar-none">
+          {/* Hazard category filter pills (NO EMOJIS! EXACT SVG OUTLINE ICONS) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs scrollbar-none">
             {hazardPills.map((pill) => {
               const Icon = pill.icon;
               const isSelected = activeHazardFilter === pill.id;
@@ -511,24 +516,20 @@ export const CommandDashboardPage: React.FC = () => {
                 <button
                   key={pill.id}
                   onClick={() => setActiveHazardFilter(pill.id)}
-                  className={`px-3 py-1.5 rounded-lg border flex items-center gap-1.5 shrink-0 transition-all ${
+                  className={`px-3 py-1.5 rounded-lg border flex items-center gap-2 shrink-0 transition-all font-medium ${
                     isSelected
-                      ? 'bg-blue-600 text-white border-blue-600 font-semibold shadow-xs'
-                      : 'bg-slate-50/80 hover:bg-slate-100/80 border-slate-200 text-slate-700 font-medium'
+                      ? 'bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE] font-semibold shadow-2xs'
+                      : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
                   }`}
                 >
-                  <Icon
-                    className={`w-3.5 h-3.5 ${
-                      isSelected ? 'text-white' : pill.color
-                    }`}
-                  />
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#2563EB]' : pill.iconColor}`} />
                   <span>{pill.name}</span>
                   {pill.count && (
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                         isSelected
-                          ? 'bg-white/20 text-white'
-                          : 'bg-slate-200 text-slate-600'
+                          ? 'bg-[#DBEAFE] text-[#1E40AF]'
+                          : 'bg-slate-100 text-slate-500'
                       }`}
                     >
                       {pill.count}
@@ -545,18 +546,18 @@ export const CommandDashboardPage: React.FC = () => {
             <IndiaMap />
 
             {/* Floating Top Badge */}
-            <div className="absolute top-3 left-3 z-[400] px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur border border-slate-200/90 shadow-sm flex items-center gap-2 text-xs font-semibold text-slate-800">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
+            <div className="absolute top-3 left-3 z-[400] px-3.5 py-1.5 rounded-lg bg-white/95 backdrop-blur border border-slate-200 shadow-sm flex items-center gap-2 text-xs font-semibold text-slate-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>{selectedRegion}</span>
               <span className="text-slate-300">|</span>
-              <span className="text-slate-500 text-[11px] font-normal">
+              <span className="text-slate-500 font-normal text-[11px]">
                 Multi-hazard view
               </span>
             </div>
 
             {/* Bottom-left Map Legend */}
-            <div className="absolute bottom-14 left-3 z-[400] px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur border border-slate-200/90 shadow-sm flex items-center gap-3 text-[11px]">
-              <span className="font-bold text-slate-400 uppercase tracking-wider text-[10px]">
+            <div className="absolute bottom-14 left-3 z-[400] px-3.5 py-1.5 rounded-lg bg-white/95 backdrop-blur border border-slate-200 shadow-sm flex items-center gap-3 text-[11px]">
+              <span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
                 Risk Level
               </span>
               <div className="flex items-center gap-1.5">
@@ -577,16 +578,16 @@ export const CommandDashboardPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Bottom Timeline Playback Scrubber matching Figma design */}
-            <div className="absolute bottom-2 left-2 right-2 z-[400] px-3 py-2 rounded-lg bg-white/95 backdrop-blur border border-slate-200/90 shadow-sm flex items-center gap-3 text-xs">
+            {/* Bottom Timeline Playback Scrubber */}
+            <div className="absolute bottom-2.5 left-2.5 right-2.5 z-[400] px-4 py-2.5 rounded-xl bg-white/95 backdrop-blur border border-slate-200 shadow-sm flex items-center gap-3 text-xs">
               <button
                 onClick={() => setIsPlayingTimeline((prev) => !prev)}
-                className="w-6 h-6 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors shrink-0"
+                className="w-7 h-7 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-colors shrink-0"
               >
                 {isPlayingTimeline ? (
-                  <Pause className="w-3 h-3 fill-slate-700" />
+                  <Pause className="w-3.5 h-3.5 fill-slate-700" />
                 ) : (
-                  <Play className="w-3 h-3 fill-slate-700 ml-0.5" />
+                  <Play className="w-3.5 h-3.5 fill-slate-700 ml-0.5" />
                 )}
               </button>
 
@@ -602,15 +603,15 @@ export const CommandDashboardPage: React.FC = () => {
                   max="100"
                   value={timelineProgress}
                   onChange={(e) => setTimelineProgress(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
                 />
               </div>
 
-              <span className="text-[11px] text-slate-700 font-bold whitespace-nowrap">
+              <span className="text-[11px] text-slate-800 font-bold whitespace-nowrap">
                 Now
               </span>
 
-              <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-600 whitespace-nowrap">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 whitespace-nowrap">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>LIVE</span>
               </div>
@@ -619,11 +620,11 @@ export const CommandDashboardPage: React.FC = () => {
         </div>
 
         {/* Right 4 Cols: Priority alerts */}
-        <div className="lg:col-span-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+        <div className="lg:col-span-4 p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900">Priority alerts</h2>
-              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+              <h2 className="text-[15px] font-bold text-[#0F172A]">Priority alerts</h2>
+              <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-xs font-bold">
                 3
               </span>
             </div>
@@ -635,31 +636,31 @@ export const CommandDashboardPage: React.FC = () => {
             </button>
           </div>
 
-          {/* Alert Cards matching Figma design */}
-          <div className="space-y-3">
+          {/* Alert Cards with colored left borders */}
+          <div className="space-y-3.5">
             {/* Alert 1: Critical Flooding */}
             <div
               onClick={() => navigate('/hazards')}
-              className="p-4 rounded-xl border border-red-200 bg-red-50/20 hover:bg-red-50/40 transition-all cursor-pointer space-y-2 group"
+              className="p-4 rounded-xl border border-slate-200 border-l-[3.5px] border-l-red-500 bg-white hover:border-slate-300 transition-all cursor-pointer space-y-2 group"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-red-100 text-red-700 text-[10px] font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#FEE2E2] text-[#DC2626] text-[11px] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626]" />
                   Critical
                 </span>
                 <span className="text-[11px] text-slate-400">4m ago</span>
               </div>
-              <h3 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                 Severe flooding in Central Java
               </h3>
-              <div className="flex items-center gap-1 text-[11px] text-slate-500">
-                <Compass className="w-3 h-3 text-slate-400" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                <MapPin className="w-3.5 h-3.5 text-slate-400" />
                 <span>Central Java, Indonesia</span>
               </div>
-              <div className="pt-1.5 border-t border-red-100 flex items-center justify-between text-[11px]">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">River level</span>
-                <span className="font-bold text-red-600 flex items-center gap-1">
-                  +2.8 m above normal <ArrowRight className="w-3 h-3" />
+                <span className="font-semibold text-slate-900 flex items-center gap-1">
+                  +2.8 m above normal <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
                 </span>
               </div>
             </div>
@@ -667,26 +668,26 @@ export const CommandDashboardPage: React.FC = () => {
             {/* Alert 2: High Cyclone */}
             <div
               onClick={() => navigate('/hazards')}
-              className="p-4 rounded-xl border border-amber-200 bg-amber-50/20 hover:bg-amber-50/40 transition-all cursor-pointer space-y-2 group"
+              className="p-4 rounded-xl border border-slate-200 border-l-[3.5px] border-l-amber-500 bg-white hover:border-slate-300 transition-all cursor-pointer space-y-2 group"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 text-[10px] font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#FEF3C7] text-[#D97706] text-[11px] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
                   High
                 </span>
                 <span className="text-[11px] text-slate-400">12m ago</span>
               </div>
-              <h3 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                 Tropical Cyclone Ewini
               </h3>
-              <div className="flex items-center gap-1 text-[11px] text-slate-500">
-                <Compass className="w-3 h-3 text-slate-400" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                <MapPin className="w-3.5 h-3.5 text-slate-400" />
                 <span>Eastern Visayas, Philippines</span>
               </div>
-              <div className="pt-1.5 border-t border-amber-100 flex items-center justify-between text-[11px]">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Sustained winds</span>
-                <span className="font-bold text-amber-600 flex items-center gap-1">
-                  95 km/h <ArrowRight className="w-3 h-3" />
+                <span className="font-semibold text-slate-900 flex items-center gap-1">
+                  95 km/h <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
                 </span>
               </div>
             </div>
@@ -694,26 +695,26 @@ export const CommandDashboardPage: React.FC = () => {
             {/* Alert 3: High Earthquake */}
             <div
               onClick={() => navigate('/hazards')}
-              className="p-4 rounded-xl border border-amber-200 bg-amber-50/20 hover:bg-amber-50/40 transition-all cursor-pointer space-y-2 group"
+              className="p-4 rounded-xl border border-slate-200 border-l-[3.5px] border-l-amber-500 bg-white hover:border-slate-300 transition-all cursor-pointer space-y-2 group"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 text-[10px] font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#FEF3C7] text-[#D97706] text-[11px] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
                   High
                 </span>
                 <span className="text-[11px] text-slate-400">28m ago</span>
               </div>
-              <h3 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                 M5.8 earthquake near Sumatra
               </h3>
-              <div className="flex items-center gap-1 text-[11px] text-slate-500">
-                <Compass className="w-3 h-3 text-slate-400" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                <MapPin className="w-3.5 h-3.5 text-slate-400" />
                 <span>West Sumatra, Indonesia</span>
               </div>
-              <div className="pt-1.5 border-t border-amber-100 flex items-center justify-between text-[11px]">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Magnitude</span>
-                <span className="font-bold text-amber-600 flex items-center gap-1">
-                  5.8 Mw <ArrowRight className="w-3 h-3" />
+                <span className="font-semibold text-slate-900 flex items-center gap-1">
+                  5.8 Mw <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#2563EB]" />
                 </span>
               </div>
             </div>
@@ -721,10 +722,10 @@ export const CommandDashboardPage: React.FC = () => {
 
           <button
             onClick={() => navigate('/alerts')}
-            className="w-full py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-100/80 text-xs font-semibold text-slate-700 flex items-center justify-center gap-1.5 transition-colors"
+            className="w-full py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[13px] font-semibold text-slate-800 flex items-center justify-center gap-2 transition-colors mt-2"
           >
             <span>View all alerts</span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+            <ArrowRight className="w-4 h-4 text-slate-500" />
           </button>
         </div>
       </div>
@@ -732,16 +733,16 @@ export const CommandDashboardPage: React.FC = () => {
       {/* ── Lower Grid: Active Events Table + Monitoring Live Feed ───────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Active Events Table (8 Cols) */}
-        <div className="lg:col-span-8 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+        <div className="lg:col-span-8 p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900">Active events</h2>
-              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+              <h2 className="text-[15px] font-bold text-[#0F172A]">Active events</h2>
+              <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-xs font-bold">
                 {filteredEvents.length}
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <div className="relative">
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
                 <input
@@ -755,7 +756,7 @@ export const CommandDashboardPage: React.FC = () => {
 
               <button
                 onClick={() => navigate('/alerts')}
-                className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors"
+                className="text-xs font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 transition-colors"
               >
                 <span>View all events</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -767,54 +768,54 @@ export const CommandDashboardPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200/80 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  <th className="pb-2.5">Hazard</th>
-                  <th className="pb-2.5">Incident Title</th>
-                  <th className="pb-2.5">Location</th>
-                  <th className="pb-2.5">Severity</th>
-                  <th className="pb-2.5">Telemetry Metric</th>
-                  <th className="pb-2.5 text-right">Action</th>
+                <tr className="border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  <th className="pb-3">Hazard</th>
+                  <th className="pb-3">Incident Title</th>
+                  <th className="pb-3">Location</th>
+                  <th className="pb-3">Severity</th>
+                  <th className="pb-3">Telemetry Metric</th>
+                  <th className="pb-3 text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filteredEvents.map((evt) => (
                   <tr
                     key={evt.id}
-                    className="hover:bg-slate-50/80 transition-colors group"
+                    className="hover:bg-slate-50/70 transition-colors group"
                   >
-                    <td className="py-3 font-semibold text-slate-700">
-                      <span className="inline-flex items-center gap-1.5">
+                    <td className="py-3.5 font-semibold text-slate-800">
+                      <span className="inline-flex items-center gap-2">
                         {evt.hazard === 'Flood' && <Waves className="w-3.5 h-3.5 text-blue-500" />}
-                        {evt.hazard === 'Cyclone' && <Wind className="w-3.5 h-3.5 text-indigo-500" />}
-                        {evt.hazard === 'Earthquake' && <Zap className="w-3.5 h-3.5 text-orange-500" />}
+                        {evt.hazard === 'Cyclone' && <Wind className="w-3.5 h-3.5 text-purple-500" />}
+                        {evt.hazard === 'Earthquake' && <Activity className="w-3.5 h-3.5 text-orange-500" />}
                         {evt.hazard === 'Drought' && <Droplets className="w-3.5 h-3.5 text-amber-500" />}
                         <span>{evt.hazard}</span>
                       </span>
                     </td>
-                    <td className="py-3 font-bold text-slate-900 max-w-[200px] truncate">
+                    <td className="py-3.5 font-bold text-[#0F172A] max-w-[200px] truncate">
                       {evt.title}
                     </td>
-                    <td className="py-3 text-slate-600">{evt.location}</td>
-                    <td className="py-3">
+                    <td className="py-3.5 text-slate-600">{evt.location}</td>
+                    <td className="py-3.5">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-bold ${
                           evt.severity === 'Critical'
-                            ? 'bg-red-50 text-red-700 border border-red-200'
+                            ? 'bg-[#FEE2E2] text-[#DC2626]'
                             : evt.severity === 'High'
-                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                            : 'bg-yellow-50 text-yellow-700 border border-yellow-200'
+                            ? 'bg-[#FEF3C7] text-[#D97706]'
+                            : 'bg-yellow-50 text-yellow-700'
                         }`}
                       >
                         {evt.severity}
                       </span>
                     </td>
-                    <td className="py-3 text-slate-500 font-mono text-[11px]">
+                    <td className="py-3.5 text-slate-500 font-mono text-[11px]">
                       {evt.metric}
                     </td>
-                    <td className="py-3 text-right">
+                    <td className="py-3.5 text-right">
                       <button
                         onClick={() => navigate('/hazards')}
-                        className="text-xs font-semibold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1"
+                        className="text-xs font-semibold text-[#2563EB] hover:text-[#1D4ED8] inline-flex items-center gap-1"
                       >
                         Inspect <ArrowRight className="w-3 h-3" />
                       </button>
@@ -827,9 +828,9 @@ export const CommandDashboardPage: React.FC = () => {
         </div>
 
         {/* Monitoring Activity Live Feed (4 Cols) */}
-        <div className="lg:col-span-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+        <div className="lg:col-span-4 p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-900">
+            <h2 className="text-[15px] font-bold text-[#0F172A]">
               Monitoring activity
             </h2>
             <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-medium">
@@ -838,7 +839,7 @@ export const CommandDashboardPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {[
               {
                 time: '2m ago',
@@ -850,20 +851,20 @@ export const CommandDashboardPage: React.FC = () => {
               {
                 time: '8m ago',
                 icon: Wind,
-                iconColor: 'text-indigo-600 bg-indigo-50',
+                iconColor: 'text-purple-600 bg-purple-50',
                 title: 'Cyclone windspeed update',
-                desc: 'IMD Doppler Radar Paradip tracks 110 km/h gusts moving North-Northwest.',
+                desc: 'Doppler Radar tracks 110 km/h gusts moving North-Northwest.',
               },
               {
                 time: '18m ago',
-                icon: Zap,
+                icon: Activity,
                 iconColor: 'text-orange-600 bg-orange-50',
                 title: 'USGS Seismic Telemetry',
                 desc: 'M5.8 event processed in 1.4s. ShakeMap intensity VI generated.',
               },
               {
                 time: '34m ago',
-                icon: Activity,
+                icon: Waves,
                 iconColor: 'text-cyan-600 bg-cyan-50',
                 title: 'NOAA DART Buoy #23227',
                 desc: 'Sea surface perturbation +0.34m recorded in Andaman Sea. No basin tsunami warning.',
@@ -886,14 +887,14 @@ export const CommandDashboardPage: React.FC = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className="font-bold text-slate-900 truncate">
+                      <p className="font-bold text-[#0F172A] truncate">
                         {feed.title}
                       </p>
                       <span className="text-[10px] text-slate-400 shrink-0">
                         {feed.time}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5">
+                    <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5 font-normal">
                       {feed.desc}
                     </p>
                   </div>
@@ -904,10 +905,10 @@ export const CommandDashboardPage: React.FC = () => {
 
           <button
             onClick={() => navigate('/observations')}
-            className="w-full py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-700 flex items-center justify-center gap-1.5 transition-colors"
+            className="w-full py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center justify-center gap-2 transition-colors mt-2"
           >
             <span>Historical Telemetry Log</span>
-            <ExternalLink className="w-3 h-3 text-slate-400" />
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
           </button>
         </div>
       </div>

@@ -198,8 +198,8 @@ export const HazardsOverviewPage: React.FC = () => {
               }}
               className={`p-3 rounded-2xl border text-left transition-all flex flex-col justify-between ${
                 isSelected
-                  ? 'bg-white border-sky-500 shadow-md ring-2 ring-sky-500/20'
-                  : 'bg-white/80 border-slate-200/80 hover:bg-white hover:border-slate-300'
+                  ? 'bg-white border-[#2563EB] shadow-sm ring-2 ring-[#2563EB]/20'
+                  : 'bg-white border-slate-200 hover:border-slate-300'
               }`}
             >
               <div>

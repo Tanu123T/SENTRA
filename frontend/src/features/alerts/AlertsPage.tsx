@@ -11,7 +11,7 @@ import { SeverityBadge, HazardBadge } from '../../components/common/StatusBadge'
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { formatDate } from '../../utils/formatters';
 import { AlertCreate, AlertSeverityEnum, HazardType } from '../../types';
-import { AlertTriangle, Plus, CheckCircle, ShieldAlert, Filter } from 'lucide-react';
+import { AlertTriangle, Plus, CheckCircle, ShieldAlert, Filter, MapPin } from 'lucide-react';
 
 export const AlertsPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -170,7 +170,10 @@ export const AlertsPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="py-3.5 px-4 text-slate-700 font-medium whitespace-nowrap">
-                        📍 {loc}
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{loc}</span>
+                        </span>
                       </td>
                       <td className="py-3.5 px-4 text-slate-500 font-mono whitespace-nowrap">
                         {formatDate(alert.created_at)}
