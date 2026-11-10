@@ -50,11 +50,6 @@ export const SettingsPage: React.FC = () => {
         eyebrow="SYSTEM CONFIGURATION"
         title="Settings & Operator Preferences"
         subtitle="Configure telemetry streaming intervals, geospatial display layers, notification alerts, and command station parameters."
-        badge={
-          <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#0F172A] text-[11px] font-bold border border-slate-200">
-            LOCAL PREFS
-          </span>
-        }
         actions={
           isSaved ? (
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold animate-fade-in">

@@ -159,11 +159,6 @@ export const HazardsOverviewPage: React.FC = () => {
         eyebrow="MULTI-HAZARD INTELLIGENCE"
         title="Hazard Intelligence"
         subtitle="Physics-informed predictive simulation and spatial hazard monitoring across all 7 disaster disciplines."
-        badge={
-          <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#0F172A] text-[11px] font-bold border border-slate-200">
-            7 DISCIPLINES
-          </span>
-        }
         actions={
           <Button
             variant="primary"

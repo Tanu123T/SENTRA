@@ -92,11 +92,6 @@ export const SensorObservationsPage: React.FC = () => {
         eyebrow="TELEMETRY INGESTION NETWORK"
         title="Sensor Telemetry & Ingestion"
         subtitle="Unified sensor ingest pipeline for IMD Doppler radar, CWC river hydrographs, and USGS/NCS seismic arrays."
-        badge={
-          <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200">
-            12 DATA SOURCES
-          </span>
-        }
         actions={
           <Button
             variant="primary"
