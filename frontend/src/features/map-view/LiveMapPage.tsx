@@ -61,8 +61,7 @@ export const LiveMapPage: React.FC = () => {
   return (
     <div className="space-y-4">
       <PageHeader
-        title="Tactical Geospatial Command Center"
-        subtitle="Multi-hazard situational awareness, emergency fleet and district-level operational inspection"
+        title="Geospatial Command Center"
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-2xs">

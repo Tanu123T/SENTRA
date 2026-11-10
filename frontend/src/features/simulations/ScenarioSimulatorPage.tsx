@@ -72,8 +72,7 @@ export const ScenarioSimulatorPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Disaster Scenario Simulation & Stress Testing Studio"
-        subtitle="Evaluate contingency outcomes, capacity bottlenecks, and fleet degradation without altering operational database records"
+        title="Scenario Stress Testing Studio"
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

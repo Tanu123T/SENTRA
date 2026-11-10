@@ -67,8 +67,7 @@ export const ResourceInventoryPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Emergency Resource Logistics & Fleet Inventory"
-        subtitle="Live tracking of ambulances, hospital trauma beds, medical strike teams, and community shelters"
+        title="Resource & Fleet Inventory"
       />
 
       {/* Filter Row */}

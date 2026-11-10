@@ -157,7 +157,6 @@ export const HazardsOverviewPage: React.FC = () => {
       {/* Page Header */}
       <PageHeader
         title="Hazard Intelligence"
-        subtitle="Empirical disaster physics models, calibration benchmarks, and real-time inference"
         actions={
           <Button
             variant="primary"
@@ -233,9 +232,6 @@ export const HazardsOverviewPage: React.FC = () => {
                     <h2 className="text-sm font-semibold text-slate-900 tracking-tight">
                       {activeReadiness.model_name}
                     </h2>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">
-                      Release {activeReadiness.model_version}
-                    </p>
                   </div>
                 </div>
 

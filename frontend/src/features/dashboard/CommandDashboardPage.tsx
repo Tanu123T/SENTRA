@@ -149,19 +149,9 @@ export const CommandDashboardPage: React.FC = () => {
       {/* ── Top Header Section ────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          {/* Subtitle tag: • SITUATIONAL AWARENESS */}
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.14em]">
-              Situational Awareness
-            </span>
-          </div>
-          <h1 className="text-3xl sm:text-[34px] font-bold text-[#0F172A] tracking-tight leading-tight">
-            Operational overview
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight leading-tight">
+            Operational Overview
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            A clearer picture. A faster response.
-          </p>
         </div>
 
         {/* Right actions: • Updated just now + Generate Report Split Button */}
@@ -304,14 +294,6 @@ export const CommandDashboardPage: React.FC = () => {
               </>
             )}
           </div>
-
-          <span className="text-slate-500 text-xs pl-1 font-normal">
-            Operational timezone: UTC +07:00
-          </span>
-        </div>
-
-        <div className="text-xs font-medium text-slate-500 tracking-wider uppercase">
-          MON, 16 JUN 2025
         </div>
       </div>
 

@@ -73,8 +73,7 @@ export const UserManagementPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Administrative Security & User Governance"
-        subtitle="Provision disaster response personnel, configure geographic jurisdiction scopes, and inspect security audit logs"
+        title="User Governance"
         actions={
           <div className="flex items-center gap-2">
             <Button

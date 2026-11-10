@@ -26,8 +26,7 @@ export const ReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Comprehensive Disaster Impact & Operational Reports"
-        subtitle="Aggregate district metrics, casualty projections, alert volume, and resource readiness summaries"
+        title="Operational Reports"
         actions={
           <div className="flex items-center gap-2">
             <div className="w-48">

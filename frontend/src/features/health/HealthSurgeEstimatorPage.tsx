@@ -56,8 +56,7 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Epidemiological & Health Surge Estimator"
-        subtitle="Mathematical projections of emergency medical demand, ICU bed surges, and field triage teams"
+        title="Health Surge Estimator"
       />
 
       {/* Interactive Estimator Canvas */}

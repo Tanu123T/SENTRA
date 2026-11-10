@@ -72,13 +72,9 @@ export const LoginPage: React.FC = () => {
       <div className="relative w-full max-w-[440px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/40 p-8 z-10">
         {/* Header Branding matching Figma design */}
         <div className="flex flex-col items-center text-center mb-7">
-          <SentraLogo size="lg" className="mb-3" />
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-[#2563EB] text-[11px] font-bold tracking-wide mb-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
-            INTELLIGENCE PLATFORM v2.4
-          </div>
-          <p className="text-xs text-slate-500 max-w-xs font-normal leading-relaxed">
-            A clearer picture. A faster response.
+          <SentraLogo size="lg" className="mb-2" />
+          <p className="text-xs text-slate-500 max-w-xs font-normal">
+            Unified Multi-Hazard Disaster Intelligence Platform
           </p>
         </div>
 

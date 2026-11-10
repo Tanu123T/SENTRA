@@ -75,8 +75,7 @@ export const AlertsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Emergency Alerts & Incident Center"
-        subtitle="Multi-channel disaster warnings, field responder broadcasts, and acknowledgment tracking"
+        title="Emergency Alerts"
         actions={
           <Button
             variant="primary"

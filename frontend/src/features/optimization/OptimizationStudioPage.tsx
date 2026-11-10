@@ -87,8 +87,7 @@ export const OptimizationStudioPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Google OR-Tools Mixed-Integer Resource Allocation Solver"
-        subtitle="Solves mathematical integer allocation decisions x_i,j subject to capacity bounds, travel time cutoffs & priority weights"
+        title="Resource Allocation Solver"
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

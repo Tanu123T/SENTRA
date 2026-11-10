@@ -89,8 +89,7 @@ export const SensorObservationsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Environmental Sensor Ingestion & Telemetry"
-        subtitle="Real-time river stage levels, automatic weather station precipitation, and seismic intensity"
+        title="Sensor Telemetry & Ingestion"
         actions={
           <Button
             variant="primary"
