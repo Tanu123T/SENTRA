@@ -31,19 +31,21 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onToggleSidebar }) => {
       case '/hazards':
         return 'Hazard Intelligence';
       case '/alerts':
-        return 'Live Monitoring';
+        return 'Emergency Alerts';
       case '/observations':
-        return 'Historical Events';
+        return 'Sensor Telemetry';
       case '/health':
         return 'Health Surge Estimator';
       case '/resources':
-        return 'Data Sources';
+        return 'Resource Inventory';
       case '/optimization':
-        return 'Optimization Studio';
+        return 'Resource Solver';
       case '/simulations':
-        return 'Risk Assessment';
+        return 'Risk Simulator';
       case '/reports':
         return 'Reports';
+      case '/admin':
+        return 'User Management';
       default:
         return 'Overview';
     }

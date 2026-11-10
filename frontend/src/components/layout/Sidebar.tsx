@@ -18,6 +18,9 @@ import {
   ArrowUpRight,
   LogOut,
   Check,
+  Bell,
+  Cpu,
+  Truck,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -42,16 +45,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Southern Coastal Command (Kerala, TN)', code: 'IND-SOUTH', count: 4 },
   ];
 
-  // Exact 8 workspace navigation items from Figma Make design
+  // Workspace navigation items aligning cleanly with page domains
   const navItems = [
     { name: 'Overview', path: '/', icon: LayoutGrid },
-    { name: 'Live Monitoring', path: '/alerts', icon: Radio, badge: '38' },
-    { name: 'Hazard Intelligence', path: '/hazards', icon: Layers },
-    { name: 'Risk Assessment', path: '/simulations', icon: ShieldCheck },
     { name: 'Geographic Explorer', path: '/map', icon: Globe },
-    { name: 'Historical Events', path: '/observations', icon: Clock },
+    { name: 'Emergency Alerts', path: '/alerts', icon: Bell, badge: '4' },
+    { name: 'Sensor Telemetry', path: '/observations', icon: Radio },
+    { name: 'Hazard Intelligence', path: '/hazards', icon: Layers },
+    { name: 'Risk Simulator', path: '/simulations', icon: ShieldCheck },
+    { name: 'Resource Solver', path: '/optimization', icon: Cpu },
+    { name: 'Resource Fleet', path: '/resources', icon: Truck },
     { name: 'Reports', path: '/reports', icon: FileText },
-    { name: 'Data Sources', path: '/resources', icon: Database },
   ];
 
   const userInitials = user?.full_name

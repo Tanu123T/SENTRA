@@ -890,7 +890,7 @@ export const CommandDashboardPage: React.FC = () => {
             onClick={() => navigate('/observations')}
             className="w-full py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center justify-center gap-2 transition-colors mt-2"
           >
-            <span>Historical Telemetry Log</span>
+            <span>Live Sensor Telemetry Feed</span>
             <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
           </button>
         </div>
