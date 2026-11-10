@@ -18,6 +18,7 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
   const [vulnerability, setVulnerability] = useState<number>(0.6);
   const [populationOverride, setPopulationOverride] = useState<number | undefined>(undefined);
   const [estimationResult, setEstimationResult] = useState<HealthImpactRead | null>(null);
+  const [localHistory, setLocalHistory] = useState<HealthImpactRead[]>([]);
 
   // Fetch historical estimates
   const { data: impactsData, isLoading } = useQuery({
@@ -25,13 +26,17 @@ export const HealthSurgeEstimatorPage: React.FC = () => {
     queryFn: () => healthApi.getImpacts({ page_size: 20 }),
   });
 
-  const historicalImpacts = impactsData?.items || [];
+  const historicalImpacts = [
+    ...localHistory,
+    ...(impactsData?.items || []).filter((item) => !localHistory.some((lh) => lh.id === item.id)),
+  ];
 
   // Estimate mutation
   const estimateMutation = useMutation({
     mutationFn: healthApi.estimateImpact,
     onSuccess: (data) => {
       setEstimationResult(data);
+      setLocalHistory((prev) => [data, ...prev.filter((p) => p.id !== data.id)]);
       queryClient.invalidateQueries({ queryKey: ['health-impacts'] });
     },
   });
