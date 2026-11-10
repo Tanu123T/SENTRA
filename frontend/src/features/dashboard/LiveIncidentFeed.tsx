@@ -50,7 +50,7 @@ export const LiveIncidentFeed: React.FC<LiveIncidentFeedProps> = ({ alerts, isLo
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <SeverityBadge severity={alert.severity} size="sm" />
-                    <HazardBadge hazard={alert.hazard_type} size="sm" />
+                    <HazardBadge hazard={alert.hazard_type} size="sm" variant="inline" />
                   </div>
                   <h4 className="text-xs font-semibold text-slate-900 truncate">
                     {alert.title}

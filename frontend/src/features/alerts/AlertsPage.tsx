@@ -101,10 +101,10 @@ export const AlertsPage: React.FC = () => {
             onChange={(e) => setSelectedSeverity(e.target.value)}
           >
             <option value="all">All Severities</option>
-            <option value="CRITICAL">Critical Alerts</option>
-            <option value="HIGH">High Warnings</option>
-            <option value="MODERATE">Moderate Watch</option>
-            <option value="LOW">Low Advisories</option>
+            <option value="CRITICAL">Critical</option>
+            <option value="HIGH">High</option>
+            <option value="MODERATE">Moderate</option>
+            <option value="LOW">Low</option>
           </Select>
         </div>
 
@@ -126,8 +126,9 @@ export const AlertsPage: React.FC = () => {
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
-                <th className="py-3 px-4">Severity & Hazard</th>
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 font-semibold text-[11px] uppercase tracking-wider">
+                <th className="py-3 px-4 w-28">Severity</th>
+                <th className="py-3 px-4 w-44">Hazard</th>
                 <th className="py-3 px-4">Alert Details</th>
                 <th className="py-3 px-4">Jurisdiction</th>
                 <th className="py-3 px-4">Timestamp</th>
@@ -138,13 +139,13 @@ export const AlertsPage: React.FC = () => {
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-500">
+                  <td colSpan={7} className="py-8 text-center text-slate-500">
                     Loading incident records...
                   </td>
                 </tr>
               ) : alerts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-400">
+                  <td colSpan={7} className="py-8 text-center text-slate-400">
                     No emergency alerts match the selected criteria.
                   </td>
                 </tr>
@@ -155,11 +156,11 @@ export const AlertsPage: React.FC = () => {
 
                   return (
                     <tr key={alert.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 space-y-1">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
                         <SeverityBadge severity={alert.severity} size="sm" />
-                        <div>
-                          <HazardBadge hazard={alert.hazard_type} size="sm" />
-                        </div>
+                      </td>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <HazardBadge hazard={alert.hazard_type} size="sm" variant="inline" />
                       </td>
                       <td className="py-3.5 px-4 max-w-sm">
                         <div className="font-semibold text-slate-900 text-xs">
@@ -178,16 +179,25 @@ export const AlertsPage: React.FC = () => {
                       <td className="py-3.5 px-4 text-slate-500 font-mono whitespace-nowrap">
                         {formatDate(alert.created_at)}
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold border ${
+                          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold border ${
                             alert.status === 'ACTIVE'
-                              ? 'bg-rose-50 text-rose-700 border-rose-200'
+                              ? 'bg-rose-50/70 text-rose-700 border-rose-200/80'
                               : alert.status === 'ACKNOWLEDGED'
-                              ? 'bg-amber-50 text-amber-700 border-amber-200'
-                              : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              ? 'bg-amber-50/70 text-amber-800 border-amber-200/80'
+                              : 'bg-emerald-50/70 text-emerald-700 border-emerald-200/80'
                           }`}
                         >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              alert.status === 'ACTIVE'
+                                ? 'bg-rose-500'
+                                : alert.status === 'ACKNOWLEDGED'
+                                ? 'bg-amber-500'
+                                : 'bg-emerald-500'
+                            }`}
+                          />
                           {alert.status}
                         </span>
                       </td>

@@ -126,10 +126,13 @@ export const ReportsPage: React.FC = () => {
                     </td>
                     <td className="py-3.5 px-4">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                          d.active_alerts_count > 0 ? 'text-rose-700 bg-rose-50 border border-rose-200' : 'text-slate-400'
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium ${
+                          d.active_alerts_count > 0
+                            ? 'text-rose-700 bg-rose-50/70 border border-rose-200/80'
+                            : 'text-slate-500 bg-slate-50 border border-slate-200'
                         }`}
                       >
+                        {d.active_alerts_count > 0 && <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />}
                         {d.active_alerts_count} Active
                       </span>
                     </td>

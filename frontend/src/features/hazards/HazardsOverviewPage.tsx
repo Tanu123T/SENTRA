@@ -206,7 +206,7 @@ export const HazardsOverviewPage: React.FC = () => {
 
               <div className="mt-2">
                 <span
-                  className={`text-[9px] font-mono font-medium px-2 py-0.5 rounded-full border uppercase tracking-wider ${
+                  className={`text-[9px] font-mono font-medium px-2 py-0.5 rounded-md border uppercase tracking-wider ${
                     isAvailable
                       ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
                       : 'bg-slate-50 text-slate-500 border-slate-200/80'
@@ -240,7 +240,7 @@ export const HazardsOverviewPage: React.FC = () => {
                 </div>
 
                 <span
-                  className={`text-[11px] font-mono font-medium px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5 ${
+                  className={`text-[11px] font-mono font-medium px-2.5 py-1 rounded-md border inline-flex items-center gap-1.5 ${
                     activeReadiness.is_available
                       ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
                       : 'bg-slate-50 text-slate-600 border-slate-200'

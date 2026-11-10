@@ -109,34 +109,34 @@ export const HAZARD_CONFIG: Record<HazardType, { name: string; color: string; ba
   },
 };
 
-// Severity Color Mapping (Bright Stitch Aesthetic)
+// Severity Color Mapping (Minimal & Professional Enterprise Theme)
 export const SEVERITY_CONFIG: Record<AlertSeverityEnum, { label: string; color: string; border: string; bg: string; pulse: boolean }> = {
   CRITICAL: {
-    label: 'Critical Alert',
+    label: 'Critical',
     color: '#e11d48',
-    border: 'border-rose-200',
-    bg: 'bg-rose-50 text-rose-700',
+    border: 'border-rose-200/80',
+    bg: 'bg-rose-50/70 text-rose-700',
     pulse: true,
   },
   HIGH: {
-    label: 'High Warning',
+    label: 'High',
     color: '#ea580c',
-    border: 'border-orange-200',
-    bg: 'bg-orange-50 text-orange-700',
+    border: 'border-amber-200/80',
+    bg: 'bg-amber-50/70 text-amber-800',
     pulse: false,
   },
   MODERATE: {
-    label: 'Moderate Watch',
-    color: '#d97706',
-    border: 'border-amber-200',
-    bg: 'bg-amber-50 text-amber-700',
+    label: 'Moderate',
+    color: '#0284c7',
+    border: 'border-sky-200/80',
+    bg: 'bg-sky-50/70 text-sky-700',
     pulse: false,
   },
   LOW: {
-    label: 'Advisory / Low',
-    color: '#16a34a',
-    border: 'border-emerald-200',
-    bg: 'bg-emerald-50 text-emerald-700',
+    label: 'Low',
+    color: '#64748b',
+    border: 'border-slate-200',
+    bg: 'bg-slate-50 text-slate-600',
     pulse: false,
   },
 };

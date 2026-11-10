@@ -265,7 +265,7 @@ export const RegionOpsPanel: React.FC<RegionOpsPanelProps> = ({
                       <SeverityBadge severity={alert.severity} size="sm" />
                     </div>
                     <div className="mt-1">
-                      <HazardBadge hazard={alert.hazard_type} size="sm" />
+                      <HazardBadge hazard={alert.hazard_type} size="sm" variant="inline" />
                     </div>
                   </div>
                 ))}

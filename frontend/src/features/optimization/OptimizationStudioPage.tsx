@@ -263,7 +263,7 @@ export const OptimizationStudioPage: React.FC = () => {
                 <span>Solver Optimization Solution</span>
               </CardTitle>
               {activeRunResult && (
-                <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase font-semibold">
+                <span className="font-mono text-[11px] px-2 py-0.5 rounded-md bg-emerald-50/70 text-emerald-700 border border-emerald-200/80 uppercase font-medium">
                   STATUS: {activeRunResult.status}
                 </span>
               )}
