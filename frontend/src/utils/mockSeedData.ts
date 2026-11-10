@@ -8,6 +8,18 @@ import {
   ObservationRead,
 } from '../types';
 
+const formatResourceTitle = (type: string) => {
+  const map: Record<string, string> = {
+    AMBULANCE: 'Ambulance',
+    HOSPITAL_BED: 'Hospital Bed',
+    MEDICAL_TEAM: 'Medical Team',
+    TEMPORARY_SHELTER: 'Temporary Shelter',
+    RESCUE_TEAM: 'Rescue Team',
+    RELIEF_SUPPLY_PACK: 'Relief Supply',
+  };
+  return map[type] || type.replace(/_/g, ' ');
+};
+
 export const SEED_RESOURCES: ResourceRead[] = [
   'AMBULANCE',
   'HOSPITAL_BED',
@@ -16,11 +28,12 @@ export const SEED_RESOURCES: ResourceRead[] = [
   'RESCUE_TEAM',
   'RELIEF_SUPPLY_PACK',
 ].flatMap((type, typeIdx) => {
+  const title = formatResourceTitle(type);
   return [
     {
       id: `seed-res-${typeIdx * 2 + 1}`,
       district_id: 'dist-mh-pu',
-      name: `Pune Regional Command ${type.replace(/_/g, ' ')} Unit`,
+      name: `Pune Regional Command ${title} Unit`,
       resource_type: type as any,
       total_capacity: 50,
       available_capacity: 35,
@@ -32,7 +45,7 @@ export const SEED_RESOURCES: ResourceRead[] = [
     {
       id: `seed-res-${typeIdx * 2 + 2}`,
       district_id: 'dist-od-pu',
-      name: `Puri Coastal Staging ${type.replace(/_/g, ' ')} Depot`,
+      name: `Puri Coastal Staging ${title} Depot`,
       resource_type: type as any,
       total_capacity: 30,
       available_capacity: 22,

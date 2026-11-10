@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { resourcesApi } from '../../api/resources.api';
 import { PageHeader } from '../../components/common/PageHeader';
-import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Dialog } from '../../components/ui/Dialog';
 import { Input } from '../../components/ui/Input';
@@ -10,7 +9,30 @@ import { Select } from '../../components/ui/Select';
 import { OperationalBadge } from '../../components/common/StatusBadge';
 import { SEED_DISTRICTS } from '../../utils/constants';
 import { ResourceRead, OperationalStatusEnum, ResourceTypeEnum } from '../../types';
-import { Truck, Plus, Edit2, ShieldCheck, Activity, MapPin } from 'lucide-react';
+import {
+  Ambulance,
+  Bed,
+  HeartPulse,
+  Home,
+  Users,
+  Package,
+  Plus,
+  Edit2,
+  MapPin,
+  ShieldCheck,
+} from 'lucide-react';
+
+const RESOURCE_CONFIG: Record<
+  string,
+  { label: string; icon: React.FC<{ className?: string }> }
+> = {
+  AMBULANCE: { label: 'Ambulance Unit', icon: Ambulance },
+  HOSPITAL_BED: { label: 'Hospital Facility', icon: Bed },
+  MEDICAL_TEAM: { label: 'Medical Response Team', icon: HeartPulse },
+  TEMPORARY_SHELTER: { label: 'Emergency Shelter', icon: Home },
+  RESCUE_TEAM: { label: 'Disaster Rescue Team', icon: Users },
+  RELIEF_SUPPLY_PACK: { label: 'Relief Supply Depot', icon: Package },
+};
 
 export const ResourceInventoryPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -119,59 +141,113 @@ export const ResourceInventoryPage: React.FC = () => {
             const district = SEED_DISTRICTS[res.district_id];
             const loc = district ? `${district.name}, ${district.state}` : res.district_id;
             const pct = res.total_capacity > 0 ? Math.round((res.available_capacity / res.total_capacity) * 100) : 0;
+            const config = RESOURCE_CONFIG[res.resource_type] || {
+              label: res.resource_type.replace(/_/g, ' '),
+              icon: Package,
+            };
+            const Icon = config.icon;
 
             return (
-              <Card key={res.id} className="flex flex-col justify-between">
-                <CardHeader className="pb-3">
-                  <div className="space-y-0.5">
-                    <span className="text-[10px] font-mono text-sky-600 uppercase font-semibold">
-                      {res.resource_type.replace(/_/g, ' ')}
-                    </span>
-                    <CardTitle className="text-sm font-semibold truncate max-w-[200px]">
-                      {res.name}
-                    </CardTitle>
-                    <p className="text-[11px] text-slate-500 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-400" />
-                      <span>{loc}</span>
-                    </p>
+              <div
+                key={res.id}
+                className="bg-white border border-slate-200/90 hover:border-slate-300 rounded-xl p-4 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between space-y-3.5 group"
+              >
+                {/* Header: Icon + Category + Name + Status */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-2.5 min-w-0">
+                    <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200/70 flex items-center justify-center text-slate-600 group-hover:text-blue-600 group-hover:bg-blue-50/60 group-hover:border-blue-200/70 transition-colors shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
+                        {config.label}
+                      </span>
+                      <h3
+                        className="text-sm font-semibold text-slate-900 leading-snug line-clamp-1"
+                        title={res.name}
+                      >
+                        {res.name}
+                      </h3>
+                      <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                        <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                        <span className="truncate">{loc}</span>
+                      </p>
+                    </div>
                   </div>
-                  <OperationalBadge status={res.operational_status} />
-                </CardHeader>
+                  <div className="shrink-0">
+                    <OperationalBadge status={res.operational_status} />
+                  </div>
+                </div>
 
-                <CardContent className="space-y-3 pt-0">
-                  {/* Capacity Meter */}
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-xs font-mono">
-                      <span className="text-slate-500">Available:</span>
-                      <span className="font-bold text-slate-900">
-                        {res.available_capacity} / {res.total_capacity} ({pct}%)
+                {/* Capacity Metric Section */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-baseline justify-between text-xs">
+                    <div className="flex items-baseline gap-1 text-slate-900">
+                      <span className="text-sm font-bold font-mono tracking-tight">
+                        {res.available_capacity}
+                      </span>
+                      <span className="text-slate-400 text-[11px] font-normal">
+                        / {res.total_capacity} units available
                       </span>
                     </div>
-                    <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
-                      <div
-                        className={`h-full rounded-full transition-all ${
-                          pct > 50 ? 'bg-emerald-500' : pct > 20 ? 'bg-amber-500' : 'bg-red-500'
-                        }`}
-                        style={{ width: `${Math.min(100, Math.max(0, pct))}%` }}
-                      />
-                    </div>
+                    <span
+                      className={`font-semibold font-mono text-[11px] ${
+                        pct > 50
+                          ? 'text-emerald-700'
+                          : pct > 20
+                          ? 'text-amber-700'
+                          : 'text-rose-700'
+                      }`}
+                    >
+                      {pct}%
+                    </span>
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-                    <span className="text-[10px] text-slate-400 font-mono">
-                      ID: {res.id.slice(0, 8)}...
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      icon={<Edit2 className="w-3 h-3" />}
-                      onClick={() => handleEditOpen(res)}
-                    >
-                      Update Capacity
-                    </Button>
+                  {/* Clean, sleek progress line */}
+                  <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-300 ${
+                        pct > 50
+                          ? 'bg-emerald-500'
+                          : pct > 20
+                          ? 'bg-amber-500'
+                          : 'bg-rose-500'
+                      }`}
+                      style={{ width: `${Math.min(100, Math.max(0, pct))}%` }}
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 overflow-hidden">
+                    {res.capabilities?.generator_backup && (
+                      <span className="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/60 px-1.5 py-0.5 rounded font-medium">
+                        Generator
+                      </span>
+                    )}
+                    {res.capabilities?.all_weather_certified && (
+                      <span className="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/60 px-1.5 py-0.5 rounded font-medium">
+                        All-Weather
+                      </span>
+                    )}
+                    {res.capabilities?.water_purification && (
+                      <span className="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/60 px-1.5 py-0.5 rounded font-medium">
+                        Purification
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleEditOpen(res)}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 px-2.5 py-1 rounded-md hover:bg-slate-100 border border-slate-200/80 transition-colors shrink-0"
+                  >
+                    <Edit2 className="w-3 h-3 text-slate-400" />
+                    <span>Update Capacity</span>
+                  </button>
+                </div>
+              </div>
             );
           })
         )}
