@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Annotated, Any, List
+from typing import Annotated, Any, List, Union
 from pydantic import BeforeValidator, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -72,11 +72,16 @@ class Settings(BaseSettings):
     JWT_AUDIENCE: str = "sentra-platform"
 
     # CORS
-    CORS_ORIGINS: Annotated[List[str], BeforeValidator(parse_cors_origins)] = [
+    CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:3000",
         "http://localhost:8000",
         "http://127.0.0.1:8000",
     ]
+
+    @field_validator("CORS_ORIGINS", mode="after")
+    @classmethod
+    def validate_cors(cls, v: Any) -> List[str]:
+        return parse_cors_origins(v)
 
     # Logging
     LOG_LEVEL: str = "INFO"
