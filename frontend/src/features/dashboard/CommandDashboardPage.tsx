@@ -682,7 +682,7 @@ export const CommandDashboardPage: React.FC = () => {
           {/* Map Container */}
           <div className="relative h-[480px] rounded-xl overflow-hidden border border-slate-200">
             {/* Live Map Canvas */}
-            <IndiaMap />
+            <IndiaMap alerts={alertsData?.items || []} hud={false} height="480px" />
 
             {/* Floating Top Badge */}
             <div className="absolute top-3 left-3 z-[400] px-3.5 py-1.5 rounded-lg bg-white/95 backdrop-blur border border-slate-200 shadow-sm flex items-center gap-2 text-xs font-semibold text-slate-800">
