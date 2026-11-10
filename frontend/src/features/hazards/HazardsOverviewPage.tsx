@@ -369,9 +369,6 @@ export const HazardsOverviewPage: React.FC = () => {
                     Model Simulator
                   </h2>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  Simulate scenario parameters on the active model.
-                </p>
               </CardHeader>
 
               <CardContent className="pt-4 space-y-4">
