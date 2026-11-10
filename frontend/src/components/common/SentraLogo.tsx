@@ -2,7 +2,7 @@ import React from 'react';
 
 interface SentraLogoProps {
   className?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   withText?: boolean;
 }
 
@@ -17,20 +17,24 @@ export const SentraLogo: React.FC<SentraLogoProps> = ({
 }) => {
   const sizeMap = {
     sm: {
-      lockupClass: 'h-6 w-auto',
-      iconClass: 'h-6 w-auto',
+      lockupClass: 'h-7 w-auto',
+      iconClass: 'h-7 w-auto',
     },
     md: {
-      lockupClass: 'h-9 w-auto',
-      iconClass: 'h-9 w-auto',
-    },
-    lg: {
       lockupClass: 'h-10 w-auto',
       iconClass: 'h-10 w-auto',
     },
+    lg: {
+      lockupClass: 'h-[52px] w-auto',
+      iconClass: 'h-[52px] w-auto',
+    },
     xl: {
-      lockupClass: 'h-14 w-auto',
-      iconClass: 'h-14 w-auto',
+      lockupClass: 'h-[62px] w-auto',
+      iconClass: 'h-[62px] w-auto',
+    },
+    '2xl': {
+      lockupClass: 'h-[76px] w-auto',
+      iconClass: 'h-[76px] w-auto',
     },
   };
 
